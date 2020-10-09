@@ -13,7 +13,9 @@ Fabi, Gianluca: Implement Hyperpolarization (Schweighofer et al. 2020)
 
 <http://jasss.soc.surrey.ac.uk/23/3/5.html>
 
-Potential plan (we have at least 6 weeks):
+
+
+### Potential plan (we have at least 6 weeks):
 
 -   Phase 0 (Friday): Specify
 
@@ -28,6 +30,8 @@ Potential plan (we have at least 6 weeks):
 -   Phase 5 (One week?): Produce Presentation
 
 -   Phase 7: Write Report
+
+### Links
 
 Latex Overleaf: <https://www.overleaf.com/4515888526qpdscqqcntfp>
 
