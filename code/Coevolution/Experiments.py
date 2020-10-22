@@ -90,7 +90,12 @@ n_iterations = 10
 kw={}
 print(kw)
 loop = ("n_vertices",np.arange(2,25,4,dtype=np.int))
-output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type="Weighted Balance")
+model_type="Weighted Balance"
+output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)
+
+import cProfile
+cProfile.run("output=experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)",sort="cumtime")
+
 median_plus_percentile_plot(output["variation"][1],output["sd_size_connected_component"])
 plt.title("Sd of community size")
 plt.xlabel("Number of Edges")
