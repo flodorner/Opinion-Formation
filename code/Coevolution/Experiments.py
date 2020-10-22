@@ -1,16 +1,22 @@
-from model import coevolution_model_general,coevolution_model_base
+from model import coevolution_model_general,holme,weighted_balance
 from matplotlib import pyplot as plt
 import numpy as np
 import os
 
-def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100):
+def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
     np.random.seed=0
     results = {key: [] for key in metrics.keys()}
     for v_kwarg in variying_kwarg[1]:
         kwarg_dict[variying_kwarg[0]]=v_kwarg
         subresults = {key: [] for key in metrics.keys()}
         for i in range(n):
-            A = coevolution_model_base(**kwarg_dict)
+            if model_type == "Holme":
+                A = holme(**kwarg_dict)
+            elif model_type == "Weighted Balance":
+                A = weighted_balance(**kwarg_dict)
+            else:
+                print("using general mode")
+                A = coevolution_model_general(**kwarg_dict)
             done = False
             while done == False:
                 A.step()
@@ -55,15 +61,15 @@ metrics = {
 import cProfile
 #cProfile.run("output = experiment_loop(kw,loop,metrics=metrics,n=50)")
 
-n_iterations = 10
-"""for n_vertices in [25,50,100]:
-    for n_opinions in [2,5,10]:
+"""n_iterations = 10
+for n_vertices in [25]:
+    for n_opinions in [5]:
         for phi in [0.05,0.5,0.95]:
             kw={"n_vertices":n_vertices, "n_opinions":n_opinions,"phi":phi}
             print(kw)
             loop = ("n_edges",np.arange(1,101*(n_vertices/25)**2,4*(n_vertices/25)**2,dtype=np.int))
 
-            output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations)
+            output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type="Holme")
             median_plus_percentile_plot(output["variation"][1],output["sd_size_connected_component"])
             plt.title("Sd of community size for N={},ϕ={},|O|={} and varying M".format(n_vertices,phi,n_opinions))
             plt.xlabel("Number of Edges")
@@ -80,26 +86,23 @@ n_iterations = 10
             plt.savefig(image_folder+"t_25_N{}_ϕ{}_O{}".format(n_vertices,int(phi*100),n_opinions))
             plt.close()"""
 
-for n_vertices in [25,50,100]:
-    for n_opinions in [2,5,10]:
-        for f_edges in [1,1.5,2]:
-            kw={"n_vertices":n_vertices, "n_opinions":n_opinions,"n_edges":int(f_edges*n_vertices)}
-            print(kw)
-            loop = ("phi",np.arange(0.05,1,0.05))
-
-            output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations)
-            median_plus_percentile_plot(output["variation"][1],output["sd_size_connected_component"])
-            plt.title("Sd of community size for N={},M={}*N,|O|={} and varying ϕ".format(n_vertices,f_edges,n_opinions))
-            plt.xlabel("ϕ")
-            plt.savefig(image_folder+"sd_25_N{}_M{}_O{}".format(n_vertices,int(f_edges*n_vertices),n_opinions))
-            plt.close()
-            median_plus_percentile_plot(output["variation"][1],output["mean_size_connected_component"])
-            plt.title("Mean of community size for N={},M={}*N,|O|={} and varying ϕ".format(n_vertices,f_edges,n_opinions))
-            plt.xlabel("ϕ")
-            plt.savefig(image_folder+"mean_25_N{}_M{}_O{}".format(n_vertices,int(f_edges*n_vertices),n_opinions))
-            plt.close()
-            median_plus_percentile_plot(output["variation"][1],output["time_to_convergence"])
-            plt.title("Time steps to convergence for N={},M={}*N,|O|={} and varying ϕ".format(n_vertices,f_edges,n_opinions))
-            plt.xlabel("ϕ")
-            plt.savefig(image_folder+"t_25_N{}_M{}_O{}".format(n_vertices,int(f_edges*n_vertices),n_opinions))
-            plt.close()
+n_iterations = 10
+kw={}
+print(kw)
+loop = ("n_vertices",np.arange(2,25,4,dtype=np.int))
+output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type="Weighted Balance")
+median_plus_percentile_plot(output["variation"][1],output["sd_size_connected_component"])
+plt.title("Sd of community size")
+plt.xlabel("Number of Edges")
+plt.savefig(image_folder+"sd_25")
+plt.close()
+median_plus_percentile_plot(output["variation"][1],output["mean_size_connected_component"])
+plt.title("Mean of community size")
+plt.xlabel("Number of Edges")
+plt.savefig(image_folder+"mean_25")
+plt.close()
+median_plus_percentile_plot(output["variation"][1],output["time_to_convergence"])
+plt.title("Time steps to convergence")
+plt.xlabel("Number of Edges")
+plt.savefig(image_folder+"t_25")
+plt.close()

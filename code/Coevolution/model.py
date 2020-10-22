@@ -1,6 +1,6 @@
 import numpy as np
 import random
-
+from collections import deque
 
 
 class coevolution_model_general:
@@ -17,10 +17,6 @@ class coevolution_model_general:
         # the simulation has converged.
         # Systematic update determines whether nodes are updated (True)
         # or whether the updated node is sampled randomly at each step (False)
-
-        #TODO: History. What norm is used?
-
-
         if n_opinions == 0:
             print("n_opinions set to 0. Using continuous opinions")
             self.vertices = np.random.uniform(-1,1,size=(n_vertices, d))
@@ -44,14 +40,20 @@ class coevolution_model_general:
         self.systematic_update = systematic_update
         if self.systematic_update:
             self.buffer = (i for i in range(0))
+        self.vertices_old = np.copy(self.vertices)
+        self.run_diffs = deque([],5)
+
 
     def step(self):
+        if self.t>0 and self.t%self.n_vertices==0:
+            self.run_diffs.append(np.sum(np.abs(self.vertices-self.vertices_old)))
+            self.vertices_old = np.copy(self.vertices)
         if not self.systematic_update:
             vertex = np.random.randint(self.n_vertices)
         else:
             vertex = next(self.buffer,None)
             if vertex == None:
-                self.buffer = (i for i in np.random.shuffle(np.arange(self.n_vertices)))
+                self.buffer = (i for i in np.random.permutation(np.arange(self.n_vertices)))
                 vertex = next(self.buffer)
         if np.sum((self.adjacency+np.transpose(self.adjacency))[vertex]) > 0:
             if np.random.uniform(0,1)>self.phi:
@@ -114,19 +116,19 @@ class holme(coevolution_model_general):
                          ,systematic_update=False)
 
 def sgm(x,y):
-    return np.sign(x)*np.sign(y)*np.sqrt(np.abs(x),np.abs(y))
+    return np.sign(x)*np.sign(y)*np.sqrt(np.abs(x)*np.abs(y))
 
 def update_weighted_balance(x,y,f,alpha,z):
     attitude = f(np.mean(sgm(x,y)))
     b = sgm(x,attitude)
-    return x+alpha*(b-x)+np.random.normal(scale=z,size=x.shape)
-
+    return np.clip(x+alpha*(b-x)+np.random.normal(scale=z,size=x.shape),-1,1)
 
 class weighted_balance(coevolution_model_general):
-    def __init__(self, n_vertices=100, d=1,z=0.01,f=lambda x:x,alpha=0.01):
-        super().__init__(n_vertices=n_vertices,n_edges=n_vertices*(n_vertices-1)/2,n_opinions=0,phi=1,d=d,
+    def __init__(self, n_vertices=100, d=1,z=0.01,f=lambda x:x,alpha=0.5):
+        super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=1,d=d,
                          update = lambda x,y: update_weighted_balance(x,y,f,alpha,z),
                          connect = lambda x,y: np.zeros(y.shape),
-                         convergence_criterion = lambda x: x.t<1000,systematic_update=True)
+                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(x.run_diffs<z*d*n_vertices)
+                         ,systematic_update=True)
 
 
