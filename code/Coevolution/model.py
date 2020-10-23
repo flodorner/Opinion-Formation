@@ -59,12 +59,12 @@ class coevolution_model_general:
                 self.index_buffer = (i for i in np.random.permutation(np.arange(self.n_vertices)))
             vertex = next(self.index_buffer)
         if np.sum((self.adjacency[vertex]+np.transpose(self.adjacency[:,vertex]))) > 0:
-            if not self.phi==1:
+            if not self.phi==0:
                 draw = next(self.uniform_buffer, None)
                 if draw == None:
                     self.uniform_buffer = (i for i in np.random.uniform(0,1,size=self.n_vertices*self.n_vertices))
                     draw = next(self.uniform_buffer)
-                if draw>self.phi:
+                if draw<self.phi:
                     self.update_edge(vertex)
                 else:
                     self.update_opinion(vertex)
@@ -139,9 +139,9 @@ def update_weighted_balance(x,y,f,alpha,noise):
 
 class weighted_balance(coevolution_model_general):
     def __init__(self, n_vertices=100, d=1,z=0.01,f=lambda x:x,alpha=0.5):
-        super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=1,d=d,
+        super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=0,d=d,
                          update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
-                         connect = lambda x,y: np.ones(len(x),dtype=bool),
+                         connect = lambda x,y: np.ones(len(x),dtype=np.bool),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(x.run_diffs<z*d*n_vertices)
                          ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
 
