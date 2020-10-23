@@ -4,7 +4,7 @@ from collections import deque
 
 
 class coevolution_model_general:
-    def __init__(self, n_vertices, n_edges, n_opinions, phi, d, connect,update,convergence_criterion,systematic_update,noise_generator):
+    def __init__(self, n_vertices, n_edges, n_opinions, phi, d, connect,update,convergence_criterion,systematic_update,noise_generator,initial_graph=None):
         # n_vertices controls the graph size, n_edges the amount of edges in the graph.
         # n_opinions specifies the amount of opinions per dimension. If it is set to 0, opinions are continuous
         # phi is the probability of updating an opinion rather than the graph. d is the amount of opinion dimensions.
@@ -17,24 +17,32 @@ class coevolution_model_general:
         # the simulation has converged.
         # Systematic update determines whether nodes are updated (True)
         # or whether the updated node is sampled randomly at each step (False)
-        # Noise generator is a function that creates a vector of size n containing independent noise given n. 
+        # Noise generator is a function that creates a vector of size n containing independent noise given n.
+        # Initial graph is an optional parameter that specifies the initial adjacency matrix
+        # (in lower triangular form with empty diagonal) If it is provided, n_edges is overwritten by the amount
+        # of edges specified in the matrix.
         if n_opinions == 0:
             print("n_opinions set to 0. Using continuous opinions")
             self.vertices = np.random.uniform(-1,1,size=(n_vertices, d))
         else:
             self.vertices = np.random.randint(n_opinions, size=(n_vertices,d))
 
-        self.adjacency = np.zeros((n_vertices,n_vertices))
-        edges =  [[i,j] for i in range(1, n_vertices) for j in range(i)]
-        edges = np.array(random.sample(edges,k=n_edges))
-        self.adjacency[edges[:,0],edges[:, 1]] = 1
+        if initial_graph == None:
+            self.n_edges = n_edges
+            self.adjacency = np.zeros((n_vertices,n_vertices))
+            edges =  [[i,j] for i in range(1, n_vertices) for j in range(i)]
+            edges = np.array(random.sample(edges,k=n_edges))
+            self.adjacency[edges[:,0],edges[:, 1]] = 1
+        else:
+            print("Graph initialized with provided adjacency matrix. n_edges set to " +str (np.sum(initial_graph)))
+            self.adjacency = initial_graph
+            self.n_edges = np.sum(initial_graph)
 
         self.d = d
         self.connect = connect
         self.update = update
         self.convergence_criterion = convergence_criterion
         self.n_vertices = n_vertices
-        self.n_edges = n_edges
         self.n_opinions = n_opinions
         self.phi = phi
         self.t=0
