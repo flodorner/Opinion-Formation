@@ -84,8 +84,8 @@ class coevolution_model_general:
     def update_opinion(self, vertex):
         neighbours = np.arange(self.n_vertices)[(self.adjacency[vertex] +np.transpose(self.adjacency[:,vertex])) > 0]
         noise = next(self.noise_buffer,None)
-        if noise == None:
-            self.noise_buffer = (i for i in self.noise_generator(self.n_vertices * self.n_vertices))
+        if noise is None:
+            self.noise_buffer = (i for i in self.noise_generator((self.n_vertices * self.n_vertices,self.d)))
             noise = next(self.noise_buffer)
         self.vertices[vertex] = self.update(self.vertices[vertex],self.vertices[np.random.choice(neighbours)],noise)
     def update_edge(self,vertex):
@@ -142,15 +142,37 @@ def sgm(x,y):
 
 def update_weighted_balance(x,y,f,alpha,noise):
     attitude = f(np.mean(sgm(x,y)))
-    b = sgm(x,attitude)
+    b = sgm(y,attitude)
     return np.clip(x+alpha*(b-x)+noise,-1,1)
 
 class weighted_balance(coevolution_model_general):
     def __init__(self, n_vertices=100, d=1,z=0.01,f=lambda x:x,alpha=0.5):
         super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=0,d=d,
                          update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
-                         connect = lambda x,y: np.ones(len(x),dtype=np.bool),
-                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(x.run_diffs<z*d*n_vertices)
+                         connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
+                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*n_vertices)
                          ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
+
+def update_weighted_balance_bot(x,y,f,alpha,noise):
+    if x[-1] == 1:
+        return x
+    else:
+        attitude = f(np.mean(sgm(x[:-1],y[:-1])))
+        b = sgm(y[:-1],attitude)
+        return np.append(np.clip(x[:-1]+alpha*(b-x[:-1])+noise[:-1],-1,1),x[-1])
+
+class weighted_balance_bots(coevolution_model_general):
+    def __init__(self, n_vertices=100, d=1,z=0.01,f=lambda x:x,alpha=0.5,n_bots=10,both_sides=False):
+        super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=0,d=d+1,
+                         update = lambda x,y,noise: update_weighted_balance_bot(x,y,f,alpha,noise),
+                         connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
+                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*(n_vertices-(n_bots)-n_bots*both_sides))
+                         ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
+        self.vertices[:n_bots]=1
+        if both_sides and n_bots>0:
+            assert 2*n_bots<n_vertices
+            self.vertices[-n_bots:,:-1] = -1
+            self.vertices[-n_bots:, -1] = 1
+
 
 
