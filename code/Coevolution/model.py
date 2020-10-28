@@ -8,10 +8,10 @@ class coevolution_model_general:
         # n_vertices controls the graph size, n_edges the amount of edges in the graph.
         # n_opinions specifies the amount of opinions per dimension. If it is set to 0, opinions are continuous
         # phi is the probability of updating an opinion rather than the graph. d is the amount of opinion dimensions.
-        # Connect should receive an array with the first dimension representing nodes and the second opinion dimensions
+        # Connect is a function and should receive an array with the first dimension representing nodes and the second opinion dimensions
         # and another array representing the opinion dimensions of a selected node. It then returns a boolean
         # array that indicates whether or not the selected node can become connected to respective other nodes.
-        # Update should receive two opinion vectors for single nodes as well as a noise term
+        # Update is a function and should receive two opinion vectors for single nodes as well as a noise term
         # and return a new opinion vector that represents the updated opinion for the first node.
         # Convergence criterion is a function of the model class and should return a boolean indicating whether or not
         # the simulation has converged.
