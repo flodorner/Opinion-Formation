@@ -1,0 +1,4 @@
+#Observations: ID 1d: single bot enough for hard polarization. 5d: 100 and 250 vertices seem to require more bots. These results don't seem to depend on the both-sidedness of the bots
+#Root: always polarized
+#Square: almost no polarization. Only for 5 bots with 25 nodes visible. More for both sided
+
