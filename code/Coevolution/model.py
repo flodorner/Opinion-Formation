@@ -22,7 +22,7 @@ class coevolution_model_general:
         # (in lower triangular form with empty diagonal) If it is provided, n_edges is overwritten by the amount
         # of edges specified in the matrix.
         if n_opinions == 0:
-            print("n_opinions set to 0. Using continuous opinions")
+            #print("n_opinions set to 0. Using continuous opinions")
             self.vertices = np.random.uniform(-1,1,size=(n_vertices, d))
         else:
             self.vertices = np.random.randint(n_opinions, size=(n_vertices,d))
@@ -162,17 +162,27 @@ def update_weighted_balance_bot(x,y,f,alpha,noise):
         return np.append(np.clip(x[:-1]+alpha*(b-x[:-1])+noise[:-1],-1,1),x[-1])
 
 class weighted_balance_bots(coevolution_model_general):
-    def __init__(self, n_vertices=100, d=1,z=0.01,f=lambda x:x,alpha=0.5,n_bots=10,both_sides=False):
-        super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=0,d=d+1,
+    def __init__(self, n_vertices=100, d=1, z=0.01, f=lambda x: x, alpha=0.5, n_bots=10, both_sides=False,
+                 neutral_bots=False, n_edges=None):
+        if n_edges is None:
+            n_edges = int(n_vertices * (n_vertices - 1) / 2)
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=0,d=d+1,
                          update = lambda x,y,noise: update_weighted_balance_bot(x,y,f,alpha,noise),
                          connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*(n_vertices-(n_bots)-n_bots*both_sides))
                          ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
         self.vertices[:n_bots]=1
+        assert not (both_sides and neutral_bots)
+        if neutral_bots and n_bots >0:
+            self.vertices[:n_bots,:-1] = 0
         if both_sides and n_bots>0:
             assert 2*n_bots<n_vertices
             self.vertices[-n_bots:,:-1] = -1
             self.vertices[-n_bots:, -1] = 1
 
-
-
+def H(O,d):
+    s=0
+    for i in range(len(O)):
+        for j in range(i):
+            s += np.linalg.norm(O[i]-O[j],ord=2)**2
+    return (1/(4*d))*(4/len(O)**2)*s
