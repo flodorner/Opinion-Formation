@@ -103,8 +103,10 @@ class coevolution_model_general:
             #neighbours = np.arange(self.n_vertices)[(self.adjacency[vertex]+np.transpose(self.adjacency[:,vertex])) > 0]
             old_neighbour = np.random.choice(neighbours)
             new_neighbour = np.random.choice(np.arange(self.n_vertices)[same_opinion])
-            self.graph.remove_edge(vertex, old_neighbour)
             self.graph.add_edge(vertex, new_neighbour)
+            if self.graph.number_of_edges() > self.n_edges:
+                self.graph.remove_edge(vertex, old_neighbour)
+            
             '''
             if new_neighbour>vertex:
                 self.adjacency[new_neighbour,vertex] = 1
@@ -138,7 +140,7 @@ class coevolution_model_general:
                 connected_nodes += components[-1]
         return components
         '''
-        return nx.connected_components(self.graph)
+        return np.array(list(nx.connected_components(self.graph)))
 
     def convergence(self):
         return self.convergence_criterion(self)
@@ -163,7 +165,7 @@ class holme(coevolution_model_general):
         super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1
         ,connect=lambda x, y: (x == y).flatten(),update=lambda x, y, noise: y,
         convergence_criterion=lambda x:
-        np.all([len(np.unique(x.vertices[np.array(c)], axis=0)) <= 1 for c in x.connected_components()])
+        np.all([len(np.unique(x.vertices[np.array(list(c))], axis=0)) <= 1 for c in x.connected_components()])
                          ,systematic_update=False,noise_generator = lambda size: np.zeros(size))
 
 def sgm(x,y):
