@@ -28,10 +28,13 @@ class coevolution_model_general:
             self.vertices = np.random.randint(n_opinions, size=(n_vertices,d))
 
         if initial_graph == None:
+            #initialize random graph
             self.n_edges = n_edges
             self.adjacency = np.zeros((n_vertices,n_vertices))
+            #list of edges, for example [2,5] edge between node 2 and 5. j<i
             edges =  [[i,j] for i in range(1, n_vertices) for j in range(i)]
             edges = np.array(random.sample(edges,k=n_edges))
+            #gives lower triangular matrix
             self.adjacency[edges[:,0],edges[:, 1]] = 1
         else:
             print("Graph initialized with provided adjacency matrix. n_edges set to " +str (np.sum(initial_graph)))
