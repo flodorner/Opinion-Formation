@@ -27,6 +27,7 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
         for key in subresults.keys():
             results[key].append(subresults[key])
     results["variation"] = variying_kwarg
+    A.draw_graph(path = image_folder+"graph")
     return results
 
 def median_plus_percentile_plot(x,y,color="orange",percentiles=[10]):
