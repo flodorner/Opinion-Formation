@@ -9,7 +9,7 @@ Flo: Implement Coevolutions Network (Holme 2006)
 
 Michi, David: Literature review to find 3rd Paper, e.g. Social Media
 
-Fabi, Gianluca: Implement Hyperpolarization (Schweighofer et al. 2020)  
+Fabi, Gianluca: Implement Hyperpolarization (Schweighofer et al. 2020), verify Flo's model 
 
 <http://jasss.soc.surrey.ac.uk/23/3/5.html>
 
