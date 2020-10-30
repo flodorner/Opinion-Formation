@@ -145,6 +145,10 @@ def update_weighted_balance(x,y,f,alpha,noise):
     b = sgm(y,attitude)
     return np.clip(x+alpha*(b-x)+noise,-1,1)
 
+def evaluative_ex(x,e):
+    return np.sign(x)*abs(x)**(1-e)
+
+
 class weighted_balance(coevolution_model_general):
     def __init__(self, n_vertices=100, d=1,z=0.01,f=lambda x:x,alpha=0.5):
         super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=0,d=d,
