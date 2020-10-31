@@ -1,4 +1,524 @@
-#Observations: ID 1d: single bot enough for hard polarization. 5d: 100 and 250 vertices seem to require more bots. These results don't seem to depend on the both-sidedness of the bots
-#Root: always polarized
-#Square: almost no polarization. Only for 5 bots with 25 nodes visible. More for both sided
+Observations:
+ID 1d: single bot enough for hard polarization. 5d: 100 and 250 vertices seem to require more bots. These results don't seem to depend on the both-sidedness of the bots.
+    Neutral bots reduce polarization efficiently
+    5d: more bots needed to polarize if graph is large
+Root 1d: always polarized, expect for cases with neutral bots (but still more polarized than with id)
+    5d: pretty similar
+Square 1d: almost no polarization. Only for 5 or 10 bots with 25 nodes visible. Slightly more for both sided
 
+
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.04629866032839971  vars: [0.23003355]  H:  0.23003354902217127  t:  1361.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 1  means: 0.0017793991260653397  vars: [0.94307979]  H:  0.9430797944884517  t:  2551.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.09252796271559341  vars: [0.8997657]  H:  0.8997656968623151  t:  661.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 10  means: -0.16009672435667552  vars: [0.79146205]  H:  0.7914620531548584  t:  473.5
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.019116731133955886  vars: [0.19222691]  H:  0.19222690547162474  t:  7611.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.09648738588827334  vars: [0.90253058]  H:  0.9025305815206635  t:  29821.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.06958201544794258  vars: [0.94527886]  H:  0.9452788643206856  t:  8331.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.03350046127086982  vars: [0.95457675]  H:  0.9545767541138372  t:  4351.0
+d:  1 id  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.002595695595115627  vars: [0.20121666]  H:  0.2012166582542306  t:  23376.0
+d:  1 id  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 1  means: 0.0012370046630115184  vars: [0.85527042]  H:  0.8552704242592766  t:  158925.9
+d:  1 id  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.026873022689751547  vars: [0.9497849]  H:  0.9497849019491428  t:  48376.0
+d:  1 id  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.03470864370908413  vars: [0.95101402]  H:  0.9510140233181298  t:  24551.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.07466722904209591  vars: [0.21444765]  H:  0.2144476497909885  t:  1293.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 1  means: -4.414467123754829e-05  vars: [0.00033375]  H:  0.00033374825069595074  t:  1783.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  means: -0.00020243491019483065  vars: [0.00017522]  H:  0.0001752239319683176  t:  763.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 10  means: -0.0017428627917322995  vars: [0.00012294]  H:  0.00012293716485555368  t:  873.5
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.019839687729997033  vars: [0.19682946]  H:  0.1968294617254636  t:  6061.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.000534178126441964  vars: [0.00064221]  H:  0.0006422114030882057  t:  17231.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  means: 0.00030157614448669384  vars: [0.0003547]  H:  0.00035470127149136337  t:  6261.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.0002092507632671093  vars: [0.00033288]  H:  0.00033287635993130006  t:  3771.0
+d:  1 id  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 0  means: -0.0180661165698316  vars: [0.20464645]  H:  0.20464644965793322  t:  11326.0
+d:  1 id  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.00010598106635553778  vars: [0.00133475]  H:  0.0013347462160434402  t:  84101.0
+d:  1 id  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 5  means: -0.00020524844813725845  vars: [0.00054088]  H:  0.0005408782961033222  t:  25476.0
+d:  1 id  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.000740445467757534  vars: [0.00045776]  H:  0.00045776431726546123  t:  14351.0
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.023619805618218172  vars: [0.21265238]  H:  0.2126523844995285  t:  1366.0
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.043451936231438205  vars: [0.93559805]  H:  0.9355980456092933  t:  2408.5
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.026893365090195125  vars: [0.86181766]  H:  0.8618176625269894  t:  643.5
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.1983980172510433  vars: [0.91375973]  H:  0.9137597254085073  t:  431.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.019921716941879844  vars: [0.19282914]  H:  0.1928291365112243  t:  5941.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.006271523431891628  vars: [0.91966027]  H:  0.9196602703447929  t:  35081.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.034400352441060045  vars: [0.95415431]  H:  0.9541543106631398  t:  8371.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 10  means: 0.051748765999585  vars: [0.95756138]  H:  0.957561378390238  t:  4351.0
+d:  1 id  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.0071855771447113925  vars: [0.20661168]  H:  0.20661168022647175  t:  13301.0
+d:  1 id  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.0022439111226330716  vars: [0.88225013]  H:  0.882250126130173  t:  172200.6
+d:  1 id  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.019076050156472145  vars: [0.94361996]  H:  0.9436199564448426  t:  47826.0
+d:  1 id  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.001795779488133062  vars: [0.95521466]  H:  0.9552146589250217  t:  24526.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.00021140527021176148  vars: [0.0013975  0.00126216 0.00134231 0.00134763 0.00107864]  H:  0.0012856484095933277  t:  646.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.0001473113827283168  vars: [0.93117976 0.93234191 0.93214451 0.93435849 0.92979584]  H:  0.9319641023211993  t:  3178.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.013128030313461969  vars: [0.8954053  0.89211846 0.893264   0.89466924 0.89602645]  H:  0.8942966898384812  t:  733.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 10  means: -0.0005039998459418482  vars: [0.9150706  0.91278703 0.91223238 0.91702413 0.91461169]  H:  0.9143451659147933  t:  438.5
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  means: 7.516786117343066e-05  vars: [0.00016256 0.00016145 0.00017593 0.00016104 0.00018032]  H:  0.00016825757259520614  t:  1531.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.015390438102805888  vars: [0.18239079 0.18207259 0.18273305 0.18236111 0.18215587]  H:  0.182342683810099  t:  149630.3
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.006496726720826063  vars: [0.93977834 0.94007188 0.94076634 0.94019276 0.93906372]  H:  0.9399746071407424  t:  9911.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.02492050783530335  vars: [0.95038967 0.95174635 0.95038728 0.95106853 0.95045975]  H:  0.9508103137589338  t:  5331.0
+d:  5 id  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.0003127573778154695  vars: [0.00017858 0.00017295 0.0001669  0.00017118 0.00016816]  H:  0.00017155414833990249  t:  3726.0
+d:  5 id  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 1  means: -4.622718800512328e-05  vars: [0.00020959 0.00021254 0.00022596 0.00022674 0.00021691]  H:  0.0002183502559028906  t:  71351.0
+d:  5 id  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 5  means: 0.02643705718632846  vars: [0.94121754 0.94141672 0.94158089 0.94199741 0.94205751]  H:  0.9416540153348618  t:  57926.0
+d:  5 id  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 10  means: -0.0041808372081718085  vars: [0.94582504 0.94663556 0.94657746 0.94601541 0.9460168 ]  H:  0.9462140554144609  t:  30301.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  means: -0.00030278344847229564  vars: [0.00018659 0.0001744  0.00015172 0.00014532 0.00016541]  H:  0.00016468794157405744  t:  518.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.00018655100068910619  vars: [0.00014457 0.00018155 0.00014126 0.00015747 0.00014659]  H:  0.00015428812262883925  t:  503.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  means: 0.00024600531421811305  vars: [0.00015138 0.00016936 0.0001529  0.00012956 0.00011434]  H:  0.0001435082386568836  t:  428.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 10  means: -0.0006506199306253077  vars: [8.79640677e-05 6.47102633e-05 1.06989634e-04 8.33372786e-05
+ 1.19766965e-04]  H:  9.255364177608659e-05  t:  541.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.00014558199390988404  vars: [0.00017458 0.00016324 0.00017411 0.00017824 0.00017501]  H:  0.00017303520920502387  t:  1561.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 1  means: -8.19202073320359e-05  vars: [0.00016246 0.00017788 0.00017789 0.00015567 0.0001734 ]  H:  0.0001694620882196203  t:  1531.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  means: -7.593633547496648e-05  vars: [0.00016284 0.00016804 0.00016648 0.00016085 0.0001518 ]  H:  0.000162002035616789  t:  1441.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 10  means: -1.490719783518292e-05  vars: [0.00015084 0.00015761 0.00016409 0.00015601 0.00016873]  H:  0.00015945524699058656  t:  1491.0
+d:  5 id  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 0  means: -1.4564119491300384e-05  vars: [0.00016636 0.00017385 0.00017813 0.00017657 0.00016791]  H:  0.00017256456098792088  t:  3626.0
+d:  5 id  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.00012027591744510593  vars: [0.00016582 0.00016608 0.00017113 0.00017315 0.00016968]  H:  0.00016917446045514533  t:  3601.0
+d:  5 id  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 5  means: -9.772703772230879e-05  vars: [0.00017077 0.00015856 0.00016531 0.00017007 0.00016229]  H:  0.00016540009107809923  t:  3551.0
+d:  5 id  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.00011374713072895711  vars: [0.00016495 0.00016331 0.00016275 0.0001771  0.0001661 ]  H:  0.0001668420337038254  t:  3551.0
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.0002710263886933297  vars: [0.00016617 0.00018011 0.00015396 0.00017494 0.00015693]  H:  0.00016642244913371142  t:  601.0
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 1  means: 0.024819332029215734  vars: [0.91295512 0.91132248 0.91011342 0.91259966 0.91386658]  H:  0.9121714518655104  t:  3001.0
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.13147196940789346  vars: [0.88063195 0.87689605 0.87585491 0.87803399 0.87305877]  H:  0.8768951350687179  t:  748.5
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 10  means: 0.03853598297069556  vars: [0.82260602 0.81940466 0.81530537 0.81957112 0.82076031]  H:  0.8195294938023732  t:  411.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  means: 3.2357719325716066e-05  vars: [0.00017633 0.00015645 0.00017184 0.00017078 0.00016354]  H:  0.0001677888299859195  t:  1631.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 1  means: 0.00794924553976257  vars: [0.27197998 0.27348178 0.27304833 0.27354627 0.27239456]  H:  0.27289018556023814  t:  151670.3
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  means: 0.0022238702962024317  vars: [0.94587856 0.94530253 0.94464509 0.94495606 0.94578066]  H:  0.9453125800684183  t:  9821.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 10  means: 0.024495595325794914  vars: [0.94818102 0.94725884 0.94938026 0.9495732  0.94911266]  H:  0.9487011955323871  t:  5281.0
+d:  5 id  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 0  means: 0.00012498768333583528  vars: [0.00017801 0.00016701 0.00016384 0.00017163 0.00016819]  H:  0.00016973769748945144  t:  3551.0
+d:  5 id  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.0002904900817398927  vars: [0.00019735 0.00019494 0.00020474 0.00019791 0.00020892]  H:  0.00020077075906443472  t:  60526.0
+d:  5 id  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.009586935601655456  vars: [0.94137106 0.94223701 0.94010034 0.94121759 0.94043046]  H:  0.9410712926915183  t:  58201.0
+d:  5 id  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.0305833462260037  vars: [0.95161028 0.9527662  0.95144113 0.95194649 0.95148747]  H:  0.9518503117229409  t:  30876.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  means: 0.0006046911034763222  vars: [0.92556326]  H:  0.92556325948078  t:  728.5
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.043739029243789376  vars: [0.95965391]  H:  0.959653905194919  t:  633.5
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.09426935829951225  vars: [0.93596115]  H:  0.9359611490530101  t:  453.5
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.040834220720679396  vars: [0.82248093]  H:  0.8224809339049974  t:  401.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  means: 0.013528755660740691  vars: [0.96952567]  H:  0.9695256660909664  t:  2811.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.002123396145505034  vars: [0.96323088]  H:  0.9632308844215961  t:  2621.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  means: 0.008509332580453602  vars: [0.96877104]  H:  0.9687710400129543  t:  2291.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 10  means: -0.032132102070567936  vars: [0.95789565]  H:  0.9578956533954065  t:  2011.0
+d:  1 root  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.023358505074024257  vars: [0.96839939]  H:  0.9683993905648347  t:  6601.0
+d:  1 root  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.009604714805729818  vars: [0.96924195]  H:  0.9692419455693368  t:  6751.0
+d:  1 root  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.008316748350388703  vars: [0.96519671]  H:  0.9651967148112428  t:  6251.0
+d:  1 root  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 10  means: -0.004158337789874883  vars: [0.97087526]  H:  0.9708752590254196  t:  5776.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  means: -0.03155977055210601  vars: [0.95809431]  H:  0.9580943075917944  t:  736.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.03243802461246255  vars: [0.46365971]  H:  0.46365970604885653  t:  200000.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  means: 0.0028793759970620458  vars: [0.01223343]  H:  0.012233432813502237  t:  200000.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.0027986350684148925  vars: [0.00016897]  H:  0.00016896873358362665  t:  1718.5
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.013806252468336772  vars: [0.96873656]  H:  0.9687365570238354  t:  2801.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 1  means: -0.04651519060232416  vars: [0.85321066]  H:  0.8532106649565308  t:  200000.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  means: -0.0010494616003630833  vars: [0.40665772]  H:  0.4066577245563864  t:  200000.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.011927136099531855  vars: [0.14658459]  H:  0.14658459184520856  t:  200000.0
+d:  1 root  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.013068312547723166  vars: [0.96900435]  H:  0.9690043510462474  t:  6801.0
+d:  1 root  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 1  means: -0.0001572334164396276  vars: [0.92619595]  H:  0.9261959462084377  t:  200000.0
+d:  1 root  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 5  means: 0.009071870734283045  vars: [0.70790507]  H:  0.707905074098998  t:  200000.0
+d:  1 root  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 10  means: -0.014588354384517633  vars: [0.49208916]  H:  0.49208916222756843  t:  200000.0
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  means: 0.031306785635091705  vars: [0.9600994]  H:  0.9600993974805518  t:  811.0
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 1  means: 0.016769050859126874  vars: [0.96311353]  H:  0.9631135250358035  t:  611.0
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  means: 0.014304455617828598  vars: [0.8956448]  H:  0.8956447967593638  t:  421.0
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.07808776392511083  vars: [0.91635423]  H:  0.9163542299893057  t:  391.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  means: 0.06487275962504888  vars: [0.96073328]  H:  0.9607332806549869  t:  2731.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.028299178897702382  vars: [0.9680823]  H:  0.9680823015214861  t:  2701.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  means: 0.022592492506785945  vars: [0.96874885]  H:  0.9687488470392529  t:  2261.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.009170092173606755  vars: [0.97001686]  H:  0.970016855576563  t:  1971.0
+d:  1 root  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 0  means: 0.029266977184313276  vars: [0.96758381]  H:  0.967583810410525  t:  6576.0
+d:  1 root  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 1  means: 0.004614280138095268  vars: [0.96260812]  H:  0.9626081189462532  t:  6451.0
+d:  1 root  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.00030750601684177844  vars: [0.96966443]  H:  0.9696644259804813  t:  6301.0
+d:  1 root  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.029095767337651658  vars: [0.97163124]  H:  0.9716312437695669  t:  5826.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.05369374177707056  vars: [0.93136702 0.92955284 0.93048464 0.92965217 0.93177733]  H:  0.9305668005990526  t:  901.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 1  means: 0.11996805472571902  vars: [0.90511136 0.90583961 0.90319106 0.90677622 0.90775307]  H:  0.905734262776701  t:  996.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  means: -3.8516566799886575e-05  vars: [0.88403552 0.8838921  0.88348728 0.8857592  0.88548896]  H:  0.8845326125714037  t:  481.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.15816389275361784  vars: [0.76122829 0.75714928 0.75806287 0.75934608 0.75947196]  H:  0.7590516991741975  t:  351.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  means: 0.01676679787916095  vars: [0.96251967 0.96255593 0.96207507 0.96223352 0.96168811]  H:  0.9622144613316832  t:  4011.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.03228333715784241  vars: [0.92420437 0.90814145 0.8967027  0.90295181 0.93026878]  H:  0.9124538205969909  t:  121460.4
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.04625780578891177  vars: [0.96064386 0.96055084 0.95988905 0.9603     0.96031815]  H:  0.9603403796428587  t:  3041.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 10  means: -0.02227257876203278  vars: [0.97454483 0.97574242 0.9743134  0.9745281  0.97490462]  H:  0.9748066734193435  t:  2511.0
+d:  5 root  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.008213434394965781  vars: [0.97056873 0.9696318  0.97028663 0.96994438 0.96998437]  H:  0.970083182107866  t:  10876.0
+d:  5 root  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.015705733418563933  vars: [0.94491242 0.94246037 0.94640246 0.94271055 0.94706012]  H:  0.9447091856207885  t:  181075.1
+d:  5 root  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 5  means: 0.007459330944996082  vars: [0.97393062 0.97320322 0.97261314 0.97377172 0.97332006]  H:  0.9733677503863263  t:  9276.0
+d:  5 root  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.004205393537338869  vars: [0.97146016 0.97076253 0.97156967 0.97031872 0.97120143]  H:  0.9710625022154344  t:  7726.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  means: -0.006407430215137609  vars: [0.94669892 0.94484433 0.94337614 0.94555033 0.94708028]  H:  0.9455099992342463  t:  936.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.017612423990940228  vars: [0.45016287 0.44721695 0.44816931 0.44702839 0.4497495 ]  H:  0.44846540450970823  t:  200000.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  means: 0.0018888861812939716  vars: [0.00842509 0.00848295 0.00881982 0.00923026 0.00883663]  H:  0.008758950969191923  t:  200000.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.00030739020272974504  vars: [1.30079225e-04 1.18424151e-04 1.26907089e-04 1.29825747e-04
+ 7.83890104e-05]  H:  0.00011672504444139352  t:  901.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  means: -0.019185857135033835  vars: [0.96523532 0.96348012 0.96589954 0.96535225 0.96511794]  H:  0.9650170342964047  t:  4031.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.0004062788129400038  vars: [0.84377404 0.84109288 0.84208872 0.8409706  0.84312819]  H:  0.842210886459674  t:  200000.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  means: -0.013794968020213703  vars: [0.40620582 0.40807447 0.4081697  0.40753086 0.40575749]  H:  0.40714766672310426  t:  200000.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.00691954871256499  vars: [0.14252666 0.14351626 0.14362038 0.14309124 0.14286305]  H:  0.14312351965859235  t:  200000.0
+d:  5 root  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.0005938154298068421  vars: [0.96991323 0.97051263 0.97067041 0.96958324 0.96947265]  H:  0.9700304324839614  t:  10351.0
+d:  5 root  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 1  means: -0.008120800284075313  vars: [0.92060002 0.92043829 0.92090547 0.9202515  0.92149436]  H:  0.920737925829922  t:  200000.0
+d:  5 root  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 5  means: 0.01050753412837992  vars: [0.69755785 0.697418   0.69933427 0.69776326 0.69813258]  H:  0.6980411924602418  t:  200000.0
+d:  5 root  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.0002463842335704014  vars: [0.47823085 0.47874943 0.47864936 0.47796437 0.47780507]  H:  0.47827981599583264  t:  200000.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.017022258723945874  vars: [0.93058996 0.93420982 0.93264255 0.93299189 0.93216989]  H:  0.9325208233589913  t:  988.5
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.01751110640008068  vars: [0.95902384 0.96047395 0.9595138  0.95897376 0.96058531]  H:  0.9597141341312556  t:  776.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.013453331268574904  vars: [0.94178531 0.93827864 0.94148319 0.94023724 0.94118874]  H:  0.940594624566846  t:  473.5
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.19841596767226607  vars: [0.60123461 0.59665077 0.59656565 0.59924903 0.59945636]  H:  0.5986312856619929  t:  356.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.021178194527164625  vars: [0.96430975 0.96198068 0.96171334 0.96114277 0.96377595]  H:  0.9625844965623769  t:  4031.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 1  means: 0.03796419665762705  vars: [0.88850636 0.88345711 0.86705707 0.9082792  0.89594202]  H:  0.8886483532022723  t:  160750.2
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  means: 0.01315878831279262  vars: [0.96901991 0.96709391 0.96670448 0.96891608 0.96793143]  H:  0.9679331638431856  t:  2991.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 10  means: 0.0024679938734965203  vars: [0.97057076 0.96869519 0.9687981  0.96946494 0.9693256 ]  H:  0.9693709158529332  t:  2451.0
+d:  5 root  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.008814803821594946  vars: [0.96819873 0.96807579 0.96913234 0.9668791  0.9675639 ]  H:  0.9679699692755456  t:  10826.0
+d:  5 root  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 1  means: 0.0124440248560246  vars: [0.95099084 0.93407984 0.94858366 0.94124987 0.93894754]  H:  0.942770350043148  t:  161950.2
+d:  5 root  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.02135967181949603  vars: [0.97094882 0.97190494 0.97158834 0.97148847 0.97100081]  H:  0.971386276711075  t:  8751.0
+d:  5 root  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 10  means: 0.013693152307087222  vars: [0.97160295 0.97021062 0.97075622 0.97047251 0.97124658]  H:  0.9708577751709297  t:  7751.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  means: 0.00018473471613550478  vars: [0.00012111]  H:  0.00012110516009604754  t:  598.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.0008304475071088026  vars: [0.00031627]  H:  0.00031626858817803804  t:  100010.7
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.04773333619845171  vars: [0.23621099]  H:  0.23621098705758806  t:  200000.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 10  means: -0.08093453796404193  vars: [0.74814407]  H:  0.7481440706968661  t:  578.5
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.0004995536069309359  vars: [0.00013758]  H:  0.00013757883717164623  t:  1581.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.00021468587298082727  vars: [0.00018801]  H:  0.00018801226727263747  t:  7301.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  means: 2.704604017445232e-05  vars: [0.00130928]  H:  0.0013092808479870388  t:  200000.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.005003202746809281  vars: [0.00614753]  H:  0.006147533209062865  t:  200000.0
+d:  1 square  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 0  means: 0.0005565709102543331  vars: [0.00014248]  H:  0.00014248479566066194  t:  3851.0
+d:  1 square  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 1  means: -4.601352787417489e-05  vars: [0.00016705]  H:  0.00016704825390832838  t:  5301.0
+d:  1 square  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.0004562257034372015  vars: [0.00040914]  H:  0.0004091398214052613  t:  200000.0
+d:  1 square  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 10  means: -0.0002037979832345648  vars: [0.00087343]  H:  0.0008734334617930441  t:  200000.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.0004302330730515776  vars: [0.00010578]  H:  0.00010578377427190755  t:  621.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.0004337080291864268  vars: [0.0001516]  H:  0.0001516032222505593  t:  578.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  means: -0.00032360552465955867  vars: [0.00011349]  H:  0.00011349254607589592  t:  488.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 10  means: -0.0007903973238969008  vars: [0.00010356]  H:  0.00010356410707789653  t:  661.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  means: -0.00016382411826114726  vars: [0.00013677]  H:  0.00013677083424121399  t:  1751.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 1  means: -0.0005206213855044141  vars: [0.00014094]  H:  0.0001409398846090733  t:  1861.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  means: -0.00025255718941932966  vars: [0.00013164]  H:  0.00013163739494230438  t:  1701.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.0001397657094882236  vars: [0.00013021]  H:  0.0001302105952043316  t:  1731.0
+d:  1 square  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.00019353880069519248  vars: [0.00013639]  H:  0.0001363896827245028  t:  3876.0
+d:  1 square  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 1  means: 0.00019670515384906867  vars: [0.00014481]  H:  0.00014480923931082146  t:  3901.0
+d:  1 square  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 5  means: -8.155949123028427e-07  vars: [0.00014181]  H:  0.00014181116633606318  t:  3726.0
+d:  1 square  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.000571614800084066  vars: [0.00013478]  H:  0.00013478358417374743  t:  3751.0
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  means: 0.0007466473422316878  vars: [0.00013707]  H:  0.0001370733117758725  t:  558.5
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.00018998629230402775  vars: [0.00067021]  H:  0.0006702095074362157  t:  159887.9
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  means: 0.04637373926985704  vars: [0.2709801]  H:  0.2709800955302011  t:  200000.0
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.03918393499204756  vars: [0.87915652]  H:  0.8791565249417491  t:  686.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  means: 0.00019594823653300929  vars: [0.00014334]  H:  0.0001433435196473998  t:  1681.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.00048678019346178454  vars: [0.00016296]  H:  0.00016295880105399773  t:  9181.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.0013608519824441503  vars: [0.00108521]  H:  0.001085207178704781  t:  200000.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 10  means: 0.001492510838647208  vars: [0.0056557]  H:  0.005655700117950348  t:  200000.0
+d:  1 square  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.0001217830781841101  vars: [0.00014295]  H:  0.00014295441856826372  t:  3726.0
+d:  1 square  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 1  means: -8.066561807731424e-05  vars: [0.00015653]  H:  0.00015652508407957205  t:  4576.0
+d:  1 square  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 5  means: 0.00028067401506620107  vars: [0.00033193]  H:  0.00033193232155317016  t:  200000.0
+d:  1 square  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.00031719482554711084  vars: [0.00082404]  H:  0.0008240399977881184  t:  200000.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  means: -0.00042726479985379415  vars: [0.00011923 0.0001216  0.00011509 0.00014658 0.00011172]  H:  0.0001228447398235027  t:  413.5
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 1  means: -2.3583299046280903e-05  vars: [0.00017215 0.00015833 0.00016608 0.00015449 0.00018707]  H:  0.00016762253068764902  t:  4793.5
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  means: 0.08081772274909264  vars: [0.17632867 0.17920266 0.17630067 0.17715029 0.17695521]  H:  0.17718749903827488  t:  200000.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.0015287246794973685  vars: [0.66025636 0.6542962  0.65731139 0.66285427 0.65678433]  H:  0.6583005098645037  t:  741.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  means: -9.014255049548408e-05  vars: [0.00013898 0.00012794 0.00013344 0.00013553 0.00012876]  H:  0.0001329314138445506  t:  1201.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 1  means: -0.00033974176390571474  vars: [0.00015159 0.00015235 0.00016258 0.00014349 0.00013336]  H:  0.00014867285286161865  t:  1881.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  means: -0.0005151366514520788  vars: [0.00055092 0.00054124 0.00056215 0.00052962 0.00056698]  H:  0.0005501813241796038  t:  200000.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.004312860311886405  vars: [0.00384126 0.00392739 0.00390661 0.00391621 0.00389846]  H:  0.003897985969564522  t:  200000.0
+d:  5 square  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 0  means: -3.8121845564129535e-05  vars: [0.00013905 0.00012904 0.00013287 0.00013775 0.0001345 ]  H:  0.0001346426316933557  t:  3001.0
+d:  5 square  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 1  means: 7.64302741189502e-06  vars: [0.00013974 0.00014499 0.00014214 0.00013545 0.00013971]  H:  0.000140405712665422  t:  3051.0
+d:  5 square  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 5  means: 0.00012880579527604203  vars: [0.00017259 0.00017357 0.00016491 0.00016459 0.00017191]  H:  0.00016951110731921077  t:  9026.0
+d:  5 square  n_vertices:  250  both sides:  False  neutral_bots:  False  n_bots: 10  means: 0.00033331171461623135  vars: [0.00031527 0.00031607 0.00032873 0.00030461 0.00031193]  H:  0.0003153210256760455  t:  200000.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  means: 0.0005922334606392374  vars: [0.00012161 0.00012439 0.00014945 0.00012039 0.00013763]  H:  0.00013069326537446028  t:  351.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 1  means: -0.00040922575346416035  vars: [0.00012036 0.00013445 0.00012554 0.00012122 0.00012636]  H:  0.0001255842181825567  t:  356.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  means: -0.00012788270358345209  vars: [1.35883054e-04 1.19038057e-04 1.10445501e-04 9.88768669e-05
+ 1.19396286e-04]  H:  0.00011672795304675537  t:  356.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 10  means: 0.00038184530605593874  vars: [8.37695419e-05 8.83036127e-05 9.50423532e-05 1.36087163e-04
+ 1.51345752e-04]  H:  0.00011090968449689645  t:  576.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  means: 2.7614834745437696e-05  vars: [0.0001221  0.00012663 0.00013025 0.00012924 0.00013613]  H:  0.00012886720499047423  t:  1201.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 1  means: -0.00010321408600260039  vars: [0.00013523 0.00013406 0.00013708 0.00014333 0.00013652]  H:  0.0001372444694703485  t:  1171.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  means: 1.298859736141205e-05  vars: [0.00013377 0.00013399 0.0001311  0.00013694 0.00013683]  H:  0.00013452654438699026  t:  1211.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 10  means: -0.0003119544760326279  vars: [0.00013769 0.00013083 0.00013638 0.00013025 0.00014053]  H:  0.00013513428900228968  t:  1191.0
+d:  5 square  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 0  means: 5.617927333910403e-05  vars: [0.00013587 0.00013484 0.00014189 0.00013618 0.00013869]  H:  0.00013749258908479466  t:  3001.0
+d:  5 square  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 1  means: 3.392639305190425e-05  vars: [0.00013413 0.00013683 0.00014074 0.00013326 0.00013301]  H:  0.00013559554417545897  t:  3001.0
+d:  5 square  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 5  means: -0.0002457443636472724  vars: [0.00013116 0.00013547 0.00012675 0.00013407 0.00013217]  H:  0.00013192496983504125  t:  3001.0
+d:  5 square  n_vertices:  250  both sides:  False  neutral_bots:  True  n_bots: 10  means: -7.145246300307119e-05  vars: [0.00013022 0.00013056 0.00013519 0.00014103 0.00013676]  H:  0.00013475078862695567  t:  3001.0
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  means: 0.0011831173893845554  vars: [0.00013735 0.00010875 0.00013507 0.0001447  0.00011723]  H:  0.0001286198936527575  t:  306.0
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 1  means: -0.0008137078214242352  vars: [0.00015431 0.00013704 0.00012327 0.00014857 0.00011792]  H:  0.00013622245614874044  t:  3098.5
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  means: -0.032654994088567646  vars: [0.25235963 0.25197768 0.25164856 0.25278538 0.25176616]  H:  0.2521074814841592  t:  200000.0
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.1587544542447339  vars: [0.84592261 0.84762341 0.84030255 0.84845572 0.84932664]  H:  0.8463261863523728  t:  748.5
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  means: -0.0001756938490348539  vars: [0.00014015 0.00013018 0.00012595 0.00013348 0.00013521]  H:  0.000132994233713074  t:  1211.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 1  means: 2.972327625905639e-05  vars: [0.00014149 0.00014196 0.00014184 0.00014002 0.00013431]  H:  0.00013992337218218903  t:  1361.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  means: -9.30612659661475e-05  vars: [0.00039699 0.00039607 0.00042153 0.00043615 0.00038244]  H:  0.00040663456489899164  t:  200000.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 10  means: 0.0015023357786623115  vars: [0.00407541 0.00413467 0.00409038 0.00413013 0.00410701]  H:  0.004107521775623976  t:  200000.0
+d:  5 square  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 0  means: 2.459617274304619e-05  vars: [0.00013812 0.00013846 0.00013935 0.00013532 0.00013429]  H:  0.00013710664623403665  t:  3001.0
+d:  5 square  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 1  means: 0.00011229675288457427  vars: [0.00013532 0.00013817 0.00014649 0.00014259 0.00014677]  H:  0.00014186806907868292  t:  3026.0
+d:  5 square  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 5  means: 0.00011716285923318172  vars: [0.00015961 0.00016367 0.00017483 0.00016446 0.00016717]  H:  0.00016594737513805457  t:  9776.0
+d:  5 square  n_vertices:  250  both sides:  True  neutral_bots:  False  n_bots: 10  means: -0.0006312353831238926  vars: [0.00036393 0.00038143 0.00035936 0.00035883 0.00036447]  H:  0.000365604717852618  t:  200000.0
+
+
+
+#Not fully connected any more!
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.017408054343957098  vars: [0.27940457]  H:  0.2794045744411667  t:  266.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.016972317160603833  vars: [0.22465692]  H:  0.22465692098798992  t:  983.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.026417682525361398  vars: [0.21788326]  H:  0.2178832609785939  t:  1563.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.05147966125066138  vars: [0.16129401]  H:  0.1612940069513185  t:  1238.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.021332339654869907  vars: [0.58048593]  H:  0.5804859270110947  t:  693.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.042137278244786934  vars: [0.81256049]  H:  0.8125604903794477  t:  933.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.04617351864292357  vars: [0.88849615]  H:  0.8884961452736222  t:  743.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.13086283634879795  vars: [0.81819458]  H:  0.8181945818903807  t:  733.5
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.013948768030549185  vars: [0.2715586]  H:  0.27155859521567144  t:  1101.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.005562754255798438  vars: [0.22329875]  H:  0.22329875064042648  t:  4271.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.0006063706051100883  vars: [0.20305184]  H:  0.2030518357582233  t:  5741.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.010454754111866487  vars: [0.20276881]  H:  0.2027688079609761  t:  7041.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.03026460401320944  vars: [0.38101141]  H:  0.3810114101582341  t:  2341.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.01667129860167521  vars: [0.77480968]  H:  0.7748096840370867  t:  13071.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.010531466470230493  vars: [0.92876851]  H:  0.9287685113622389  t:  10391.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.06930459488491195  vars: [0.94256943]  H:  0.9425694344922713  t:  8761.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: -0.017872232259537452  vars: [0.25635806]  H:  0.2563580621436715  t:  293.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: -0.06375133695808571  vars: [0.23441029]  H:  0.23441029104838584  t:  826.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: 0.019773181756690947  vars: [0.19250431]  H:  0.1925043139068683  t:  1208.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: -0.02612279361400454  vars: [0.18906899]  H:  0.1890689926187803  t:  1676.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.016994653493297665  vars: [0.19117945]  H:  0.19117944796673647  t:  371.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: -0.005738679726565349  vars: [0.05257865]  H:  0.05257865457037862  t:  633.5
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: -0.005934825418275823  vars: [0.00523867]  H:  0.0052386747870394506  t:  866.0
+d:  1 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: 0.0008249576875545041  vars: [0.00024667]  H:  0.00024666855703260875  t:  688.5
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: -0.020394313881197713  vars: [0.28007935]  H:  0.2800793495948032  t:  1111.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: 0.003622576028944371  vars: [0.2413748]  H:  0.24137479687152621  t:  3051.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: -0.0024426533204829183  vars: [0.214453]  H:  0.21445300199661177  t:  4131.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: 0.013996422626692592  vars: [0.21020308]  H:  0.21020307825949658  t:  5411.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: -0.032298014492599406  vars: [0.22254628]  H:  0.22254628005561444  t:  2521.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: 0.007912924776974157  vars: [0.06044429]  H:  0.06044429211721534  t:  8051.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: -0.0001013185567779934  vars: [0.00530827]  H:  0.0053082689604463575  t:  7281.0
+d:  1 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: 0.0009017898414629414  vars: [0.00039261]  H:  0.0003926147092237984  t:  5871.0
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.008734424334219781  vars: [0.26942832]  H:  0.2694283150699214  t:  306.0
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.06688180325479186  vars: [0.22664232]  H:  0.22664231802943294  t:  771.0
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.006899941846279452  vars: [0.19654209]  H:  0.19654209327634617  t:  1828.5
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.002158432998464352  vars: [0.20521241]  H:  0.20521241053048436  t:  1803.5
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.02490176213941651  vars: [0.58516775]  H:  0.5851677496173234  t:  636.0
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.09548217811782164  vars: [0.8449948]  H:  0.844994802209803  t:  828.5
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.022026046875289463  vars: [0.88798908]  H:  0.8879890750815379  t:  781.0
+d:  1 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.02488040533736721  vars: [0.83540588]  H:  0.8354058792424379  t:  671.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.00837191443910898  vars: [0.27102096]  H:  0.27102095887570127  t:  1211.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.009258801667386287  vars: [0.21022461]  H:  0.2102246100122392  t:  4111.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.03369433336616293  vars: [0.21223608]  H:  0.21223607759221347  t:  5421.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.011167377870546032  vars: [0.18155154]  H:  0.18155153791731202  t:  7051.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 0.004056644201172496  vars: [0.36706134]  H:  0.367061343881954  t:  2521.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.0028121605274290455  vars: [0.75452579]  H:  0.7545257872684213  t:  12841.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.0527268023418106  vars: [0.9234445]  H:  0.9234445033484595  t:  10151.0
+d:  1 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.03606807874182538  vars: [0.94460565]  H:  0.9446056523827083  t:  9011.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.0029357999931717434  vars: [0.17514255 0.17207612 0.16837383 0.16891892 0.17052646]  H:  0.1710075771810423  t:  318.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.00016194114536493108  vars: [0.04130887 0.0504845  0.04627602 0.0349117  0.04441132]  H:  0.04347848171866564  t:  741.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.00047286125089732135  vars: [0.00257329 0.00767834 0.00197497 0.00272129 0.00527501]  H:  0.004044579873415515  t:  666.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.00034530783351127643  vars: [0.00046595 0.00049336 0.00049834 0.00052582 0.00059295]  H:  0.0005152853536890396  t:  618.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 0.03392982486943749  vars: [0.58491419 0.5999999  0.54588746 0.57439799 0.58938388]  H:  0.5789166848261454  t:  981.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.027247661111787617  vars: [0.80567653 0.81071793 0.81712178 0.81876143 0.78452021]  H:  0.8073595755967455  t:  1028.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.1737517882289751  vars: [0.89044101 0.88960546 0.89481633 0.88567859 0.88742104]  H:  0.8895924852183767  t:  956.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.09168729052465291  vars: [0.90374138 0.90045051 0.90264609 0.90341707 0.90064224]  H:  0.9021794578525842  t:  746.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.006207484322670372  vars: [0.14822588 0.14277479 0.14826931 0.14392292 0.14387652]  H:  0.14541388519803772  t:  1481.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.00236050301918697  vars: [0.04956275 0.05153964 0.05149991 0.04622528 0.05496542]  H:  0.050758598849921  t:  2441.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.000557441431345991  vars: [0.00142553 0.00123486 0.00103436 0.00108904 0.00151033]  H:  0.0012588246106700353  t:  2211.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.00010467049224620221  vars: [0.00017657 0.00018985 0.00015377 0.00017445 0.0001703 ]  H:  0.00017298907316661764  t:  1801.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 0.008895557621200815  vars: [0.32531258 0.31969463 0.31915508 0.32025809 0.32864314]  H:  0.32261270376244305  t:  6481.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.024275688423301876  vars: [0.73148973 0.73454922 0.74118992 0.73369326 0.74037905]  H:  0.7362602354637391  t:  21111.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.020814691558868236  vars: [0.92267393 0.92020973 0.91928609 0.92203629 0.92028064]  H:  0.9208973373427675  t:  12921.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.028318717023049764  vars: [0.94504618 0.94608892 0.9445899  0.94652903 0.9472383 ]  H:  0.9458984659044731  t:  11021.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: 0.0034362511898996958  vars: [0.12672899 0.12812631 0.14421725 0.13277236 0.15444154]  H:  0.1372572901817813  t:  343.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: -0.005321232206057687  vars: [0.05909125 0.05368269 0.04805706 0.04677044 0.0392256 ]  H:  0.04936540792468793  t:  646.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: 0.0005697156871532529  vars: [0.00204961 0.00066738 0.00346371 0.00122964 0.00038124]  H:  0.001558317059275563  t:  806.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: -0.002194067349616615  vars: [0.00119181 0.00124241 0.00098948 0.00102387 0.00106794]  H:  0.0011031013158352857  t:  691.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.009425691846599707  vars: [0.12480051 0.12496022 0.12054493 0.11839106 0.11321425]  H:  0.12038219468509292  t:  343.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: 0.007395766221807677  vars: [0.07226065 0.03237559 0.05319052 0.06198151 0.04070553]  H:  0.0521027597843514  t:  406.0
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: -0.00019827032790016797  vars: [0.00254264 0.00047286 0.00257866 0.00569469 0.00215151]  H:  0.0026880700981768892  t:  483.5
+d:  5 id  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: 0.0006815445408922898  vars: [0.00014816 0.00013842 0.00016827 0.00013904 0.00012295]  H:  0.00014336881226599175  t:  593.5
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: 0.0028782150527762967  vars: [0.1503524  0.15789523 0.15382107 0.14823803 0.14833443]  H:  0.15172823235255517  t:  1401.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: 0.0009818706000981915  vars: [0.04946198 0.04839077 0.05221227 0.05441704 0.05598235]  H:  0.05209288282879293  t:  2561.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: -0.00047178967552200587  vars: [0.00850602 0.00643047 0.00810307 0.00467014 0.00592238]  H:  0.0067264168797671175  t:  2181.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: 0.00036728195739487443  vars: [0.00018125 0.00017931 0.00017774 0.00016505 0.00018429]  H:  0.00017752787180844734  t:  1831.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: -0.002473091444184411  vars: [0.13932216 0.13031532 0.14207215 0.1349356  0.13287562]  H:  0.1359041703040474  t:  1421.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: -0.0029401193215294343  vars: [0.04634524 0.05360619 0.0409914  0.05143762 0.04654386]  H:  0.047784863913000686  t:  2211.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: 0.0002388518918048499  vars: [0.0054311  0.00483755 0.00369649 0.00351998 0.0037701 ]  H:  0.004251044956008657  t:  2211.0
+d:  5 id  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: -9.252952133371217e-05  vars: [0.00016537 0.0001765  0.00017491 0.0001708  0.00015912]  H:  0.00016934136786649114  t:  1631.0
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.03406601996118132  vars: [0.13709557 0.12347163 0.15439732 0.15605471 0.1565268 ]  H:  0.14550920832480368  t:  371.0
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.001691775206108559  vars: [0.0443604  0.03054996 0.04759226 0.03907403 0.03929458]  H:  0.040174245478903366  t:  756.0
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.0015302778671335761  vars: [0.00124187 0.00618911 0.00070651 0.00321602 0.00099288]  H:  0.002469277505133485  t:  673.5
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.0006514003819057966  vars: [0.00215292 0.0020066  0.0022449  0.00203036 0.00172176]  H:  0.0020313094571719195  t:  578.5
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.018661165651071072  vars: [0.52189359 0.54522341 0.51859669 0.50232769 0.54027227]  H:  0.5256627294078579  t:  828.5
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.0027223828943673577  vars: [0.80936882 0.8073752  0.79331372 0.77550617 0.80698635]  H:  0.7985100532757745  t:  1451.0
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.06789604247934328  vars: [0.89621232 0.89771097 0.88772663 0.89235566 0.88575206]  H:  0.8919515259445616  t:  911.0
+d:  5 id  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.10524699959823967  vars: [0.91178424 0.91108401 0.91161467 0.91154087 0.91113963]  H:  0.9114326842135924  t:  728.5
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.001161378430507114  vars: [0.14779665 0.14758495 0.14569995 0.14688055 0.14916315]  H:  0.14742504955233632  t:  1371.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.00332517233337501  vars: [0.04775412 0.0484082  0.0470797  0.04226394 0.04464252]  H:  0.046029694732101806  t:  2791.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.0005211885303348474  vars: [0.00451258 0.00552306 0.00469634 0.003714   0.00433258]  H:  0.004555715408665825  t:  2091.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -7.674025246866587e-05  vars: [0.00017108 0.00017404 0.00017267 0.00017383 0.00016605]  H:  0.00017153294836312735  t:  1701.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 0.004864908299010513  vars: [0.3006735  0.2996009  0.30250983 0.31034119 0.29294896]  H:  0.3012148751442796  t:  5561.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.0001358918730788354  vars: [0.70854305 0.71561116 0.71586651 0.72013218 0.71605512]  H:  0.715241604070016  t:  24411.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.003537010141518091  vars: [0.92601838 0.92414211 0.9240205  0.92175926 0.92330579]  H:  0.9238492066726443  t:  14301.0
+d:  5 id  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.006341115479524044  vars: [0.95133323 0.95257565 0.95256138 0.95238699 0.95250112]  H:  0.9522716761670882  t:  10281.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.11430300538117152  vars: [0.66447574]  H:  0.6644757426386719  t:  483.5
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.0498559235240747  vars: [0.81009993]  H:  0.8100999257282032  t:  646.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.010897933364201048  vars: [0.91759505]  H:  0.9175950511542312  t:  673.5
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.015839016604402185  vars: [0.95947481]  H:  0.9594748065246856  t:  711.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 0.05218509596473914  vars: [0.67857656]  H:  0.6785765585619457  t:  386.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.040990835521866595  vars: [0.80046268]  H:  0.8004626831032567  t:  441.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.03159553390960014  vars: [0.93519718]  H:  0.9351971790849932  t:  466.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.11877000436677727  vars: [0.84545926]  H:  0.8454592642355916  t:  413.5
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.011563275455243124  vars: [0.70841229]  H:  0.7084122883186631  t:  1811.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.01563777335829792  vars: [0.87771269]  H:  0.8777126866805773  t:  2271.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.0011393179082603855  vars: [0.94640493]  H:  0.9464049316165986  t:  2691.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.027717319471920215  vars: [0.96643348]  H:  0.966433475000332  t:  2741.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.03442327084143854  vars: [0.68791237]  H:  0.687912373593365  t:  1721.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.016368986823942486  vars: [0.86351805]  H:  0.8635180526560357  t:  2121.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.010918676939990993  vars: [0.94523006]  H:  0.9452300616467333  t:  2261.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.04002547361931773  vars: [0.96820875]  H:  0.968208746980381  t:  2341.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: 0.05871851531241805  vars: [0.66771884]  H:  0.667718840747605  t:  463.5
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: 0.0404948875158487  vars: [0.88136379]  H:  0.8813637927706228  t:  611.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: -0.01830287014242849  vars: [0.87427793]  H:  0.8742779271499392  t:  691.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: -0.12696049519457536  vars: [0.91495675]  H:  0.9149567463279338  t:  696.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.0454197377419824  vars: [0.27186895]  H:  0.2718689509524755  t:  104283.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: -0.005158637916121056  vars: [0.14104377]  H:  0.14104377296486129  t:  200000.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: 0.0022376857294310443  vars: [0.06420189]  H:  0.06420188637470164  t:  200000.0
+d:  1 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: 0.010823615208447207  vars: [0.01249165]  H:  0.012491650045953786  t:  200000.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: 0.030669166825504395  vars: [0.70467461]  H:  0.7046746072415079  t:  1761.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: 0.02375832434183956  vars: [0.8747526]  H:  0.8747526015850623  t:  2291.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: -0.01741823899775078  vars: [0.9570056]  H:  0.9570055970583464  t:  2601.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: -0.011486707419651725  vars: [0.96616603]  H:  0.966166034941695  t:  2751.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.03655042936899365  vars: [0.55512838]  H:  0.5551283767079688  t:  182330.1
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: 0.017945703377743864  vars: [0.58679152]  H:  0.5867915182102575  t:  200000.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: -0.059907529987098654  vars: [0.51037412]  H:  0.5103741156339369  t:  200000.0
+d:  1 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: 0.006622872232016576  vars: [0.44742579]  H:  0.447425789571026  t:  200000.0
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.0825919345081121  vars: [0.68127589]  H:  0.6812758918935372  t:  486.0
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.05739101509801575  vars: [0.85631058]  H:  0.8563105774862747  t:  636.0
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.04787607896469513  vars: [0.93174478]  H:  0.9317447792612569  t:  668.5
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.07086131567925866  vars: [0.94261429]  H:  0.9426142900492545  t:  713.5
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.07554444281922709  vars: [0.66671217]  H:  0.6667121732882615  t:  396.0
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.013257845760236956  vars: [0.85357561]  H:  0.8535756057881528  t:  443.5
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.1836352352357962  vars: [0.92585895]  H:  0.9258589488909843  t:  458.5
+d:  1 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.013132784212751897  vars: [0.90920715]  H:  0.9092071524000847  t:  458.5
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.008615378657497834  vars: [0.68790746]  H:  0.6879074622943008  t:  1771.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.026425520383425948  vars: [0.87849558]  H:  0.8784955763568465  t:  2311.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.024212936431053076  vars: [0.94639918]  H:  0.9463991832841984  t:  2591.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.027382330795791866  vars: [0.96409387]  H:  0.9640938654977063  t:  2731.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.012590987652162312  vars: [0.70146317]  H:  0.7014631679516279  t:  1811.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.014235028421638795  vars: [0.87306112]  H:  0.8730611204020067  t:  2091.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.029045819437460003  vars: [0.94923877]  H:  0.9492387661848527  t:  2311.0
+d:  1 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.002158030731247436  vars: [0.96099135]  H:  0.9609913534445287  t:  2291.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.003542459293788576  vars: [0.69006655 0.71329439 0.67218387 0.67823305 0.65607293]  H:  0.6819701563236598  t:  701.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.02161225425737942  vars: [0.86585185 0.86580167 0.86522833 0.85067009 0.87636012]  H:  0.8647824127460917  t:  2678.5
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.0008296892345107021  vars: [0.9030406  0.89999256 0.90133512 0.90325561 0.89991348]  H:  0.9015074739725428  t:  1078.5
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.07395946193411976  vars: [0.93152473 0.93608    0.93838161 0.93505374 0.93429661]  H:  0.935067338656447  t:  928.5
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.016693810249507054  vars: [0.68453729 0.68868561 0.67072708 0.69660348 0.67282147]  H:  0.6826749840874295  t:  626.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.07226381242897628  vars: [0.81684066 0.84171748 0.80672275 0.81435604 0.8172247 ]  H:  0.8193723254201057  t:  573.5
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.018441861689510893  vars: [0.86115134 0.85283128 0.86798716 0.86591069 0.86634136]  H:  0.8628443664471346  t:  523.5
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.02609655565516931  vars: [0.93843172 0.94061113 0.93890256 0.94214664 0.93741456]  H:  0.9395013222624797  t:  486.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.012632560375172307  vars: [0.69660276 0.70968653 0.7083157  0.71359777 0.7004728 ]  H:  0.7057351129454175  t:  8001.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.016464201705627436  vars: [0.853265   0.85657382 0.86503416 0.86211036 0.85975372]  H:  0.8593474136310302  t:  35080.9
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.009892573906583345  vars: [0.94928211 0.94572013 0.94839197 0.94718779 0.94665941]  H:  0.9474482820121557  t:  4891.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.018822993768483808  vars: [0.94937116 0.95003381 0.95064284 0.94966333 0.95103809]  H:  0.9501498451267913  t:  4191.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.011955400915250087  vars: [0.70901714 0.70984391 0.71606195 0.70564628 0.70518603]  H:  0.7091510624747985  t:  4591.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.043415381707098716  vars: [0.87062039 0.87493352 0.86634397 0.87270482 0.87624843]  H:  0.8721702252848754  t:  12441.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.03835034706911225  vars: [0.9554152  0.95350595 0.95274645 0.95286255 0.95393317]  H:  0.9536926639352139  t:  3391.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.0112286364997207  vars: [0.97126179 0.97056536 0.97090731 0.96926955 0.96943011]  H:  0.9702868235790891  t:  3121.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: 0.022446498075407925  vars: [0.70470562 0.695149   0.67880977 0.71066032 0.74393176]  H:  0.7066512931712767  t:  678.5
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: -0.009753062628446265  vars: [0.85843149 0.87261402 0.8659265  0.84584384 0.85331789]  H:  0.8592267484872089  t:  1633.5
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: -0.04894390694455706  vars: [0.92504143 0.92595149 0.92554235 0.92564748 0.92151882]  H:  0.9247403144088944  t:  916.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: -0.010831070497943579  vars: [0.95220113 0.95452445 0.9538515  0.95180691 0.95403839]  H:  0.953284474803997  t:  946.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.023784314529650744  vars: [0.3209408  0.30420483 0.33326612 0.30486957 0.35455676]  H:  0.3235676135382152  t:  106913.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: -0.016011630971260918  vars: [0.13657171 0.13613084 0.14650097 0.14644684 0.13090258]  H:  0.13931059034884816  t:  188400.1
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: -0.0003294159645826963  vars: [0.0548025  0.06509818 0.06413514 0.0604565  0.05572266]  H:  0.06004299706751755  t:  200000.0
+d:  5 root  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: 0.0035352173600437303  vars: [0.01596595 0.01584123 0.01573425 0.01582882 0.01630544]  H:  0.01593513556509021  t:  200000.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: -0.021902682837296496  vars: [0.70794691 0.72360142 0.74089735 0.71967494 0.71869605]  H:  0.7221633346631344  t:  6671.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: -0.007945891262291796  vars: [0.86198299 0.87481946 0.85753142 0.86089345 0.86812401]  H:  0.8646702663594423  t:  34020.9
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: -0.011036791787731273  vars: [0.94467634 0.9451699  0.94650036 0.94618563 0.94696546]  H:  0.9458995387257314  t:  5111.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: 0.03538228720451539  vars: [0.95903267 0.96038557 0.95990943 0.9597776  0.95980243]  H:  0.9597815412289148  t:  4031.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.023676557969379664  vars: [0.59574116 0.586304   0.59045564 0.58541631 0.58490638]  H:  0.5885646977007021  t:  193160.1
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: -0.019003265907901704  vars: [0.60958026 0.61767091 0.61794523 0.60950876 0.61555961]  H:  0.6140529540907951  t:  200000.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: 0.0010713394338367542  vars: [0.5371689  0.53574493 0.53450819 0.53532632 0.53524561]  H:  0.5355987926433979  t:  200000.0
+d:  5 root  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: 0.006920078417937527  vars: [0.43320576 0.43123193 0.43120373 0.43208269 0.43262486]  H:  0.43206979285788166  t:  200000.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.008089891393089493  vars: [0.66234256 0.65600012 0.71796505 0.70755532 0.70039808]  H:  0.6888522255833051  t:  938.5
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.002046247917359867  vars: [0.88906626 0.87626681 0.89912541 0.88030014 0.88119133]  H:  0.8851899895667739  t:  3011.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.00295377433443792  vars: [0.9474856  0.93987466 0.93947783 0.94989816 0.94562945]  H:  0.944473139047677  t:  1001.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.07897834254709679  vars: [0.89635548 0.89796885 0.90005918 0.89652731 0.89541755]  H:  0.897265671002976  t:  971.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.11648562143702332  vars: [0.6677349  0.64086101 0.7179898  0.63918533 0.61299789]  H:  0.6557537877159146  t:  506.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.029537707410490777  vars: [0.87740936 0.86608489 0.86013556 0.86116364 0.83967663]  H:  0.8608940152280038  t:  546.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.006421268893944165  vars: [0.93989067 0.94077592 0.9427232  0.94422877 0.94036795]  H:  0.941597300169701  t:  526.0
+d:  5 root  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.17190596177505557  vars: [0.87527136 0.8741444  0.87279166 0.87457073 0.87509521]  H:  0.8743746716794114  t:  486.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.018165258932607703  vars: [0.7258781  0.7035936  0.72142312 0.71572165 0.7174295 ]  H:  0.7168091950172556  t:  10621.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.000689585696944745  vars: [0.8771557  0.88344492 0.87613787 0.87795247 0.88616924]  H:  0.8801720386650589  t:  30161.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.017855287065098504  vars: [0.95470794 0.95393809 0.95399761 0.95388027 0.9575218 ]  H:  0.9548091436180066  t:  5321.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.00214236296576368  vars: [0.96121728 0.96094999 0.96230193 0.96124764 0.96305009]  H:  0.9617533874989259  t:  4191.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.0038000349986330654  vars: [0.68928723 0.69528224 0.69174621 0.70269554 0.69137451]  H:  0.6940771467883551  t:  6801.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.008431111479755725  vars: [0.86439137 0.87714885 0.87872656 0.88035558 0.87563303]  H:  0.8752510770740999  t:  10191.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.054830303184005044  vars: [0.94854615 0.94752963 0.95026316 0.94540423 0.94782902]  H:  0.9479144360285359  t:  3521.0
+d:  5 root  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.06394245247953911  vars: [0.96836554 0.96892193 0.96831749 0.96821371 0.96667024]  H:  0.9680977826811409  t:  3111.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.009716598378975497  vars: [0.12851342]  H:  0.12851341840068456  t:  348.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.008180679845807623  vars: [0.03010971]  H:  0.0301097115099358  t:  431.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.0045731056356435994  vars: [0.0037866]  H:  0.003786604020066331  t:  511.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.0004821586405295947  vars: [0.000153]  H:  0.00015299558429606968  t:  606.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 0.07785853906080416  vars: [0.33410139]  H:  0.33410139494634783  t:  38780.9
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.028346954614383524  vars: [0.25193721]  H:  0.25193720977173534  t:  187355.1
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.01359850578849878  vars: [0.19233383]  H:  0.19233382895090584  t:  200000.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.02317478627189564  vars: [0.23552494]  H:  0.23552493935500135  t:  200000.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.019776393419050336  vars: [0.12054076]  H:  0.12054075968104443  t:  1451.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.0012740267235689204  vars: [0.05004415]  H:  0.050044145049219904  t:  1471.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.00031599019316133696  vars: [0.00307721]  H:  0.0030772106912279823  t:  1671.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.00031945505976309005  vars: [0.0001532]  H:  0.00015319844264617298  t:  1631.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 1.4231888105399019e-05  vars: [0.17409651]  H:  0.17409651019776679  t:  47150.9
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.005276610572240102  vars: [0.07888553]  H:  0.07888552879296536  t:  200000.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.007077614807582062  vars: [0.019437]  H:  0.019437004149820348  t:  200000.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.0005240447084982831  vars: [0.00276926]  H:  0.002769261153172982  t:  200000.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: -0.026939185053694505  vars: [0.11663908]  H:  0.11663908057659049  t:  368.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: -0.0006759814204425079  vars: [0.06358632]  H:  0.063586318613904  t:  368.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: 0.0005323586594979596  vars: [0.00013352]  H:  0.00013352221570790142  t:  568.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: 0.00043693792717821954  vars: [0.00013134]  H:  0.00013134412203094121  t:  596.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.03841575306339907  vars: [0.13194251]  H:  0.13194250597873408  t:  283.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: -0.01408328146685261  vars: [0.021726]  H:  0.021725999136690217  t:  446.0
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: -0.0010736037061078057  vars: [0.00054567]  H:  0.0005456651548578606  t:  663.5
+d:  1 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: -0.000349130343368794  vars: [0.00010269]  H:  0.0001026910827036542  t:  556.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: -0.008211860435412463  vars: [0.11304434]  H:  0.11304433800719424  t:  1441.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: 0.000490297215645848  vars: [0.03991834]  H:  0.0399183435385637  t:  1551.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: 0.0006331610917679564  vars: [0.00444257]  H:  0.004442572862999903  t:  1591.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: 0.00022561906406714274  vars: [0.00014294]  H:  0.00014293815076140223  t:  1751.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.00808537224820854  vars: [0.12113565]  H:  0.12113565209713165  t:  1371.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: 0.006134179129219405  vars: [0.04543432]  H:  0.04543432073663691  t:  1461.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: 0.0028473505002415333  vars: [0.00505788]  H:  0.0050578772962839875  t:  1911.0
+d:  1 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: -4.197635205990524e-05  vars: [0.00013767]  H:  0.00013766596882754662  t:  1611.0
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.030908885049978206  vars: [0.13507397]  H:  0.13507397090543696  t:  331.0
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.003011859147117547  vars: [0.05008367]  H:  0.050083669863583466  t:  428.5
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.0026129366620652695  vars: [0.00391216]  H:  0.003912158910564416  t:  578.5
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.0010638522799147347  vars: [0.00012425]  H:  0.0001242475062012468  t:  718.5
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 0.11090907546485662  vars: [0.43522775]  H:  0.43522775020911036  t:  23406.0
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.0661053967842062  vars: [0.37387982]  H:  0.37387981761863387  t:  143395.3
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.01951754250013969  vars: [0.25911177]  H:  0.25911177091349274  t:  200000.0
+d:  1 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.028008346630801394  vars: [0.16473618]  H:  0.1647361784844768  t:  200000.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.0009968639082492104  vars: [0.11657426]  H:  0.11657425849909916  t:  1451.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.008776812459494264  vars: [0.05052005]  H:  0.05052005240615437  t:  1521.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.002178032260759187  vars: [0.00506193]  H:  0.005061929191052708  t:  1601.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 0.00022609513456149551  vars: [0.00013486]  H:  0.00013485709026629569  t:  1521.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: 0.02385634753073156  vars: [0.15408732]  H:  0.15408732332068303  t:  6591.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.0011023665731374095  vars: [0.08830984]  H:  0.08830983990008519  t:  200000.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.0006842908245369324  vars: [0.0226527]  H:  0.022652696256697212  t:  200000.0
+d:  1 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.0019653847385448795  vars: [0.00502277]  H:  0.005022773854108464  t:  200000.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: -0.0017130572137559741  vars: [0.10448318 0.10810452 0.09838279 0.10295775 0.10304518]  H:  0.10339468360072457  t:  276.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.002053440931969783  vars: [0.02480472 0.02288779 0.02480015 0.03303842 0.0305338 ]  H:  0.027212977985388985  t:  291.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -2.1965789187628778e-05  vars: [0.00055683 0.00154609 0.00332501 0.00073981 0.0023125 ]  H:  0.0016960496947878126  t:  371.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: 1.6068687199780027e-05  vars: [0.00012546 0.00012053 0.00010946 0.00012276 0.00012117]  H:  0.00011987367715048812  t:  333.5
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.03383352232670153  vars: [0.27083207 0.26889323 0.28176767 0.24876588 0.2462188 ]  H:  0.2632955283375244  t:  59340.8
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: 0.016033231720289115  vars: [0.29006796 0.29782387 0.29554326 0.31031425 0.29790758]  H:  0.2983313829677228  t:  180725.1
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.002620089798625799  vars: [0.30981043 0.30496042 0.30731759 0.30280243 0.30446144]  H:  0.30587046423337977  t:  180397.6
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.002738445699228245  vars: [0.17628038 0.17705362 0.17754973 0.17537344 0.176644  ]  H:  0.17658023248688673  t:  200000.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.003179292661634192  vars: [0.12720394 0.11552952 0.12292956 0.12460705 0.12821781]  H:  0.1236975752763112  t:  1101.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.003738047046897062  vars: [0.04178222 0.0417072  0.0426656  0.04227367 0.04360212]  H:  0.042406160874154455  t:  1131.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  2  means: 0.0018384880542626383  vars: [0.00751501 0.00438717 0.006346   0.00399824 0.00675796]  H:  0.005800877180064673  t:  1201.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.0004175963479566308  vars: [0.00013654 0.00014026 0.00013086 0.00013671 0.00011818]  H:  0.00013250931440596882  t:  1211.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.00487635330815386  vars: [0.15869478 0.17290136 0.15900659 0.16432094 0.16362003]  H:  0.16370874122415896  t:  8571.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.005490189372971921  vars: [0.0833729  0.07992846 0.06866397 0.07176885 0.07312737]  H:  0.07537230949689991  t:  200000.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  2  means: -0.008753418168538673  vars: [0.01996985 0.02268163 0.02104756 0.02015254 0.02015935]  H:  0.020802185453041074  t:  200000.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  False  n_bots: 5  n_edges:  5  means: 0.0023823307184483887  vars: [0.00253417 0.0024662  0.00252949 0.00255215 0.00247797]  H:  0.002511995562298825  t:  200000.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: 0.0006150207178970279  vars: [0.12198704 0.11237411 0.12969181 0.11221049 0.11327581]  H:  0.11790785354998563  t:  271.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: 0.006175772984797703  vars: [0.04395883 0.03272161 0.0361614  0.03609198 0.0487721 ]  H:  0.039541185835029864  t:  301.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: 0.0017541429633591884  vars: [0.00297618 0.00120574 0.00476605 0.00496158 0.00160846]  H:  0.0031036035944087665  t:  343.5
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: 0.0002534093123223531  vars: [0.0001283  0.00013207 0.0001011  0.00013344 0.00014489]  H:  0.0001279592170080251  t:  368.5
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: -0.00970898735223693  vars: [0.12258221 0.1154025  0.14150106 0.12078061 0.13555902]  H:  0.12716507856631498  t:  253.5
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: -0.00794086056946139  vars: [0.03273317 0.04807928 0.06360883 0.04793348 0.05217217]  H:  0.04890538257446707  t:  281.0
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: -0.0009007343789518071  vars: [0.00685238 0.01342282 0.01623846 0.00328899 0.0031728 ]  H:  0.00859509002176741  t:  343.5
+d:  5 square  n_vertices:  25  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: -0.0005684585413565223  vars: [1.25935910e-04 1.31052434e-04 9.54116673e-05 1.23333951e-04
+ 1.18217550e-04]  H:  0.00011879030241296299  t:  353.5
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  0.5  means: 0.006580898375441184  vars: [0.12930496 0.13005642 0.12229028 0.1224053  0.12259203]  H:  0.12532979614055786  t:  1071.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  1  means: -0.0026044872790719105  vars: [0.04615884 0.04874734 0.04737824 0.04549836 0.03821528]  H:  0.045199612880469295  t:  1161.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  2  means: -0.0014106287125917089  vars: [0.01060649 0.00700435 0.0083852  0.00605922 0.00699373]  H:  0.007809800524961437  t:  1211.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 0  n_edges:  5  means: 3.303441998248186e-05  vars: [0.00012419 0.00013221 0.00013399 0.00012688 0.00012765]  H:  0.00012898352438002301  t:  1201.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  0.5  means: 0.0013138655938983279  vars: [0.11906505 0.11743689 0.1178533  0.12308737 0.11626893]  H:  0.11874230580463388  t:  1051.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  1  means: 0.0016090406340438452  vars: [0.04743782 0.050566   0.04701109 0.0397202  0.0495855 ]  H:  0.046864121783666376  t:  1131.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  2  means: -0.00025981295013329805  vars: [0.00606913 0.00920621 0.00681897 0.00884185 0.00568109]  H:  0.007323449706327004  t:  1211.0
+d:  5 square  n_vertices:  100  both sides:  False  neutral_bots:  True  n_bots: 5  n_edges:  5  means: -0.00016432206839895564  vars: [0.00012711 0.00012995 0.0001336  0.00013244 0.00012486]  H:  0.0001295926764520884  t:  1201.0
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 4.688205814341234e-05  vars: [0.13348069 0.1104862  0.12057268 0.11634037 0.12292754]  H:  0.12076149868010858  t:  266.0
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: -0.002966687914758988  vars: [0.03124221 0.04288401 0.03610699 0.03667893 0.03295775]  H:  0.03597397811616312  t:  296.0
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.0013354576609074537  vars: [0.00588361 0.00273634 0.00078349 0.0002658  0.00232855]  H:  0.0023995571397038653  t:  356.0
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -0.00013276931162432577  vars: [0.00014419 0.00011274 0.00014718 0.00013106 0.0001284 ]  H:  0.00013271473177634008  t:  383.5
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.02653809044910937  vars: [0.342252   0.30503272 0.31935902 0.30336181 0.29063161]  H:  0.31212743183671077  t:  8298.5
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.008775301918041078  vars: [0.33933821 0.33499349 0.33153536 0.33102741 0.33467129]  H:  0.3343131527267379  t:  180275.1
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 0.017353514051148152  vars: [0.18326696 0.1838818  0.19400394 0.18178845 0.19238442]  H:  0.18706511373137638  t:  200000.0
+d:  5 square  n_vertices:  25  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.003237131066996215  vars: [0.28045922 0.27776207 0.28070551 0.27831608 0.28059324]  H:  0.279567224408903  t:  200000.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  0.5  means: 0.004683963066736377  vars: [0.11619397 0.12171114 0.12485533 0.1178475  0.11498373]  H:  0.11911833546360709  t:  1091.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  1  means: 0.0005130271035701803  vars: [0.03874179 0.04471785 0.04046285 0.03992567 0.04433658]  H:  0.04163694744477957  t:  1171.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  2  means: -0.00076943146014209  vars: [0.00308186 0.00257055 0.00295507 0.00423472 0.00307601]  H:  0.0031836440609028147  t:  1191.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 0  n_edges:  5  means: -3.734332570403632e-05  vars: [0.00011521 0.00013077 0.00013876 0.00013352 0.00013906]  H:  0.00013146336591551532  t:  1211.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  0.5  means: -0.007694885443921834  vars: [0.14428301 0.14763499 0.14549058 0.15363859 0.15812124]  H:  0.149833683591232  t:  6051.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  1  means: -0.00882255784370687  vars: [0.08496303 0.08713422 0.08775147 0.09231499 0.0927549 ]  H:  0.0889837205444161  t:  200000.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  2  means: 7.45047154203829e-06  vars: [0.0281278  0.02850599 0.02710618 0.02719274 0.02476371]  H:  0.027139283800372217  t:  200000.0
+d:  5 square  n_vertices:  100  both sides:  True  neutral_bots:  False  n_bots: 5  n_edges:  5  means: -0.0011141468510711308  vars: [0.00182252 0.00180487 0.00177646 0.00176999 0.00176834]  H:  0.001788437473928442  t:  200000.0
+
+Process finished with exit code 0
