@@ -4,15 +4,15 @@ import os
 from matplotlib import pyplot as plt
 import numpy as np
 
-n_iterations=100
+n_iterations=1
 
-n_opinion=32
+n_opinion=3
 #parameter in holme paper
 k=4 #k=2M/N
 gamma=10 #=n_vertices/n_opinion 
 
 n_vertices = n_opinion*gamma
-phi=0.04
+phi=0.495
 
 kw={"n_vertices":n_vertices, "n_opinions":n_opinion,"phi":phi}
 print(kw)

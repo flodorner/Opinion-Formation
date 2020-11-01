@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import os
 import pickle
+from datetime import datetime
 
 def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
 
@@ -28,7 +29,8 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
             for key in metrics.keys():
                 subresults[key].append(metrics[key](A))
             #save subresults after every iteration
-            with open("./{}/subresults.pickle".format(run_name), "wb") as f:
+            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
+            with open("./subresults run{} iter{}of{}.pickle".format(timestamp,i,n), "wb") as f:
                 pickle.dump(subresults, f)    
 
         for key in subresults.keys():
