@@ -4,19 +4,20 @@ import os
 from matplotlib import pyplot as plt
 import numpy as np
 
-n_iterations=10
+n_iterations=100
 
-n_opinion=10
+n_opinion=32
 #parameter in holme paper
 k=4 #k=2M/N
 gamma=10 #=n_vertices/n_opinion 
 
 n_vertices = n_opinion*gamma
-phi=0.459
+phi=0.04
 
 kw={"n_vertices":n_vertices, "n_opinions":n_opinion,"phi":phi}
 print(kw)
-loop = ("n_edges",np.array([n_vertices*k/2],dtype=np.int))
+n_edges=np.array([n_vertices*k/2],dtype=np.int)
+loop = ("n_edges",n_edges)
 metrics = {
 "time_to_convergence": lambda x:x.t,
 "size_connected_component": lambda x: [len(k) for k in x.connected_components()],
@@ -39,6 +40,17 @@ for sizelist in results["size_connected_component"][0]:
 distribution_commu_sizes=occ/sum(occ)
 
 results["distribution_commu_sizes"]=distribution_commu_sizes
+results["run_parameters"]={**kw, "n_edges":n_edges , "n_iterations":n_iterations}
+
+timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
+run_name="run{} iter{} vertices{} phi{}".format(timestamp,n_iterations,n_vertices,phi)
+os.mkdir("./"+run_name)
+
+
+import pickle
+with open("./{}/result.pickle".format(run_name), "wb") as f:
+    pickle.dump(results, f)
+
 
 
 #sizes index    
@@ -66,15 +78,4 @@ axes.set_ylim([0.0005,None])
 axes.set_xlim([0.9,None])
 plt.title("P(s) size distribution. ϕ={}".format(kw["phi"]))
 plt.xlabel("s size of community")
-
-timestamp=datetime.now().strftime("%Y-%m-%d %H%M")
-run_name="run{}iter{}vertices{}phi{}".format(timestamp,n_iterations,n_vertices,phi)
-os.mkdir("./"+run_name)
-dir_path = os.path.dirname(os.path.realpath(__file__))
-
 plt.savefig(run_name + "/size_distribution")
-
-import pickle
-with open("./{}/result.pickle".format(run_name), "wb") as f:
-    pickle.dump(results, f)
-    
