@@ -79,3 +79,7 @@ axes.set_xlim([0.9,None])
 plt.title("P(s) size distribution. ϕ={}".format(kw["phi"]))
 plt.xlabel("s size of community")
 plt.savefig(run_name + "/size_distribution")
+
+
+#command to run on the server
+# nohup python3 Holme.py > run1.log &

@@ -2,6 +2,7 @@ from model import coevolution_model_general,holme,weighted_balance
 from matplotlib import pyplot as plt
 import numpy as np
 import os
+import pickle
 
 def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
 
@@ -11,6 +12,7 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
         kwarg_dict[variying_kwarg[0]]=v_kwarg
         subresults = {key: [] for key in metrics.keys()}
         for i in range(n):
+            print('iteration {} of {}'.format(i,n))
             if model_type == "Holme":
                 A = holme(**kwarg_dict)
             elif model_type == "Weighted Balance":
@@ -25,8 +27,13 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
                     done = A.convergence()
             for key in metrics.keys():
                 subresults[key].append(metrics[key](A))
+            #save subresults after every iteration
+            with open("./{}/subresults.pickle".format(run_name), "wb") as f:
+                pickle.dump(subresults, f)    
+
         for key in subresults.keys():
             results[key].append(subresults[key])
+        
     results["variation"] = variying_kwarg
     return results
 
