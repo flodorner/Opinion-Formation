@@ -54,7 +54,7 @@ with open("./{}/result.pickle".format(run_name), "wb") as f:
 
 
 #sizes index    
-s_index=np.array(range(len(occ)))
+s_index=np.array(range(len(distribution_commu_sizes)))
 
 #divide results and sum over exponentially sized intervals
 #so that the dots dont overlap in the logplot
@@ -62,11 +62,11 @@ n_intervals=100
 #create logaritmic linspacing then 
 intervals=np.array([np.int(np.ceil(np.exp(k))) for k in np.linspace(np.log(s_index[0]+0.0001),np.log(s_index[-1]),n_intervals+1)])
 #linear version, equally spaced intervals
-#intervals=np.array(np.linspace(occ_index[0],occ_index[-1],n_intervals+1))
+#intervals=np.array(np.linspace(distribution_commu_sizes_index[0],distribution_commu_sizes_index[-1],n_intervals+1))
 
 #middle of the interval is the new corresponding size
 new_s_index=(intervals[0:-1]+intervals[1:])/2
-new_dist=[sum(occ[ intervals[k] : intervals[k+1]]) for k in range(n_intervals)]
+new_dist=[sum(distribution_commu_sizes[ intervals[k] : intervals[k+1]]) for k in range(n_intervals)]
 #because python is non-inclusive for end indices, add the last one
 new_dist[-1]+=distribution_commu_sizes[-1]
 
