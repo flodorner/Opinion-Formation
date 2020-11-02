@@ -5,7 +5,12 @@ import os
 import pickle
 from datetime import datetime
 
+
+
+
+
 def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
+    timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
 
     np.random.seed=0
     results = {key: [] for key in metrics.keys()}
@@ -29,8 +34,8 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None):
             for key in metrics.keys():
                 subresults[key].append(metrics[key](A))
             #save subresults after every iteration
-            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
-            with open("./subresults run{} iter{}of{}.pickle".format(timestamp,i,n), "wb") as f:
+            
+            with open("./subresults/run{}.pickle".format(timestamp), "wb") as f:
                 pickle.dump(subresults, f)    
 
         for key in subresults.keys():

@@ -4,7 +4,11 @@ import os
 from matplotlib import pyplot as plt
 import numpy as np
 
-n_iterations=1
+if not os.path.isdir("./subresults"):
+    os.mkdir("./subresults")
+
+
+n_iterations=3
 
 n_opinion=3
 #parameter in holme paper
@@ -82,4 +86,4 @@ plt.savefig(run_name + "/size_distribution")
 
 
 #command to run on the server
-# nohup python3 Holme.py > run1.log &
+# nohup python3 Holme.py > run3phi0.495.log &
