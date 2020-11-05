@@ -56,8 +56,7 @@ class coevolution_model_general:
         self.vertices_old = np.copy(self.vertices)
         self.run_diffs = deque([],5)
         self.noise_generator = noise_generator
-
-
+        
     def step(self):
         if self.t>0 and self.t%self.n_vertices==0:
             self.run_diffs.append(np.sum(np.abs(self.vertices-self.vertices_old)))
@@ -131,6 +130,7 @@ class coevolution_model_general:
 
 
 
+
 class holme(coevolution_model_general):
     def __init__(self, n_vertices=100, n_edges=50, n_opinions=2, phi=0.5):
         super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1
@@ -138,7 +138,28 @@ class holme(coevolution_model_general):
         convergence_criterion=lambda x:
         np.all([len(np.unique(x.vertices[np.array(c)], axis=0)) <= 1 for c in x.connected_components()])
                          ,systematic_update=False,noise_generator = lambda size: np.zeros(size))
+class holme2(coevolution_model_general):
+    # using parameters gamma and k of the paper
+    # k=2M/N    gamma=10=n_vertices/n_opinions
+    def __init__(self, n_opinions=5, phi=0.5, gamma=10, k=4):
+        n_vertices=n_opinions*gamma
+        n_edges=np.int(n_vertices*k/2)
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1
+        ,connect=lambda x, y: (x == y).flatten(),update=lambda x, y, noise: y,
+        convergence_criterion=lambda x:
+        np.all([len(np.unique(x.vertices[np.array(c)], axis=0)) <= 1 for c in x.connected_components()])
+                         ,systematic_update=True,noise_generator = lambda size: np.zeros(size))
+        #for method has_changed()
+        self.vertices_previous = np.copy(self.vertices)
 
+    def has_changed(self):
+        # as an alternative / proxy to computing connected components, 
+        # check if any opinions changed since the last time this function was called
+        if  np.all(self.vertices_previous == self.vertices): 
+            return False
+        else: 
+            self.vertices_previous = np.copy(self.vertices)
+            return True
 def sgm(x,y):
     prod = x*y
     return np.sign(prod)*np.sqrt(np.abs(prod))
