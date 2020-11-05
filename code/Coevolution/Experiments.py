@@ -2,6 +2,7 @@ from model import coevolution_model_general,holme,weighted_balance,weighted_bala
 from matplotlib import pyplot as plt
 import numpy as np
 import os
+import pickle
 
 def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_lim=100000,verbose=False):
 
@@ -158,9 +159,7 @@ def experiment_holme_repro_commu_size():
     axes.set_xlim([0.9,None])
     plt.title("Distribution P(s) of the sizes of the communities")
     plt.xlabel("s size of community")
-    
 
-    import pickle
     with open("output.pickle", "wb") as f:
         pickle.dump(output, f)
         
@@ -195,159 +194,69 @@ def experiment_WB25():
     plt.close()
 
 
-def bot_plots_single_e():
-    metrics = {
-        "time_to_convergence": lambda x: x.t,
-        "maximal absolute opinion": lambda x:
-        np.max(np.abs(np.mean(x.vertices[x.n_bots:-x.n_bots,:-1],axis=0))) if (x.both_sides and x.n_bots>0) else np.max(np.abs(np.mean(x.vertices[x.n_bots:,:-1],axis=0))),
-        "H": lambda x: H(x.vertices[x.n_bots:-x.n_bots,:-1],x.d-1) if (x.both_sides and x.n_bots>0) else H(x.vertices[x.n_bots:,:-1],x.d-1)
-    }
-    colors = [(1,0,0),(0.75,0,0.25),(0.5,0,0.5),(0.25,0,0.75),(0,0,1)]
+def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20):
+    name = "bots"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))
+    if not recover:
+        metrics = {
+            "time_to_convergence": lambda x: x.t,
+            "maximal absolute opinion": lambda x:
+            np.max(np.abs(np.mean(x.vertices[x.n_bots:-x.n_bots,:-1],axis=0))) if (x.both_sides and x.n_bots>0) else np.max(np.abs(np.mean(x.vertices[x.n_bots:,:-1],axis=0))),
+            "H": lambda x: H(x.vertices[x.n_bots:-x.n_bots,:-1],x.d-1) if (x.both_sides and x.n_bots>0) else H(x.vertices[x.n_bots:,:-1],x.d-1)
+        }
+        colors = [(1,0,0),(0.5,0,0.5),(0,0,1)]
 
-    loop = ("n_bots", [0,2,6,10,20,30,40,50,100,150,200,250])
-    output_1 = experiment_loop(
-        {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: np.sign(x)*np.abs(x)**(0.5)}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots",verbose=True)
-    output_3 = experiment_loop(
-        {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x)}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots", verbose=True)
-    output_5 = experiment_loop(
-        {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2)}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots", verbose=True)
+        if not both_sides:
+            loop = ("n_bots", [0,2,6,10,20,30,40,50,100,150,200,250])
+        else:
+            loop = ("n_bots", [0, 1, 3, 5, 10, 15, 20, 25, 50, 75, 100, 125])
+        output_1 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: np.sign(x)*np.abs(x)**(0.5),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True)
+        output_2 = experiment_loop(
+            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"n_edges":edges}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots", verbose=True)
+        output_3 = experiment_loop(
+            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"n_edges":edges}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots", verbose=True)
+        with open(name, "wb") as fp:
+            pickle.dump([output_1, output_2, output_3],fp)
+    else:
+        with open(name, "rb") as fp:
+            output_1,output_2,output_3 = pickle.load(fp)
+
 
     median_plus_percentile_plot(output_1["variation"][1], output_1["time_to_convergence"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["time_to_convergence"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["time_to_convergence"],color=colors[4])
 
     plt.ylim(0,100000)
-    plt.xlabel("Number of bots")
-    plt.ylabel("Steps until convergence")
-    plt.savefig(image_folder+"t_conv_bots_single_e")
-    plt.legend(["0.5","0","-1"],title="Value of e")
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Steps until convergence",fontsize=fontsize)
+    plt.legend(["0.5","0","-1"],title="Value of e",fontsize=fontsize)
+    plt.savefig(image_folder+"t_conv_"+name)
     plt.close()
 
     median_plus_percentile_plot(output_1["variation"][1], output_1["maximal absolute opinion"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["maximal absolute opinion"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["maximal absolute opinion"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["maximal absolute opinion"],color=colors[4])
     plt.ylim(0,1)
-    plt.xlabel("Number of bots")
-    plt.ylabel("Maximal absolute mean opinion")
-    plt.legend(["0.5", "0",  "-1"], title="Value of e")
-    plt.savefig(image_folder+"maxabsop_bots_single_e")
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Maximal absolute mean opinion",fontsize=fontsize)
+    plt.legend(["0.5", "0",  "-1"], title="Value of e",fontsize=fontsize)
+    plt.savefig(image_folder+"maxabsop_"+name)
     plt.close()
 
     median_plus_percentile_plot(output_1["variation"][1], output_1["H"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["H"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["H"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["H"],color=colors[4])
     plt.ylim(0,1)
-    plt.xlabel("Number of bots")
-    plt.ylabel("Hyperpolarization H")
-    plt.legend(["0.5",  "0",  "-1"], title="Value of e")
-    plt.savefig(image_folder+"H_bots_single_e")
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Hyperpolarization H",fontsize=fontsize)
+    plt.legend(["0.5",  "0",  "-1"], title="Value of e",fontsize=fontsize)
+    plt.savefig(image_folder+"H_"+name)
     plt.close()
 
-def bot_plots_double_e():
-    metrics = {
-        "time_to_convergence": lambda x: x.t,
-        "maximal absolute opinion": lambda x:
-        np.max(np.abs(np.mean(x.vertices[x.n_bots:-x.n_bots,:-1],axis=0))) if (x.both_sides and x.n_bots>0) else np.max(np.abs(np.mean(x.vertices[x.n_bots:,:-1],axis=0))),
-        "H": lambda x: H(x.vertices[x.n_bots:-x.n_bots,:-1],x.d-1) if (x.both_sides and x.n_bots>0) else H(x.vertices[x.n_bots:,:-1],x.d-1)
-    }
-    colors = [(1,0,0),(0.75,0,0.25),(0.5,0,0.5),(0.25,0,0.75),(0,0,1)]
 
-    loop = ("n_bots", [0,1,3,5,10,15,20,25,50,75,100,125])
-    output_1 = experiment_loop(
-        {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: np.sign(x)*np.abs(x)**(0.5),"both_sides":True}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots",verbose=True)
-    output_3 = experiment_loop(
-        {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"both_sides":True}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots", verbose=True)
-    output_5 = experiment_loop(
-        {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"both_sides":True}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots", verbose=True)
+bot_plots(fontsize=25)
 
-    median_plus_percentile_plot(output_1["variation"][1], output_1["time_to_convergence"],color=colors[0])
-    median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["time_to_convergence"],color=colors[4])
-
-    plt.ylim(0,100000)
-    plt.xlabel("Number of bots per side")
-    plt.ylabel("Steps until convergence")
-    plt.savefig(image_folder+"t_conv_bots_double_e")
-    plt.legend(["0.5","0","-1"],title="Value of e")
-    plt.close()
-
-    median_plus_percentile_plot(output_1["variation"][1], output_1["maximal absolute opinion"],color=colors[0])
-    median_plus_percentile_plot(output_3["variation"][1], output_3["maximal absolute opinion"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["maximal absolute opinion"],color=colors[4])
-    plt.ylim(0,1)
-    plt.xlabel("Number of bots per side")
-    plt.ylabel("Maximal absolute mean opinion")
-    plt.legend(["0.5",  "0",  "-1"], title="Value of e")
-    plt.savefig(image_folder+"maxabsop_bots_double_e")
-    plt.close()
-
-    median_plus_percentile_plot(output_1["variation"][1], output_1["H"],color=colors[0])
-    median_plus_percentile_plot(output_3["variation"][1], output_3["H"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["H"],color=colors[4])
-    plt.ylim(0,1)
-    plt.xlabel("Number of bots per side")
-    plt.ylabel("Hyperpolarization H")
-    plt.legend(["0.5", "0", "-1"], title="Value of e")
-    plt.savefig(image_folder+"H_bots_double_e")
-    plt.close()
-
-def bot_plots_neutral_e():
-    metrics = {
-        "time_to_convergence": lambda x: x.t,
-        "maximal absolute opinion": lambda x:
-        np.max(np.abs(np.mean(x.vertices[x.n_bots:-x.n_bots,:-1],axis=0))) if (x.both_sides and x.n_bots>0) else np.max(np.abs(np.mean(x.vertices[x.n_bots:,:-1],axis=0))),
-        "H": lambda x: H(x.vertices[x.n_bots:-x.n_bots,:-1],x.d-1) if (x.both_sides and x.n_bots>0) else H(x.vertices[x.n_bots:,:-1],x.d-1)
-    }
-    colors = [(1,0,0),(0.75,0,0.25),(0.5,0,0.5),(0.25,0,0.75),(0,0,1)]
-
-    loop = ("n_bots",[0,2,6,10,20,30,40,50,100,150,200,250])
-    output_1 = experiment_loop(
-        {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: np.sign(x)*np.abs(x)**(0.5),"neutral_bots":True}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots",verbose=True)
-    output_3 = experiment_loop(
-        {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"neutral_bots":True}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots", verbose=True)
-    output_5 = experiment_loop(
-        {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"neutral_bots":True}, loop, metrics, n=10,
-        model_type="Weighted Balance Bots", verbose=True)
-
-    median_plus_percentile_plot(output_1["variation"][1], output_1["time_to_convergence"],color=colors[0])
-    median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["time_to_convergence"],color=colors[4])
-
-    plt.ylim(0,100000)
-    plt.xlabel("Number of bots")
-    plt.ylabel("Steps until convergence")
-    plt.savefig(image_folder+"t_conv_bots_neutral_e")
-    plt.legend(["0.5","0","-1"],title="Value of e")
-    plt.close()
-
-    median_plus_percentile_plot(output_1["variation"][1], output_1["maximal absolute opinion"],color=colors[0])
-    median_plus_percentile_plot(output_3["variation"][1], output_3["maximal absolute opinion"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["maximal absolute opinion"],color=colors[4])
-    plt.ylim(0,1)
-    plt.xlabel("Number of bots")
-    plt.ylabel("Maximal absolute mean opinion")
-    plt.legend(["0.5", "0",  "-1"], title="Value of e")
-    plt.savefig(image_folder+"maxabsop_bots_neutral_e")
-    plt.close()
-
-    median_plus_percentile_plot(output_1["variation"][1], output_1["H"],color=colors[0])
-    median_plus_percentile_plot(output_3["variation"][1], output_3["H"],color=colors[2])
-    median_plus_percentile_plot(output_5["variation"][1], output_5["H"],color=colors[4])
-    plt.ylim(0,1)
-    plt.xlabel("Number of bots")
-    plt.ylabel("Hyperpolarization H")
-    plt.legend(["0.5",  "0",  "-1"], title="Value of e")
-    plt.savefig(image_folder+"H_bots_neutral_e")
-    plt.close()
-
-#bot_plots_single_e()
-#bot_plots_double_e()
-#bot_plots_neutral_e()
