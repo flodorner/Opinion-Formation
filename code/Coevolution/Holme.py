@@ -113,6 +113,7 @@ def criticalpoint_testrun():
     kw={"n_opinions":3}
     results=holme_experiment_loop(kwarg_dict=kw,variying_kwarg=("phi",phi_arr),metrics=metrics,n=n_iterations)
     return results
+
 def profiling_run():
     pr = cProfile.Profile()
     pr.enable()
@@ -169,6 +170,10 @@ def plot_commu_sizes(n_vertices,phi,results, n_intervals=100):
     plt.savefig(run_name + "/size_distribution")
 
     return results
+
+
+results=criticalpoint_testrun()
+plt.scatter(results["variation"],results["max_comm_avg"])
 
 #command to run on the server
 # nohup python3 Holme.py > run3phi0.495.log &
