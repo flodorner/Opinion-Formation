@@ -29,12 +29,15 @@ class coevolution_model_general:
             self.vertices = np.random.randint(n_opinions, size=(n_vertices,d))
 
         if initial_graph == None:
+            #initialize random graph
             self.n_edges = n_edges
             self.graph = nx.gnm_random_graph(n_vertices, n_edges, seed=None, directed=False)
             '''
             self.adjacency = np.zeros((n_vertices,n_vertices))
+            #list of edges, for example [2,5] edge between node 2 and 5. j<i
             edges =  [[i,j] for i in range(1, n_vertices) for j in range(i)]
             edges = np.array(random.sample(edges,k=n_edges))
+            #gives lower triangular matrix
             self.adjacency[edges[:,0],edges[:, 1]] = 1
             '''
         else:
@@ -215,6 +218,9 @@ class weighted_balance_bots(coevolution_model_general):
             assert 2*n_bots<n_vertices
             self.vertices[-n_bots:,:-1] = -1
             self.vertices[-n_bots:, -1] = 1
+        self.n_bots=n_bots
+        self.n_vertices=n_vertices
+        self.both_sides=both_sides
 
 def H(O,d):
     s=0
