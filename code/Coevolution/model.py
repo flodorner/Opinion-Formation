@@ -144,7 +144,7 @@ class coevolution_model_general:
                 connected_nodes += components[-1]
         return components
         '''
-        return np.array(list(nx.connected_components(self.graph)))
+        return list(nx.connected_components(self.graph))
 
     def convergence(self):
         return self.convergence_criterion(self)
@@ -170,7 +170,7 @@ class coevolution_model_general:
 
 class holme(coevolution_model_general):
     def __init__(self, n_vertices=100, n_edges=50, n_opinions=0, phi=0.5):
-        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=5
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1
         ,connect=lambda x, y: (x == y).flatten(),update=lambda x, y, noise: y,
         convergence_criterion=lambda x:
         np.all([len(np.unique(x.vertices[np.array(list(c))], axis=0)) <= 1 for c in x.connected_components()])
