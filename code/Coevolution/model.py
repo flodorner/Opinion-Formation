@@ -161,8 +161,9 @@ class coevolution_model_general:
         plt.axis('equal')
         plt.savefig(path)
         plt.close()
-        res = {idx : {i: self.vertices[idx][i] for i in range(len(self.vertices[idx]))} for idx in range(len(self.vertices))}
-        nx.set_node_attributes(self.graph, res, 'opinions')
+        for i in range(self.d):
+            res = {idx : self.vertices[idx][i] for idx in range(len(self.vertices))}
+            nx.set_node_attributes(self.graph, res, 'opinions'+str(i))
         nx.write_gexf(drawing, path+"Ggexf.gexf")
 
 
@@ -185,7 +186,7 @@ def update_weighted_balance(x,y,f,alpha,noise):
     return np.clip(x+alpha*(b-x)+noise,-1,1)
 
 class weighted_balance(coevolution_model_general):
-    def __init__(self, n_vertices=100, d=1,z=0.01,f=lambda x:x,alpha=0.5):
+    def __init__(self, n_vertices=100, d=3,z=0.01,f=lambda x:x,alpha=0.5):
         super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=0,d=d,
                          update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
                          connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
@@ -201,7 +202,7 @@ def update_weighted_balance_bot(x,y,f,alpha,noise):
         return np.append(np.clip(x[:-1]+alpha*(b-x[:-1])+noise[:-1],-1,1),x[-1])
 
 class weighted_balance_bots(coevolution_model_general):
-    def __init__(self, n_vertices=100, d=1, z=0.01, f=lambda x: x, alpha=0.5, n_bots=10, both_sides=False,
+    def __init__(self, n_vertices=100, d=3, z=0.01, f=lambda x: x, alpha=0.5, n_bots=10, both_sides=False,
                  neutral_bots=False, n_edges=None):
         if n_edges is None:
             n_edges = int(n_vertices * (n_vertices - 1) / 2)

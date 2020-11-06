@@ -176,7 +176,7 @@ def experiment_WB25():
     output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)
 
     import cProfile
-    cProfile.run("output=experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)",sort="cumtime")
+#    cProfile.run("output=experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)",sort="cumtime")
 
     median_plus_percentile_plot(output["variation"][1],output["sd_size_connected_component"])
     plt.title("Sd of community size")
@@ -259,5 +259,5 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     plt.close()
 
 
-bot_plots(fontsize=25)
-
+#bot_plots(fontsize=25)
+experiment_WB25()
