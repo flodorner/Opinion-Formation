@@ -203,6 +203,9 @@ class weighted_balance_bots(coevolution_model_general):
             assert 2*n_bots<n_vertices
             self.vertices[-n_bots:,:-1] = -1
             self.vertices[-n_bots:, -1] = 1
+        self.n_bots=n_bots
+        self.n_vertices=n_vertices
+        self.both_sides=both_sides
 
 def H(O,d):
     s=0
