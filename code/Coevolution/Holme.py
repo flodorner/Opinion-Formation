@@ -5,6 +5,9 @@ from matplotlib import pyplot as plt
 import numpy as np
 import cProfile, pstats
 import pickle
+import sys
+import os.path
+from os import path
 
 if not os.path.isdir("./subresults"):
     os.mkdir("./subresults")
@@ -37,16 +40,15 @@ metrics = {
 #experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type="Holme")
 #print("size_connected_component",results["size_connected_component"])
 #print("followers_per_opinion",results["followers_per_opinion"])
-n_iterations=100
+
 metrics = {
 "time_to_convergence": lambda x:x.t,
 "max_connected_components": lambda x: np.max([len(k) for k in x.connected_components()]),
 }
-phi_arr=np.array([0,0.2,0.3,0.4,0.42,0.43,0.44,0.445,0.45,0.454,0.456,0.458,0.46,0.465,0.47,0.48,0.5,0.6,0.8,1])
-kw={"n_opinions":5}
+
+
 def holme_experiment_loop(kwarg_dict={"n_opinions":5},variying_kwarg=("phi",np.array([0.5,0.6])),metrics=metrics,n=10):
     timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
-
     np.random.seed=0
     results = {key: [] for key in metrics.keys()}
     for v_kwarg in variying_kwarg[1]:
@@ -54,7 +56,7 @@ def holme_experiment_loop(kwarg_dict={"n_opinions":5},variying_kwarg=("phi",np.a
         subresults = {key: [] for key in metrics.keys()}
         for i in range(n):
             print('iteration {} of {}'.format(i,n))
-            
+            sys.stdout.flush()
             A = holme2(**kwarg_dict)
             done = False
             while done == False:
@@ -81,10 +83,18 @@ def holme_experiment_loop(kwarg_dict={"n_opinions":5},variying_kwarg=("phi",np.a
         results["max_comm_avg"] = np.average(results["max_connected_components"],1)
         results["max_comm_sd"] = np.std(results["max_connected_components"],1)
 
-    results["run_parameters"]={**kw,"n_vertices":A.n_vertices ,"n_edges":A.n_edges , "n_iterations":n}
+    results["run_time"]=str(datetime.now()-time_start)
+    results["run_parameters"]={**kwarg_dict,"n_vertices":A.n_vertices ,"n_edges":A.n_edges , "n_iterations":n}
     results["model"]={"vertices":A.vertices,"adjacency":A.adjacency}
+    
+    if len(variying_kwarg[1])==1:
+        run_name="run{} iter{} opinions{} phi{}".format(timestamp,n,A.n_opinions,variying_kwarg[1][0])
+    else:
+        run_name="run{} iter{} opinions{} n_phi{}".format(timestamp,n,A.n_opinions,len(variying_kwarg[1]))
 
-    run_name="run{} iter{} opinions{} n_phi{}".format(timestamp,n,A.n_opinions,len(variying_kwarg[1]))
+    results["run_name"]=run_name
+    while path.exists("./"+run_name):
+        run_name=run_name+"a"
     os.mkdir("./"+run_name)   
     with open("./{}/result.pickle".format(run_name), "wb") as f:
         pickle.dump(results, f)
@@ -99,7 +109,7 @@ def criticalpoint_run():
     "time_to_convergence": lambda x:x.t,
     "max_connected_components": lambda x: np.max([len(k) for k in x.connected_components()]),
     }
-    phi_arr=np.array([0,0.2,0.3,0.4,0.42,0.43,0.44,0.445,0.45,0.454,0.456,0.458,0.46,0.465,0.47,0.48,0.5,0.6,0.8,1])
+    phi_arr=np.array([0,0.2,0.3,0.4,0.42,0.43,0.44,0.45,0.454,0.456,0.458,0.46,0.465,0.47,0.48,0.5,0.6,0.8,1])
     kw={"n_opinions":50}
     results=holme_experiment_loop(kwarg_dict=kw,variying_kwarg=("phi",phi_arr),metrics=metrics,n=n_iterations)
     return results
@@ -126,13 +136,28 @@ def profiling_run():
     ps.sort_stats(pstats.SortKey.CUMULATIVE)
     ps.print_stats()
     print(results)
-profiling_run()
 
-def plot_commu_sizes(n_vertices,phi,results, n_intervals=100):
+
+def comu_size_run(phi, n_iterations=100):
+    
+    metrics = {
+    "time_to_convergence": lambda x:x.t,
+    "size_connected_component": lambda x: [len(k) for k in x.connected_components()],
+    }
+    phi_arr=np.array([phi])
+    kw={"n_opinions":128}
+    results=holme_experiment_loop(kwarg_dict=kw,variying_kwarg=("phi",phi_arr),metrics=metrics,n=n_iterations)
+    print(results)
+    plot_commu_sizes(phi,results)
+    return results
+
+def plot_commu_sizes(phi,results, n_intervals=100):
     #caluclate the occurences of community sizes
     #occ[3]=number of communities with size 3 in this run
     #+1 because we include size 0 (to match with indexing),occ[0]=0
-    occ=np.zeros(A.n_vertices+1)
+    n_vertices=results["run_parameters"]["n_vertices"]
+    run_name=results["run_name"]
+    occ=np.zeros(n_vertices+1)
 
     #[0] because this results has multiple arrays if loop/variyng_kwargs is used
     for sizelist in results["size_connected_component"][0]:
@@ -154,7 +179,7 @@ def plot_commu_sizes(n_vertices,phi,results, n_intervals=100):
     #intervals=np.array(np.linspace(distribution_commu_sizes_index[0],distribution_commu_sizes_index[-1],n_intervals+1))
 
     #middle of the interval is the new corresponding size
-    new_s_index=(intervals[0:-1]+intervals[1:])/2
+    new_s_index=intervals[0:-1]
     new_dist=[sum(distribution_commu_sizes[ intervals[k] : intervals[k+1]]) for k in range(n_intervals)]
     #because python is non-inclusive for end indices, add the last one
     new_dist[-1]+=distribution_commu_sizes[-1]
@@ -172,8 +197,11 @@ def plot_commu_sizes(n_vertices,phi,results, n_intervals=100):
     return results
 
 
-results=criticalpoint_testrun()
-plt.scatter(results["variation"],results["max_comm_avg"])
+#results=criticalpoint_testrun()
+#plt.scatter(results["variation"],results["max_comm_avg"])
 
+if __name__ == "__main__":
+    import sys
+    comu_size_run(float(sys.argv[1]))
 #command to run on the server
 # nohup python3 Holme.py > run3phi0.495.log &
