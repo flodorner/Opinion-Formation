@@ -43,6 +43,7 @@ class coevolution_model_general:
             self.graph = nx.from_numpy_matrix(self.adjacency)
             #self.n_edges = np.sum(initial_graph)
 
+
         self.d = d
         self.connect = connect
         self.update = update
@@ -151,18 +152,21 @@ class coevolution_model_general:
         pos=nx.spring_layout(drawing)
         plt.figure(figsize=(10,10))
         nx.draw(drawing,pos,node_size=20,alpha=0.5,node_color="blue", with_labels=False)
-        nx.draw_networkx_labels(drawing,pos,font_size=20,font_family='sans-serif')
+        #nx.draw_networkx_labels(drawing,pos,font_size=20,font_family='sans-serif')
         #labels = nx.get_edge_attributes(graph,'weight')
         #nx.draw_networkx_edge_labels(graph,pos,edge_labels=labels)
         plt.axis('equal')
         plt.savefig(path)
         plt.close()
+        res = {idx : {i: self.vertices[idx][i] for i in range(len(self.vertices[idx]))} for idx in range(len(self.vertices))}
+        nx.set_node_attributes(self.graph, res, 'opinions')
+        nx.write_gexf(drawing, path+"Ggexf.gexf")
 
 
 
 class holme(coevolution_model_general):
-    def __init__(self, n_vertices=100, n_edges=50, n_opinions=2, phi=0.5):
-        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1
+    def __init__(self, n_vertices=100, n_edges=50, n_opinions=0, phi=0.5):
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=5
         ,connect=lambda x, y: (x == y).flatten(),update=lambda x, y, noise: y,
         convergence_criterion=lambda x:
         np.all([len(np.unique(x.vertices[np.array(list(c))], axis=0)) <= 1 for c in x.connected_components()])

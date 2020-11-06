@@ -48,6 +48,7 @@ def median_plus_percentile_plot(x,y,color="orange",percentiles=[10]):
 
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\"
 
 metrics = {
     "time_to_convergence": lambda x:x.t,
@@ -89,7 +90,7 @@ for n_vertices in [25]:
 n_iterations = 10
 kw={}
 print(kw)
-loop = ("n_vertices",np.arange(2,25,4,dtype=np.int))
+loop = ("n_vertices",np.arange(40,60,4,dtype=np.int))
 model_type="Holme"
 output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)
 
