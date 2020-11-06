@@ -196,6 +196,7 @@ def experiment_WB25():
 
 def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20):
     name = "bots"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))
+    colors = [(1, 0, 0), (0.5, 0, 0.5), (0, 0, 1)]
     if not recover:
         metrics = {
             "time_to_convergence": lambda x: x.t,
@@ -203,8 +204,6 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
             np.max(np.abs(np.mean(x.vertices[x.n_bots:-x.n_bots,:-1],axis=0))) if (x.both_sides and x.n_bots>0) else np.max(np.abs(np.mean(x.vertices[x.n_bots:,:-1],axis=0))),
             "H": lambda x: H(x.vertices[x.n_bots:-x.n_bots,:-1],x.d-1) if (x.both_sides and x.n_bots>0) else H(x.vertices[x.n_bots:,:-1],x.d-1)
         }
-        colors = [(1,0,0),(0.5,0,0.5),(0,0,1)]
-
         if not both_sides:
             loop = ("n_bots", [0,2,6,10,20,30,40,50,100,150,200,250])
         else:
@@ -214,10 +213,12 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
              "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
             model_type="Weighted Balance Bots",verbose=True)
         output_2 = experiment_loop(
-            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"n_edges":edges}, loop, metrics, n=10,
+            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
             model_type="Weighted Balance Bots", verbose=True)
         output_3 = experiment_loop(
-            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"n_edges":edges}, loop, metrics, n=10,
+            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
             model_type="Weighted Balance Bots", verbose=True)
         with open(name, "wb") as fp:
             pickle.dump([output_1, output_2, output_3],fp)
@@ -230,8 +231,10 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     median_plus_percentile_plot(output_2["variation"][1], output_2["time_to_convergence"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
 
-    plt.ylim(0,100000)
-    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylim(0,100001)
+    plt.yticks(ticks=[0,20000,40000,60000,80000,100000],labels=["0","2e4","4e4","6e4","8e4","1e5"],fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots" +both_sides*" per side",fontsize=fontsize)
     plt.ylabel("Steps until convergence",fontsize=fontsize)
     plt.legend(["0.5","0","-1"],title="Value of e",fontsize=fontsize)
     plt.savefig(image_folder+"t_conv_"+name)
@@ -240,7 +243,9 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     median_plus_percentile_plot(output_1["variation"][1], output_1["maximal absolute opinion"],color=colors[0])
     median_plus_percentile_plot(output_2["variation"][1], output_2["maximal absolute opinion"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["maximal absolute opinion"],color=colors[2])
-    plt.ylim(0,1)
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
     plt.xlabel("Number of bots",fontsize=fontsize)
     plt.ylabel("Maximal absolute mean opinion",fontsize=fontsize)
     plt.legend(["0.5", "0",  "-1"], title="Value of e",fontsize=fontsize)
@@ -250,13 +255,12 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     median_plus_percentile_plot(output_1["variation"][1], output_1["H"],color=colors[0])
     median_plus_percentile_plot(output_2["variation"][1], output_2["H"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["H"],color=colors[2])
-    plt.ylim(0,1)
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
     plt.xlabel("Number of bots",fontsize=fontsize)
-    plt.ylabel("Hyperpolarization H",fontsize=fontsize)
+    plt.ylabel("Hyperpolarization H(O)",fontsize=fontsize)
     plt.legend(["0.5",  "0",  "-1"], title="Value of e",fontsize=fontsize)
     plt.savefig(image_folder+"H_"+name)
     plt.close()
-
-
-bot_plots(fontsize=25)
 
