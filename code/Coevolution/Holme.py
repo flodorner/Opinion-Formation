@@ -138,14 +138,14 @@ def profiling_run():
     print(results)
 
 
-def comu_size_run(phi, n_iterations=100):
+def comu_size_run(phi, n_iterations=400):
     
     metrics = {
     "time_to_convergence": lambda x:x.t,
     "size_connected_component": lambda x: [len(k) for k in x.connected_components()],
     }
     phi_arr=np.array([phi])
-    kw={"n_opinions":128}
+    kw={"n_opinions":64}
     results=holme_experiment_loop(kwarg_dict=kw,variying_kwarg=("phi",phi_arr),metrics=metrics,n=n_iterations)
     print(results)
     plot_commu_sizes(phi,results)
