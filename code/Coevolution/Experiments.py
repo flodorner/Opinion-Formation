@@ -3,9 +3,12 @@ from matplotlib import pyplot as plt
 import numpy as np
 import os
 import pickle
+from datetime import datetime
+
+ 
 
 def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_lim=100000,verbose=False):
-
+    timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
     np.random.seed=0
     results = {key: [] for key in metrics.keys()}
     for v_kwarg in variying_kwarg[1]:
@@ -14,6 +17,7 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_li
         kwarg_dict[variying_kwarg[0]]=v_kwarg
         subresults = {key: [] for key in metrics.keys()}
         for i in range(n):
+            print('iteration {} of {}'.format(i,n))
             if model_type == "Holme":
                 A = holme(**kwarg_dict)
             elif model_type == "Weighted Balance":
@@ -33,8 +37,14 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_li
                     done = True
             for key in metrics.keys():
                 subresults[key].append(metrics[key](A))
+            #save subresults after every iteration
+            
+            #with open("./subresults/run{}.pickle".format(timestamp), "wb") as f:
+                #pickle.dump(subresults, f)    
+
         for key in subresults.keys():
             results[key].append(subresults[key])
+        
     results["variation"] = variying_kwarg
     A.draw_graph(path = image_folder+"graph")
     return results
@@ -99,73 +109,6 @@ def experiment_holme_N25():
                 plt.close()
 
     
-def experiment_holme_repro_commu_size():
-    n_iterations=40
-    
-    n_opinion=10
-    #parameter in holme paper
-    k=4 #k=2M/N
-    gamma=10 #=n_vertices/n_opinion 
-    
-    n_vertices = n_opinion*gamma
-    kw={"n_vertices":n_vertices, "n_opinions":n_opinion,"phi":0.459}
-    print(kw)
-    loop = ("n_edges",np.array([n_vertices*k/2],dtype=np.int))
-    metrics = {
-    "time_to_convergence": lambda x:x.t,
-    "size_connected_component": lambda x: [len(k) for k in x.connected_components()],
-    "followers_per_opinion": lambda x: [np.sum(x.vertices==i) for i in range(x.n_opinions)]
-    }
-    #"sd_size_connected_component": lambda x: np.sqrt(np.var([len(k) for k in x.connected_components()])),
-    #"followers_per_opinion": lambda x: [np.sum(x.vertices==i) for i in range(x.n_opinions)]
-    results = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type="Holme")
-    print("size_connected_component",results["size_connected_component"])
-    print("followers_per_opinion",results["followers_per_opinion"])
-    #caluclate the occurences of community sizes
-    #occ[3]=number of communities with size 3 in this run
-    #+1 because we include size 0 (to match with indexing),occ[0]=0
-    occ=np.zeros(n_vertices+1)
-    
-    #[0] because this output has multiple arrays if loop/variyng_kwargs is used
-    for sizelist in output["size_connected_component"][0]:
-        for l in sizelist:
-            occ[l]+=1 #index is community size
-    distribution_commu_sizes=occ/sum(occ)
-
-    results["distribution_commu_sizes"]=distribution_commu_sizes
-    
-    
-    #sizes index    
-    s_index=np.array(range(len(occ)))
-
-    #divide results and sum over exponentially sized intervals
-    #so that the dots dont overlap in the logplot
-    n_intervals=100
-    #create logaritmic linspacing then 
-    intervals=np.array([np.int(np.ceil(np.exp(k))) for k in np.linspace(np.log(s_index[0]+0.0001),np.log(s_index[-1]),n_intervals+1)])
-    #linear version, equally spaced intervals
-    #intervals=np.array(np.linspace(occ_index[0],occ_index[-1],n_intervals+1))
-
-    #middle of the interval is the new corresponding size
-    new_s_index=(intervals[0:-1]+intervals[1:])/2
-    new_dist=[sum(occ[ intervals[k] : intervals[k+1]]) for k in range(n_intervals)]
-    #because python is non-inclusive for end indices, add the last one
-    new_dist[-1]+=distribution_commu_sizes[-1]
-
-    plt.scatter(new_s_index,new_dist,s=80, facecolors='none', edgecolors='r')
-    plt.yscale("log")
-    plt.xscale("log")
-    axes = plt.gca()
-    axes.set_ylim([0.0005,None])
-    axes.set_xlim([0.9,None])
-    plt.title("Distribution P(s) of the sizes of the communities")
-    plt.xlabel("s size of community")
-
-    with open("output.pickle", "wb") as f:
-        pickle.dump(output, f)
-        
-    return output
-
 
 def experiment_WB25():
     n_iterations = 10
@@ -197,6 +140,7 @@ def experiment_WB25():
 
 def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20):
     name = "bots"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))
+    colors = [(1, 0, 0), (0.5, 0, 0.5), (0, 0, 1)]
     if not recover:
         metrics = {
             "time_to_convergence": lambda x: x.t,
@@ -204,8 +148,6 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
             np.max(np.abs(np.mean(x.vertices[x.n_bots:-x.n_bots,:-1],axis=0))) if (x.both_sides and x.n_bots>0) else np.max(np.abs(np.mean(x.vertices[x.n_bots:,:-1],axis=0))),
             "H": lambda x: H(x.vertices[x.n_bots:-x.n_bots,:-1],x.d-1) if (x.both_sides and x.n_bots>0) else H(x.vertices[x.n_bots:,:-1],x.d-1)
         }
-        colors = [(1,0,0),(0.5,0,0.5),(0,0,1)]
-
         if not both_sides:
             loop = ("n_bots", [0,2,6,10,20,30,40,50,100,150,200,250])
         else:
@@ -215,10 +157,12 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
              "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
             model_type="Weighted Balance Bots",verbose=True)
         output_2 = experiment_loop(
-            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"n_edges":edges}, loop, metrics, n=10,
+            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
             model_type="Weighted Balance Bots", verbose=True)
         output_3 = experiment_loop(
-            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"n_edges":edges}, loop, metrics, n=10,
+            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
             model_type="Weighted Balance Bots", verbose=True)
         with open(name, "wb") as fp:
             pickle.dump([output_1, output_2, output_3],fp)
@@ -231,8 +175,10 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     median_plus_percentile_plot(output_2["variation"][1], output_2["time_to_convergence"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
 
-    plt.ylim(0,100000)
-    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylim(0,100001)
+    plt.yticks(ticks=[0,20000,40000,60000,80000,100000],labels=["0","2e4","4e4","6e4","8e4","1e5"],fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots" +both_sides*" per side",fontsize=fontsize)
     plt.ylabel("Steps until convergence",fontsize=fontsize)
     plt.legend(["0.5","0","-1"],title="Value of e",fontsize=fontsize)
     plt.savefig(image_folder+"t_conv_"+name)
@@ -241,7 +187,9 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     median_plus_percentile_plot(output_1["variation"][1], output_1["maximal absolute opinion"],color=colors[0])
     median_plus_percentile_plot(output_2["variation"][1], output_2["maximal absolute opinion"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["maximal absolute opinion"],color=colors[2])
-    plt.ylim(0,1)
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
     plt.xlabel("Number of bots",fontsize=fontsize)
     plt.ylabel("Maximal absolute mean opinion",fontsize=fontsize)
     plt.legend(["0.5", "0",  "-1"], title="Value of e",fontsize=fontsize)
@@ -251,13 +199,12 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     median_plus_percentile_plot(output_1["variation"][1], output_1["H"],color=colors[0])
     median_plus_percentile_plot(output_2["variation"][1], output_2["H"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["H"],color=colors[2])
-    plt.ylim(0,1)
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
     plt.xlabel("Number of bots",fontsize=fontsize)
-    plt.ylabel("Hyperpolarization H",fontsize=fontsize)
+    plt.ylabel("Hyperpolarization H(O)",fontsize=fontsize)
     plt.legend(["0.5",  "0",  "-1"], title="Value of e",fontsize=fontsize)
     plt.savefig(image_folder+"H_"+name)
     plt.close()
 
-
-#bot_plots(fontsize=25)
-experiment_WB25()
