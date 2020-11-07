@@ -46,6 +46,7 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_li
             results[key].append(subresults[key])
         
     results["variation"] = variying_kwarg
+    A.draw_graph(path = image_folder+"graph")
     return results
 
 def median_plus_percentile_plot(x,y,color="orange",percentiles=[10]):
@@ -118,7 +119,7 @@ def experiment_WB25():
     output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)
 
     import cProfile
-    cProfile.run("output=experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)",sort="cumtime")
+#    cProfile.run("output=experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)",sort="cumtime")
 
     median_plus_percentile_plot(output["variation"][1],output["sd_size_connected_component"])
     plt.title("Sd of community size")
