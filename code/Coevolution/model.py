@@ -213,6 +213,17 @@ class weighted_balance(coevolution_model_general):
                          connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*n_vertices)
                          ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
+        
+def connect_weighted_balance(x,y):
+    return np.dot(x,y)>0
+        
+class weighted_balance_general(coevolution_model_general):
+    def __init__(self, n_vertices=100,n_edges=120, d=3,z=0.01,phi=0.5, f=lambda x:np.sign(x)*abs(x)**(1-0.4),alpha=0.6):
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=phi,d=d,
+                         update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
+                         connect = lambda x,y: connect_weighted_balance(x, y),
+                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*n_vertices),
+                         systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
 
 def update_weighted_balance_bot(x,y,f,alpha,noise):
     if x[-1] == 1:
