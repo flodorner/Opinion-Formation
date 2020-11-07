@@ -218,7 +218,7 @@ def connect_weighted_balance(x,y):
     return np.dot(x,y)>0
         
 class weighted_balance_general(coevolution_model_general):
-    def __init__(self, n_vertices=100,n_edges=120, d=3,z=0.01,phi=0.5, f=lambda x:np.sign(x)*abs(x)**(1-0.4),alpha=0.6):
+    def __init__(self, n_vertices=100,n_edges=120, d=3,z=0.01,phi=0.6, f=lambda x:np.sign(x)*abs(x)**(1-0.4),alpha=0.4):
         super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=phi,d=d,
                          update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
                          connect = lambda x,y: connect_weighted_balance(x, y),
