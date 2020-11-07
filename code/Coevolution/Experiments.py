@@ -7,7 +7,7 @@ from datetime import datetime
 
  
 
-def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_lim=100000,verbose=False):
+def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_lim=99999,verbose=False):
     timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
     np.random.seed=0
     results = {key: [] for key in metrics.keys()}
@@ -175,12 +175,12 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     median_plus_percentile_plot(output_2["variation"][1], output_2["time_to_convergence"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
 
-    plt.ylim(0,100001)
+    plt.ylim(0,101001)
     plt.yticks(ticks=[0,20000,40000,60000,80000,100000],labels=["0","2e4","4e4","6e4","8e4","1e5"],fontsize=fontsize-4)
     plt.xticks(fontsize=fontsize-4)
     plt.xlabel("Number of bots" +both_sides*" per side",fontsize=fontsize)
     plt.ylabel("Steps until convergence",fontsize=fontsize)
-    plt.legend(["0.5","0","-1"],title="Value of e",fontsize=fontsize)
+    plt.legend(["0.5","0","-1"],title="Value of e",fontsize=fontsize,title_fontsize=fontsize)
     plt.savefig(image_folder+"t_conv_"+name)
     plt.close()
 
@@ -192,7 +192,7 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     plt.xticks(fontsize=fontsize-4)
     plt.xlabel("Number of bots",fontsize=fontsize)
     plt.ylabel("Maximal absolute mean opinion",fontsize=fontsize)
-    plt.legend(["0.5", "0",  "-1"], title="Value of e",fontsize=fontsize)
+    plt.legend(["0.5", "0",  "-1"], title="Value of e",fontsize=fontsize,title_fontsize=fontsize)
     plt.savefig(image_folder+"maxabsop_"+name)
     plt.close()
 
@@ -204,7 +204,7 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     plt.xticks(fontsize=fontsize-4)
     plt.xlabel("Number of bots",fontsize=fontsize)
     plt.ylabel("Hyperpolarization H(O)",fontsize=fontsize)
-    plt.legend(["0.5",  "0",  "-1"], title="Value of e",fontsize=fontsize)
+    plt.legend(["0.5",  "0",  "-1"], title="Value of e",fontsize=fontsize,title_fontsize=fontsize)
     plt.savefig(image_folder+"H_"+name)
     plt.close()
 
