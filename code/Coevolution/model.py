@@ -40,7 +40,16 @@ class coevolution_model_general:
             #gives lower triangular matrix
             self.adjacency[edges[:,0],edges[:, 1]] = 1
             '''
+        elif initial_graph == "barabasi_albert":
+            allowed_sizes = np.cumsum(np.arange(n_vertices-1,0,-2))
+            index = np.argmin(allowed_sizes<=n_edges) #argmin takes the earliest index if there is a tie
+            assert index>0 #Number of edges needs to be at least n_vertices-1
+            self.graph = nx.barabasi_albert_graph(n_vertices,index,seed=None)
+            self.n_edges = allowed_sizes[index-1]
+            if self.n_edges != n_edges:
+                print("Amount of edges in BA-graph can only take on some specific values. Using n_edges = " + str(self.n_edges))
         else:
+            assert type(initial_graph) != str #Make sure typos in graph generation don't cause problems.
             print("Graph initialized with provided adjacency matrix. n_edges set to " +str (np.sum(initial_graph)))
             self.adjacency = initial_graph
             self.graph = nx.from_numpy_matrix(self.adjacency)
@@ -236,14 +245,14 @@ def update_weighted_balance_bot(x,y,f,alpha,noise):
 
 class weighted_balance_bots(coevolution_model_general):
     def __init__(self, n_vertices=100, d=3, z=0.01, f=lambda x: x, alpha=0.5, n_bots=10, both_sides=False,
-                 neutral_bots=False, n_edges=None):
+                 neutral_bots=False, n_edges=None,initial_graph=None):
         if n_edges is None:
             n_edges = int(n_vertices * (n_vertices - 1) / 2)
         super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=0,d=d+1,
                          update = lambda x,y,noise: update_weighted_balance_bot(x,y,f,alpha,noise),
                          connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*(n_vertices-(n_bots)-n_bots*both_sides))
-                         ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
+                         ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size),initial_graph=initial_graph)
         self.vertices[:n_bots]=1
         assert not (both_sides and neutral_bots)
         if neutral_bots and n_bots >0:
@@ -262,3 +271,5 @@ def H(O,d):
         for j in range(i):
             s += np.linalg.norm(O[i]-O[j],ord=2)**2
     return (1/(4*d))*(4/len(O)**2)*s
+
+
