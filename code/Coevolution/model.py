@@ -226,6 +226,15 @@ class weighted_balance(coevolution_model_general):
 def connect_weighted_balance(x,y):
     ### if angle between two agents' opinion vectors is less than 90 deg --> connect vertices
     return np.dot(x,y)>0
+
+def connect_weighted_balance_angle(x,y, deg=np.pi/3):
+    ### if angle between two agents' opinion vectors is less than deg --> connect vertices
+    return np.arccos(np.dot(x,y,axis=1)/(np.linalg.norm(x)*np.linalg.norm(y)))< deg
+
+##d_max = sqrt(4*d)
+def connect_weighted_balance_dist(x,y, d=0.5):
+    return np.linalg.norm(x-y, axis=1) < d
+
         
 class weighted_balance_general(coevolution_model_general):
     def __init__(self, n_vertices=100,n_edges=120, d=5,z=0.01,phi=0.6, f=lambda x:np.sign(x)*abs(x)**(1-0.4),alpha=0.4):
