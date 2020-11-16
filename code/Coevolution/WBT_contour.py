@@ -12,7 +12,9 @@ X, Y = np.meshgrid(dist, phi)
 def community(x,y,edges=500):
     m= weighted_balance_general(d=5,n_vertices = 250,
                                 n_edges=edges, phi=y,alpha=0.3,dist=x)
-    while m.convergence() == False:
+    i=0
+    while m.convergence() == False and i<10000:
+        i+=1
         m.step()
     return np.max([len(k) for k in m.connected_components()])
 
@@ -29,7 +31,7 @@ def npmap2d(fun, xs, ys, edges):
   return X, Y, Z
 
 
-X,Y,Z = npmap2d(community, d, phi)
+X,Y,Z = npmap2d(community, d, phi,edges=500)
 
 
 
