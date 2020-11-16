@@ -9,22 +9,16 @@ import sys
 import os.path
 from os import path
 
+#HOLME:py - modeling the coevolution of opinions and networks
+#Based on the paper "Nonequilibrium phase transition in the coevolution
+#       of networks and opinions" by P. Holme & M.E.J. Newman 2006
+
+
 if not os.path.isdir("./subresults"):
     os.mkdir("./subresults")
 
-"""
-n_iterations=1
 
-n_opinions=30
-
-
-phi=0.458
-
-#kw={"n_vertices":n_vertices, "n_opinions":n_opinions,"phi":phi}
-print(kw)
-n_edges=np.array([n_vertices*k/2],dtype=np.int)
-loop = ("n_edges",n_edges)
-"""
+#default metrics
 metrics = {
 "time_to_convergence": lambda x:x.t,
 "max_connected_components": lambda x: np.max([len(k) for k in x.connected_components()]),
@@ -32,20 +26,6 @@ metrics = {
 #"sd_size_connected_component": lambda x: np.sqrt(np.var([len(k) for k in x.connected_components()])),
 #"size_connected_component": lambda x: [len(k) for k in x.connected_components()],
 #"followers_per_opinion": lambda x: [np.sum(x.vertices==i) for i in range(x.n_opinions)]
-
-
-
-
-
-#experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type="Holme")
-#print("size_connected_component",results["size_connected_component"])
-#print("followers_per_opinion",results["followers_per_opinion"])
-
-metrics = {
-"time_to_convergence": lambda x:x.t,
-"max_connected_components": lambda x: np.max([len(k) for k in x.connected_components()]),
-}
-
 
 def holme_experiment_loop(kwarg_dict={"n_opinions":5},variying_kwarg=("phi",np.array([0.5,0.6])),metrics=metrics,n=10):
     timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -103,7 +83,7 @@ def holme_experiment_loop(kwarg_dict={"n_opinions":5},variying_kwarg=("phi",np.a
     return results
 
 
-def criticalpoint_run():
+def max_S_run():
     n_iterations=100
     metrics = {
     "time_to_convergence": lambda x:x.t,
@@ -113,7 +93,7 @@ def criticalpoint_run():
     kw={"n_opinions":50}
     results=holme_experiment_loop(kwarg_dict=kw,variying_kwarg=("phi",phi_arr),metrics=metrics,n=n_iterations)
     return results
-def criticalpoint_testrun():
+def max_S_testrun():
     n_iterations=3
     metrics = {
     "time_to_convergence": lambda x:x.t,
@@ -127,7 +107,7 @@ def criticalpoint_testrun():
 def profiling_run():
     pr = cProfile.Profile()
     pr.enable()
-    results = criticalpoint_testrun()
+    results = max_S_testrun()
     pr.disable()
     pr.print_stats()
 
@@ -148,60 +128,19 @@ def comu_size_run(phi, n_iterations=400):
     kw={"n_opinions":64}
     results=holme_experiment_loop(kwarg_dict=kw,variying_kwarg=("phi",phi_arr),metrics=metrics,n=n_iterations)
     print(results)
-    plot_commu_sizes(phi,results)
-    return results
-
-def plot_commu_sizes(phi,results, n_intervals=100):
-    #caluclate the occurences of community sizes
-    #occ[3]=number of communities with size 3 in this run
-    #+1 because we include size 0 (to match with indexing),occ[0]=0
-    n_vertices=results["run_parameters"]["n_vertices"]
-    run_name=results["run_name"]
-    occ=np.zeros(n_vertices+1)
-
-    #[0] because this results has multiple arrays if loop/variyng_kwargs is used
-    for sizelist in results["size_connected_component"][0]:
-        for l in sizelist:
-            occ[l]+=1 #index is community size
-    distribution_commu_sizes=occ/sum(occ)
-
-    results["distribution_commu_sizes"]=distribution_commu_sizes
-
-    #sizes index    
-    s_index=np.array(range(len(distribution_commu_sizes)))
-
-    #divide results and sum over exponentially sized intervals
-    #so that the dots dont overlap in the logplot
     
-    #create logaritmic linspacing then 
-    intervals=np.array([np.int(np.ceil(np.exp(k))) for k in np.linspace(np.log(s_index[0]+0.0001),np.log(s_index[-1]),n_intervals+1)])
-    #linear version, equally spaced intervals
-    #intervals=np.array(np.linspace(distribution_commu_sizes_index[0],distribution_commu_sizes_index[-1],n_intervals+1))
-
-    #middle of the interval is the new corresponding size
-    new_s_index=intervals[0:-1]
-    new_dist=[sum(distribution_commu_sizes[ intervals[k] : intervals[k+1]]) for k in range(n_intervals)]
-    #because python is non-inclusive for end indices, add the last one
-    new_dist[-1]+=distribution_commu_sizes[-1]
-
-    plt.scatter(new_s_index,new_dist,s=80, facecolors='none', edgecolors='r')
-    plt.yscale("log")
-    plt.xscale("log")
-    axes = plt.gca()
-    axes.set_ylim([0.0005,None])
-    axes.set_xlim([0.9,None])
-    plt.title("P(s) size distribution. ϕ={}".format(phi))
-    plt.xlabel("s size of community")
-    plt.savefig(run_name + "/size_distribution")
-
     return results
 
 
-#results=criticalpoint_testrun()
+
+#results=max_S_testrun()
 #plt.scatter(results["variation"],results["max_comm_avg"])
 
+"""
 if __name__ == "__main__":
     import sys
-    comu_size_run(float(sys.argv[1]))
+    if len(sys.argv) == 2: 
+        comu_size_run(float(sys.argv[1]))
+"""
 #command to run on the server
 # nohup python3 Holme.py > run3phi0.495.log &
