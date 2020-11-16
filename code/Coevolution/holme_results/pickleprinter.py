@@ -5,5 +5,5 @@ def pickleprinter(filename):
                 x=pickle.load(f)
     print(x)
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     pickleprinter(sys.argv[1])
