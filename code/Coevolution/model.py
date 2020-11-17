@@ -233,7 +233,7 @@ def connect_weighted_balance_angle(x,y, deg=np.pi/3):
 
 ##d_max = sqrt(4*d)
 def connect_weighted_balance_dist(x,y, d=0.5):
-    return np.linalg.norm(x-y, axis=1) <= d
+    return np.linalg.norm(x-y, axis=1) < d
 
         
 class weighted_balance_general(coevolution_model_general):
@@ -242,7 +242,7 @@ class weighted_balance_general(coevolution_model_general):
         super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=phi,d=d,
                          update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
                          connect = lambda x,y: connect_weighted_balance_dist(x, y, dist),
-                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<=z*d*n_vertices*(1-phi)),
+                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)< z*d*n_vertices),
                          systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
 
 def update_weighted_balance_bot(x,y,f,alpha,noise):
