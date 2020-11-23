@@ -254,7 +254,7 @@ def update_weighted_balance_bot(x,y,f,alpha,noise):
         return np.append(np.clip(x[:-1]+alpha*(b-x[:-1])+noise[:-1],-1,1),x[-1])
 
 class weighted_balance_bots(coevolution_model_general):
-    def __init__(self, n_vertices=100, d=3, z=0.01, f=lambda x: x, alpha=0.5,   n_edges=None,initial_graph=None,
+    def __init__(self, n_vertices=100, d=3, z=0.01, f=lambda x: x, alpha=0.5, n_edges=None,initial_graph=None,
                  neutral_bots=False,both_sides=False,bot_positions=None, n_bots=10):
         #n_bots determines the amount of bots deployed (per side)
         #both sides determines whether there are bots for both extreme opinions. This effectively double n_bots.
@@ -274,28 +274,30 @@ class weighted_balance_bots(coevolution_model_general):
         assert not (both_sides and bot_positions!= None) #Positioning bots based on vertex degree only implemented for neutral/one sided bots
         assert bot_positions in [None,"top","bottom"] #bot_positions must be None,"top" or "bottom"
 
-        if bot_positions is None:
-            bot_indices = np.array([True for i in range(n_bots)]+[False for i in range(n_vertices-n_bots)])
+        if bot_positions is None or n_bots==0:
+            if both_sides:
+                self.bot_indices = np.array([True for i in range(n_bots)] + [False for i in range(n_vertices - 2*n_bots)]+[True for i in range(n_bots)])
+            else:
+                self.bot_indices = np.array([True for i in range(n_bots)]+[False for i in range(n_vertices-n_bots)])
         elif bot_positions == "top":
-            bot_indices = np.zeros(n_vertices,dtype=np.bool)
+            self.bot_indices = np.zeros(n_vertices,dtype=np.bool)
             bot_nodes = sorted(self.graph.degree(), key=lambda x: x[1])[-n_bots:]
             for node,degree in bot_nodes:
-                bot_indices[node] = True
+                self.bot_indices[node] = True
         else:
-            bot_indices = np.zeros(n_vertices, dtype=np.bool)
+            self.bot_indices = np.zeros(n_vertices, dtype=np.bool)
             bot_nodes = sorted(self.graph.degree(), key=lambda x: x[1])[:n_bots]
             for node,degree in bot_nodes:
-                bot_indices[node] = True
+                self.bot_indices[node] = True
 
-        self.vertices[bot_indices] = 1
+        self.vertices[self.bot_indices] = 1
         if neutral_bots and n_bots >0:
             for i in range(n_vertices):
-                if bot_indices[i]:
+                if self.bot_indices[i]:
                     self.vertices[i,:-1] = 0
         if both_sides and n_bots>0:
             assert 2*n_bots<n_vertices
             self.vertices[-n_bots:,:-1] = -1
-            self.vertices[-n_bots:, -1] = 1
 
         self.n_bots=n_bots
         self.n_vertices=n_vertices
