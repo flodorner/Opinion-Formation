@@ -37,10 +37,7 @@ def geo_mean(v1,v2):
 
 
 
-
-### should  A_ii always be 1???
 def recalculate_emotion(b_i, b_j, sigmoid=True, e=0.4, weights=None):
-    
     
     len_opinions = len(b_i)
     
@@ -81,14 +78,6 @@ def select_pairs(size):
 
 def add_Noise(v,sigma=0.01):
     return(np.clip(v + np.random.normal(0,sigma, size=len(v)),-1,1))
-
-
-def first_comp(m):
-    """Performas a PCA on matrix m and returns the fraction of variance explained by the first component."""
-    sm = StandardScaler().fit_transform(m)
-    pca = PCA(n_components=1)
-    principalComponents = pca.fit_transform(sm)
-    return(pca.explained_variance_ratio_[0])
 
 
 
