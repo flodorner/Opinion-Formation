@@ -32,6 +32,7 @@ class coevolution_model_general:
             #initialize random graph
             self.n_edges = n_edges
             self.graph = nx.gnm_random_graph(n_vertices, n_edges, seed=None, directed=False)
+<<<<<<< Updated upstream
             '''
             self.adjacency = np.zeros((n_vertices,n_vertices))
             #list of edges, for example [2,5] edge between node 2 and 5. j<i
@@ -40,12 +41,21 @@ class coevolution_model_general:
             #gives lower triangular matrix
             self.adjacency[edges[:,0],edges[:, 1]] = 1
             '''
+=======
+        elif initial_graph == "barabasi_albert":
+            allowed_sizes = np.cumsum(np.arange(n_vertices-1,0,-2))
+            index = np.argmin(allowed_sizes<=n_edges) #argmin takes the earliest index if there is a tie
+            assert index>0 #Number of edges needs to be at least n_vertices-1
+            self.graph = nx.barabasi_albert_graph(n_vertices,index,seed=None)
+            self.n_edges = allowed_sizes[index-1]
+            if self.n_edges != n_edges:
+                print("Amount of edges in BA-graph can only take on some specific values. Using n_edges = " + str(self.n_edges))
+>>>>>>> Stashed changes
         else:
             print("Graph initialized with provided adjacency matrix. n_edges set to " +str (np.sum(initial_graph)))
             self.adjacency = initial_graph
             self.graph = nx.from_numpy_matrix(self.adjacency)
             #self.n_edges = np.sum(initial_graph)
-
 
         self.d = d
         self.connect = connect
@@ -74,7 +84,6 @@ class coevolution_model_general:
             else:
                 self.index_buffer = (i for i in np.random.permutation(np.arange(self.n_vertices)))
             vertex = next(self.index_buffer)
-        #if np.sum((self.adjacency[vertex]+np.transpose(self.adjacency[:,vertex]))) > 0:
         if self.graph.degree(vertex) > 0: 
             if not self.phi==0:
                 draw = next(self.uniform_buffer, None)
@@ -89,60 +98,26 @@ class coevolution_model_general:
                 self.update_opinion(vertex)
         self.t += 1
 
-
     def update_opinion(self, vertex):
         neighbours = np.array(list(self.graph.neighbors(vertex)))
-        #neighbours = np.arange(self.n_vertices)[(self.adjacency[vertex] +np.transpose(self.adjacency[:,vertex])) > 0]
         noise = next(self.noise_buffer,None)
         if noise is None:
             self.noise_buffer = (i for i in self.noise_generator((self.n_vertices * self.n_vertices,self.d)))
             noise = next(self.noise_buffer)
         self.vertices[vertex] = self.update(self.vertices[vertex],self.vertices[np.random.choice(neighbours)],noise)
+    
     def update_edge(self,vertex):
         same_opinion = self.connect(self.vertices,self.vertices[vertex])
         same_opinion[vertex] = False
         if np.sum(same_opinion)>0:
             neighbours = np.array(list(self.graph.neighbors(vertex)))
-            #neighbours = np.arange(self.n_vertices)[(self.adjacency[vertex]+np.transpose(self.adjacency[:,vertex])) > 0]
             old_neighbour = np.random.choice(neighbours)
             new_neighbour = np.random.choice(np.arange(self.n_vertices)[same_opinion])
             self.graph.add_edge(vertex, new_neighbour)
             if self.graph.number_of_edges() > self.n_edges:
                 self.graph.remove_edge(vertex, old_neighbour)
-            
-            '''
-            if new_neighbour>vertex:
-                self.adjacency[new_neighbour,vertex] = 1
-            else:
-                self.adjacency[vertex, new_neighbour] = 1
-            if np.sum(self.adjacency)>self.n_edges:
-                if old_neighbour > vertex:
-                    self.adjacency[old_neighbour, vertex] = 0
-                else:
-                    self.adjacency[vertex, old_neighbour] = 0
-            '''
-
 
     def connected_components(self):
-        '''
-        A =  np.matrix(self.adjacency+np.transpose(self.adjacency)+np.eye(self.n_vertices))>0
-        B = np.zeros((self.n_vertices,self.n_vertices))
-        while np.any(A != B):
-            B = A.copy()
-            A = A*A
-        A = np.array(A)
-        components = []
-        connected_nodes = []
-        for i in range(self.n_vertices):
-            if len(connected_nodes)==self.n_vertices:
-                break
-            elif i in connected_nodes:
-                continue
-            else:
-                components.append([j for j in range(self.n_vertices) if A[i][j]>0])
-                connected_nodes += components[-1]
-        return components
-        '''
         return list(nx.connected_components(self.graph))
 
     def convergence(self):
@@ -150,20 +125,10 @@ class coevolution_model_general:
 
     def draw_graph(self, path):
         """draws output and saves it, needs NetworkX graph self.graph"""
-        drawing = self.graph
-        pos=nx.spring_layout(drawing)
-        plt.figure(figsize=(10,10))
-        nx.draw(drawing,pos,node_size=20,alpha=0.5,node_color="blue", with_labels=False)
-        #nx.draw_networkx_labels(drawing,pos,font_size=20,font_family='sans-serif')
-        #labels = nx.get_edge_attributes(graph,'weight')
-        #nx.draw_networkx_edge_labels(graph,pos,edge_labels=labels)
-        plt.axis('equal')
-        plt.savefig(path)
-        plt.close()
         for i in range(self.d):
             res = {idx : self.vertices[idx][i] for idx in range(len(self.vertices))}
             nx.set_node_attributes(self.graph, res, 'opinions'+str(i))
-        nx.write_gexf(drawing, path+"Ggexf.gexf")
+        nx.write_gexf(self.graph, path+ str(self.t)+".gexf")
 
 
 
@@ -213,6 +178,31 @@ class weighted_balance(coevolution_model_general):
                          connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*n_vertices)
                          ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
+<<<<<<< Updated upstream
+=======
+        
+def connect_weighted_balance(x,y):
+    ### if angle between two agents' opinion vectors is less than 90 deg --> connect vertices
+    return np.dot(x,y)>0
+
+def connect_weighted_balance_angle(x,y, deg=np.pi/3):
+    ### if angle between two agents' opinion vectors is less than deg --> connect vertices
+    return np.arccos(np.dot(x,y)/(np.linalg.norm(x)*np.linalg.norm(y)))< deg
+
+##d_max = sqrt(4*d)
+def connect_weighted_balance_dist(x,y, d=0.5):
+    return np.linalg.norm(x-y, axis=1) < d
+
+        
+class weighted_balance_general(coevolution_model_general):
+    def __init__(self, n_vertices=100,n_edges=120, d=5,z=0.01,phi=0.6, f=lambda x:np.sign(x)*abs(x)**(1-0.4),alpha=0.4, dist=0):
+        # dist is the maximal l2 distance of opinions for nodes to be able to connect (connected_weighted_balance_dist)
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=phi,d=d,
+                         update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
+                         connect = lambda x,y: connect_weighted_balance_dist(x, y, dist),
+                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)< z*d*n_vertices),
+                         systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
+>>>>>>> Stashed changes
 
 def update_weighted_balance_bot(x,y,f,alpha,noise):
     if x[-1] == 1:
