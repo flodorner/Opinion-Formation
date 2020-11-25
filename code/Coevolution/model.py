@@ -32,16 +32,6 @@ class coevolution_model_general:
             #initialize random graph
             self.n_edges = n_edges
             self.graph = nx.gnm_random_graph(n_vertices, n_edges, seed=None, directed=False)
-<<<<<<< Updated upstream
-            '''
-            self.adjacency = np.zeros((n_vertices,n_vertices))
-            #list of edges, for example [2,5] edge between node 2 and 5. j<i
-            edges =  [[i,j] for i in range(1, n_vertices) for j in range(i)]
-            edges = np.array(random.sample(edges,k=n_edges))
-            #gives lower triangular matrix
-            self.adjacency[edges[:,0],edges[:, 1]] = 1
-            '''
-=======
         elif initial_graph == "barabasi_albert":
             allowed_sizes = np.cumsum(np.arange(n_vertices-1,0,-2))
             index = np.argmin(allowed_sizes<=n_edges) #argmin takes the earliest index if there is a tie
@@ -50,8 +40,8 @@ class coevolution_model_general:
             self.n_edges = allowed_sizes[index-1]
             if self.n_edges != n_edges:
                 print("Amount of edges in BA-graph can only take on some specific values. Using n_edges = " + str(self.n_edges))
->>>>>>> Stashed changes
         else:
+            assert type(initial_graph) != str #Make sure typos in graph generation don't cause problems.
             print("Graph initialized with provided adjacency matrix. n_edges set to " +str (np.sum(initial_graph)))
             self.adjacency = initial_graph
             self.graph = nx.from_numpy_matrix(self.adjacency)
@@ -178,8 +168,6 @@ class weighted_balance(coevolution_model_general):
                          connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*n_vertices)
                          ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
-<<<<<<< Updated upstream
-=======
         
 def connect_weighted_balance(x,y):
     ### if angle between two agents' opinion vectors is less than 90 deg --> connect vertices
@@ -187,7 +175,9 @@ def connect_weighted_balance(x,y):
 
 def connect_weighted_balance_angle(x,y, deg=np.pi/3):
     ### if angle between two agents' opinion vectors is less than deg --> connect vertices
+
     return np.arccos(np.dot(x,y)/(np.linalg.norm(x)*np.linalg.norm(y)))< deg
+
 
 ##d_max = sqrt(4*d)
 def connect_weighted_balance_dist(x,y, d=0.5):
@@ -202,7 +192,6 @@ class weighted_balance_general(coevolution_model_general):
                          connect = lambda x,y: connect_weighted_balance_dist(x, y, dist),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)< z*d*n_vertices),
                          systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
->>>>>>> Stashed changes
 
 def update_weighted_balance_bot(x,y,f,alpha,noise):
     if x[-1] == 1:
@@ -213,23 +202,51 @@ def update_weighted_balance_bot(x,y,f,alpha,noise):
         return np.append(np.clip(x[:-1]+alpha*(b-x[:-1])+noise[:-1],-1,1),x[-1])
 
 class weighted_balance_bots(coevolution_model_general):
-    def __init__(self, n_vertices=100, d=3, z=0.01, f=lambda x: x, alpha=0.5, n_bots=10, both_sides=False,
-                 neutral_bots=False, n_edges=None):
+    def __init__(self, n_vertices=100, d=3, z=0.01, f=lambda x: x, alpha=0.5, n_edges=None,initial_graph=None,
+                 neutral_bots=False,both_sides=False,bot_positions=None, n_bots=10):
+        #n_bots determines the amount of bots deployed (per side)
+        #both sides determines whether there are bots for both extreme opinions. This effectively double n_bots.
+        #neutral bots determines wheter the bots will have a neutral opinion (constant 0). This cannot be set to True at the same time as both_sides.
+        #bot_positions determines which nodes become bots. When it is set to None, the first n_bots nodes become bots,
+        # which leads to essentially random placement for randomly generated graphs. If it is "top", the nodes with the highest degree become bots.
+        #If it is bottom, the nodes with the lowest degree become bots.
+        #When both sides is True, bots are always positioned at the beginning for one and the end for the other side.
         if n_edges is None:
             n_edges = int(n_vertices * (n_vertices - 1) / 2)
         super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=0,d=d+1,
                          update = lambda x,y,noise: update_weighted_balance_bot(x,y,f,alpha,noise),
                          connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*(n_vertices-(n_bots)-n_bots*both_sides))
-                         ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size))
-        self.vertices[:n_bots]=1
-        assert not (both_sides and neutral_bots)
+                         ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size),initial_graph=initial_graph)
+        assert not (both_sides and neutral_bots) #we can either have bots on both extremes or neutral bots
+        assert not (both_sides and bot_positions!= None) #Positioning bots based on vertex degree only implemented for neutral/one sided bots
+        assert bot_positions in [None,"top","bottom"] #bot_positions must be None,"top" or "bottom"
+
+        if bot_positions is None or n_bots==0:
+            if both_sides:
+                self.bot_indices = np.array([True for i in range(n_bots)] + [False for i in range(n_vertices - 2*n_bots)]+[True for i in range(n_bots)])
+            else:
+                self.bot_indices = np.array([True for i in range(n_bots)]+[False for i in range(n_vertices-n_bots)])
+        elif bot_positions == "top":
+            self.bot_indices = np.zeros(n_vertices,dtype=np.bool)
+            bot_nodes = sorted(self.graph.degree(), key=lambda x: x[1])[-n_bots:]
+            for node,degree in bot_nodes:
+                self.bot_indices[node] = True
+        else:
+            self.bot_indices = np.zeros(n_vertices, dtype=np.bool)
+            bot_nodes = sorted(self.graph.degree(), key=lambda x: x[1])[:n_bots]
+            for node,degree in bot_nodes:
+                self.bot_indices[node] = True
+
+        self.vertices[self.bot_indices] = 1
         if neutral_bots and n_bots >0:
-            self.vertices[:n_bots,:-1] = 0
+            for i in range(n_vertices):
+                if self.bot_indices[i]:
+                    self.vertices[i,:-1] = 0
         if both_sides and n_bots>0:
             assert 2*n_bots<n_vertices
             self.vertices[-n_bots:,:-1] = -1
-            self.vertices[-n_bots:, -1] = 1
+
         self.n_bots=n_bots
         self.n_vertices=n_vertices
         self.both_sides=both_sides
@@ -240,3 +257,4 @@ def H(O,d):
         for j in range(i):
             s += np.linalg.norm(O[i]-O[j],ord=2)**2
     return (1/(4*d))*(4/len(O)**2)*s
+
