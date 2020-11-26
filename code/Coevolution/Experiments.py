@@ -46,7 +46,7 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_li
             results[key].append(subresults[key])
         
     results["variation"] = variying_kwarg
-    A.draw_graph(path = image_folder+"graph")
+    # A.draw_graph(path = image_folder+"graph")
     return results
 
 def median_plus_percentile_plot(x,y,color="orange",percentiles=[10]):
@@ -138,8 +138,10 @@ def experiment_WB25():
     plt.close()
 
 
-def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20):
-    name = "bots"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))
+def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20,t_lim=None):
+    name = "bots"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))+(t_lim!=None)*("_tlim_"+str(t_lim))
+    if t_lim == None:
+        t_lim = 99999
     colors = [(1, 0, 0), (0.5, 0, 0.5), (0, 0, 1)]
     if not recover:
         metrics = {
@@ -155,15 +157,15 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
         output_1 = experiment_loop(
             {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: np.sign(x)*np.abs(x)**(0.5),"n_edges":edges,
              "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
-            model_type="Weighted Balance Bots",verbose=True)
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
         output_2 = experiment_loop(
             {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"n_edges":edges,
              "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
-            model_type="Weighted Balance Bots", verbose=True)
+            model_type="Weighted Balance Bots", verbose=True,t_lim=t_lim)
         output_3 = experiment_loop(
             {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"n_edges":edges,
              "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
-            model_type="Weighted Balance Bots", verbose=True)
+            model_type="Weighted Balance Bots", verbose=True,t_lim=t_lim)
         with open(name, "wb") as fp:
             pickle.dump([output_1, output_2, output_3],fp)
     else:
@@ -175,7 +177,7 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     median_plus_percentile_plot(output_2["variation"][1], output_2["time_to_convergence"],color=colors[1])
     median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
 
-    plt.ylim(0,101001)
+    plt.ylim(0,t_lim*101001/99999)
     plt.yticks(ticks=[0,20000,40000,60000,80000,100000],labels=["0","2e4","4e4","6e4","8e4","1e5"],fontsize=fontsize-4)
     plt.xticks(fontsize=fontsize-4)
     plt.xlabel("Number of bots" +both_sides*" per side",fontsize=fontsize)
@@ -207,4 +209,288 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     plt.legend(["0.5",  "0",  "-1"], title="Value of e",fontsize=fontsize,title_fontsize=fontsize)
     plt.savefig(image_folder+"H_"+name)
     plt.close()
+
+def bot_plots_altf(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20,t_lim=None):
+    name = "bots_altf"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))+(t_lim!=None)*("_tlim_"+str(t_lim))
+    if t_lim == None:
+        t_lim = 99999
+    colors = [(1, 0, 0), (0,1,1),(1,1,0),(0,0,1)]
+    if not recover:
+        metrics = {
+            "time_to_convergence": lambda x: x.t,
+            "maximal absolute opinion": lambda x:
+            np.max(np.abs(np.mean(x.vertices[x.n_bots:-x.n_bots,:-1],axis=0))) if (x.both_sides and x.n_bots>0) else np.max(np.abs(np.mean(x.vertices[x.n_bots:,:-1],axis=0))),
+            "H": lambda x: H(x.vertices[x.n_bots:-x.n_bots,:-1],x.d-1) if (x.both_sides and x.n_bots>0) else H(x.vertices[x.n_bots:,:-1],x.d-1)
+        }
+        if not both_sides:
+            loop = ("n_bots", [0,2,6,10,20,30,40,50,100,150,200,250])
+        else:
+            loop = ("n_bots", [0, 1, 3, 5, 10, 15, 20, 25, 50, 75, 100, 125])
+        output_1 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: x+0.1,"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+        output_2 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: x-0.1,"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+        output_3 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: max(0,x),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+        output_4 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: min(0,x),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+
+
+
+        with open(name, "wb") as fp:
+            pickle.dump([output_1, output_2, output_3,output_4],fp)
+    else:
+        with open(name, "rb") as fp:
+            output_1,output_2,output_3,output_4 = pickle.load(fp)
+
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["time_to_convergence"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["time_to_convergence"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
+    median_plus_percentile_plot(output_4["variation"][1], output_4["time_to_convergence"], color=colors[3])
+
+    plt.ylim(0,t_lim*101001/99999)
+    plt.yticks(ticks=[0,20000,40000,60000,80000,100000],labels=["0","2e4","4e4","6e4","8e4","1e5"],fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots" +both_sides*" per side",fontsize=fontsize)
+    plt.ylabel("Steps until convergence",fontsize=fontsize)
+    plt.legend(["x+0.1","x-0.1","max(x,0)","min(x,0)"],title="f(x)",fontsize=fontsize-4,title_fontsize=fontsize-4)
+    plt.savefig(image_folder+"t_conv_"+name)
+    plt.close()
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["maximal absolute opinion"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["maximal absolute opinion"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["maximal absolute opinion"],color=colors[2])
+    median_plus_percentile_plot(output_4["variation"][1], output_4["maximal absolute opinion"], color=colors[3])
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Maximal absolute mean opinion",fontsize=fontsize)
+    plt.legend(["x+0.1","x-0.1","max(x,0)","min(x,0)"],title="f(x)",fontsize=fontsize-4,title_fontsize=fontsize-4)
+    plt.savefig(image_folder+"maxabsop_"+name)
+    plt.close()
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["H"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["H"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["H"],color=colors[2])
+    median_plus_percentile_plot(output_4["variation"][1], output_4["H"], color=colors[3])
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Hyperpolarization H(O)",fontsize=fontsize)
+    plt.legend(["x+0.1","x-0.1","max(x,0)","min(x,0)"],title="f(x)",fontsize=fontsize-4,title_fontsize=fontsize-4)
+    plt.savefig(image_folder+"H_"+name)
+    plt.close()
+
+def bot_plots_ba(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20,bot_positions = None,t_lim=None):
+    name = "bots_ba_"+(bot_positions!=None)*str(bot_positions)+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))+(t_lim!=None)*("_tlim_"+str(t_lim))
+    if t_lim == None:
+        t_lim = 99999
+    colors = [(1, 0, 0), (0.5, 0, 0.5), (0, 0, 1)]
+    if not recover:
+        metrics = {
+            "time_to_convergence": lambda x: x.t,
+            "maximal absolute opinion": lambda x:
+            np.max(np.abs(np.mean(x.vertices[np.logical_not(x.bot_indices)][:,:-1],axis=0))),
+            "H": lambda x: H(x.vertices[np.logical_not(x.bot_indices)][:,:-1],x.d-1)
+        }
+        if not both_sides:
+            loop = ("n_bots", [0,2,6,10,20,30,40,50,100,150,200,250])
+        else:
+            loop = ("n_bots", [0, 1, 3, 5, 10, 15, 20, 25, 50, 75, 100, 125])
+        output_1 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: np.sign(x)*np.abs(x)**(0.5),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots,"initial_graph":"barabasi_albert","bot_positions":bot_positions}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+        output_2 = experiment_loop(
+            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots,"initial_graph":"barabasi_albert","bot_positions":bot_positions}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots", verbose=True,t_lim=t_lim)
+        output_3 = experiment_loop(
+            {"n_vertices": 500, "d": 3, "alpha": 0.4, "f": lambda x: np.sign(x) * np.abs(x) ** (2),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots,"initial_graph":"barabasi_albert","bot_positions":bot_positions}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots", verbose=True,t_lim=t_lim)
+        with open(name, "wb") as fp:
+            pickle.dump([output_1, output_2, output_3],fp)
+    else:
+        with open(name, "rb") as fp:
+            output_1,output_2,output_3 = pickle.load(fp)
+
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["time_to_convergence"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["time_to_convergence"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
+
+    plt.ylim(0,t_lim*101001/99999)
+    plt.yticks(ticks=[0,20000,40000,60000,80000,100000],labels=["0","2e4","4e4","6e4","8e4","1e5"],fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots" +both_sides*" per side",fontsize=fontsize)
+    plt.ylabel("Steps until convergence",fontsize=fontsize)
+    plt.legend(["0.5","0","-1"],title="Value of e",fontsize=fontsize,title_fontsize=fontsize)
+    plt.savefig(image_folder+"t_conv_"+name)
+    plt.close()
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["maximal absolute opinion"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["maximal absolute opinion"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["maximal absolute opinion"],color=colors[2])
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Maximal absolute mean opinion",fontsize=fontsize)
+    plt.legend(["0.5", "0",  "-1"], title="Value of e",fontsize=fontsize,title_fontsize=fontsize)
+    plt.savefig(image_folder+"maxabsop_"+name)
+    plt.close()
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["H"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["H"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["H"],color=colors[2])
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Hyperpolarization H(O)",fontsize=fontsize)
+    plt.legend(["0.5",  "0",  "-1"], title="Value of e",fontsize=fontsize,title_fontsize=fontsize)
+    plt.savefig(image_folder+"H_"+name)
+    plt.close()
+
+def bot_plots_altf_ba(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20,t_lim=None,bot_positions = None):
+    name = "bots_altf_ba_"+(bot_positions!=None)*str(bot_positions)+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))+(t_lim!=None)*("_tlim_"+str(t_lim))
+    if t_lim == None:
+        t_lim = 99999
+    colors = [(1, 0, 0), (0,1,1),(1,1,0),(0,0,1)]
+    if not recover:
+        metrics = {
+            "time_to_convergence": lambda x: x.t,
+            "maximal absolute opinion": lambda x:
+            np.max(np.abs(np.mean(x.vertices[x.n_bots:-x.n_bots,:-1],axis=0))) if (x.both_sides and x.n_bots>0) else np.max(np.abs(np.mean(x.vertices[x.n_bots:,:-1],axis=0))),
+            "H": lambda x: H(x.vertices[x.n_bots:-x.n_bots,:-1],x.d-1) if (x.both_sides and x.n_bots>0) else H(x.vertices[x.n_bots:,:-1],x.d-1)
+        }
+        if not both_sides:
+            loop = ("n_bots", [0,2,6,10,20,30,40,50,100,150,200,250])
+        else:
+            loop = ("n_bots", [0, 1, 3, 5, 10, 15, 20, 25, 50, 75, 100, 125])
+        output_1 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: x+0.1,"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots,"initial_graph":"barabasi_albert","bot_positions":bot_positions}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+        output_2 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: x-0.1,"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots,"initial_graph":"barabasi_albert","bot_positions":bot_positions}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+        output_3 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: max(0,x),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots,"initial_graph":"barabasi_albert","bot_positions":bot_positions}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+        output_4 = experiment_loop(
+            {"n_vertices":500,"d": 3, "alpha": 0.4,"f":lambda x: min(0,x),"n_edges":edges,
+             "both_sides":both_sides,"neutral_bots":neutral_bots,"initial_graph":"barabasi_albert","bot_positions":bot_positions}, loop, metrics, n=10,
+            model_type="Weighted Balance Bots",verbose=True,t_lim=t_lim)
+
+
+
+        with open(name, "wb") as fp:
+            pickle.dump([output_1, output_2, output_3,output_4],fp)
+    else:
+        with open(name, "rb") as fp:
+            output_1,output_2,output_3,output_4 = pickle.load(fp)
+
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["time_to_convergence"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["time_to_convergence"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["time_to_convergence"],color=colors[2])
+    median_plus_percentile_plot(output_4["variation"][1], output_4["time_to_convergence"], color=colors[3])
+
+    plt.ylim(0,t_lim*101001/99999)
+    plt.yticks(ticks=[0,20000,40000,60000,80000,100000],labels=["0","2e4","4e4","6e4","8e4","1e5"],fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots" +both_sides*" per side",fontsize=fontsize)
+    plt.ylabel("Steps until convergence",fontsize=fontsize)
+    plt.legend(["x+0.1","x-0.1","max(x,0)","min(x,0)"],title="f(x)",fontsize=fontsize-4,title_fontsize=fontsize-4)
+    plt.savefig(image_folder+"t_conv_"+name)
+    plt.close()
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["maximal absolute opinion"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["maximal absolute opinion"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["maximal absolute opinion"],color=colors[2])
+    median_plus_percentile_plot(output_4["variation"][1], output_4["maximal absolute opinion"], color=colors[3])
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Maximal absolute mean opinion",fontsize=fontsize)
+    plt.legend(["x+0.1","x-0.1","max(x,0)","min(x,0)"],title="f(x)",fontsize=fontsize-4,title_fontsize=fontsize-4)
+    plt.savefig(image_folder+"maxabsop_"+name)
+    plt.close()
+
+    median_plus_percentile_plot(output_1["variation"][1], output_1["H"],color=colors[0])
+    median_plus_percentile_plot(output_2["variation"][1], output_2["H"],color=colors[1])
+    median_plus_percentile_plot(output_3["variation"][1], output_3["H"],color=colors[2])
+    median_plus_percentile_plot(output_4["variation"][1], output_4["H"], color=colors[3])
+    plt.ylim(-0.01,1.01)
+    plt.yticks(fontsize=fontsize-4)
+    plt.xticks(fontsize=fontsize-4)
+    plt.xlabel("Number of bots",fontsize=fontsize)
+    plt.ylabel("Hyperpolarization H(O)",fontsize=fontsize)
+    plt.legend(["x+0.1","x-0.1","max(x,0)","min(x,0)"],title="f(x)",fontsize=fontsize-4,title_fontsize=fontsize-4)
+    plt.savefig(image_folder+"H_"+name)
+    plt.close()
+
+#Next: generalize Fabi's connector to work with bots
+#Make corresponding experiment
+#Run for Random init, BA, top and bottom
+
+
+def plot_99():
+    bot_plots(fontsize=18)
+    bot_plots(fontsize=18,both_sides=True)
+    bot_plots(edges=499,fontsize=18)
+    bot_plots_ba(edges=499,fontsize=18)
+    bot_plots_ba(edges=499,fontsize=18,bot_positions="top")
+    bot_plots_ba(edges=499,fontsize=18,bot_positions="bottom")
+def plot_99_neutral():
+    bot_plots(fontsize=18,neutral_bots=True)
+    bot_plots_ba(edges=499,fontsize=18,neutral_bots=True)
+    bot_plots_ba(edges=499,fontsize=18,bot_positions="top",neutral_bots=True)
+    bot_plots_ba(edges=499,fontsize=18,bot_positions="bottom",neutral_bots=True)
+
+def plot_249():
+    bot_plots(fontsize=18,t_lim=249999)
+    bot_plots(fontsize=18,t_lim=249999,both_sides=True)
+    bot_plots(edges=499,fontsize=18,t_lim=249999)
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999)
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="top")
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="bottom")
+
+def plot_249_neutral():
+    bot_plots(fontsize=18,t_lim=249999,neutral_bots=True)
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,neutral_bots=True)
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="top",neutral_bots=True)
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="bottom",neutral_bots=True)
+
+def plot_altf_99():
+    bot_plots_altf(fontsize=18,)
+    bot_plots_altf_ba(edges=499,fontsize=18)
+    bot_plots_altf_ba(edges=499,bot_positions="top",fontsize=18)
+    bot_plots_altf_ba(edges=499,bot_positions="bottom",fontsize=18)
+
+def plot_altf_249():
+    bot_plots_altf(t_lim=249999,fontsize=18)
+    bot_plots_altf_ba(edges=499,t_lim=249999)
+    bot_plots_altf_ba(edges=499,bot_positions="top",t_lim=249999,fontsize=18)
+    bot_plots_altf_ba(edges=499,bot_positions="bottom",t_lim=249999,fontsize=18)
+
+
+
+
 
