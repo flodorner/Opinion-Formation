@@ -36,3 +36,5 @@ Fabi, Gianluca: Implement Hyperpolarization (Schweighofer et al. 2020), verify F
 Latex Overleaf: <https://www.overleaf.com/4515888526qpdscqqcntfp>
 
 Course: <https://coss.ethz.ch/education/agentBased.html>
+
+Presentation: <https://docs.google.com/presentation/d/1JXdsOjVegOQhsqzp2kDN9OAYekpMmutTT_3KjIAt-0s/edit#slide=id.p>
