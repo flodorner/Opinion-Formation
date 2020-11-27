@@ -1,5 +1,5 @@
 # Agent-Based Modeling and Social System Simulation 2020
-(text between brackets to be removed)
+
 
 > * Group Name: The Opinioneers
 > * Group participants names: Michael Andres, Florian Dorner, Gian Luca Gehwolf, Fabian Hafner, David Metzger
