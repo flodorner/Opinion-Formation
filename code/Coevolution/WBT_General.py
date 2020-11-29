@@ -71,11 +71,12 @@ def dynamics_plot():
         
     res.plot()
 def dynamics_graph():
-    m= weighted_balance_general(d=2,n_vertices = 25,
-                                n_edges=50, phi=0.45,alpha=0.3,dist=0.3)
+    m= weighted_balance_general(d=2,n_vertices = 2,
+                                n_edges=1, phi=0.52,alpha=0.3,dist=0.2 ) #f=lambda x:x
     k=1
     ts=0
-    while m.convergence() == False:
+    #while m.convergence() == False:
+    while ts<20:
         res.add_op_mat(m)
         
         
@@ -92,21 +93,40 @@ def dynamics_graph():
         
         plt.savefig('general graph {:03d}.jpg'.format(ts))
         plt.close()
-
-        for j in range(30):
+        # how many steps/rounds per image
+        for j in range(2):
             ts=ts+1
-            for i in range(25):
+            for i in range(n_vertices):
                 
                 m.step()
         
         k=k+1
         print(k)
+dynamics_graph()  
+"""        
+def multidim():
+    m= weighted_balance_general(d=3,n_vertices = 400,
+                        n_edges=800, phi=0.45,alpha=0.3,dist=0.3)
+    k=1
+    while m.convergence() == False:
         
+        for j in range(50):
+            
+            for i in range(250):
+                m.step()
+        print(k)
+
+        k=k+1
+    v=m.vertices
+    
         
-        
+    print(np.mean(np.abs(m.vertices)))
+    pass
+    return
+    
+"""
 
 
-dynamics_plot()
 def npmap2d(fun, xs, ys, n_edges=500): 
 # call fun for each point on grid (xs,ys)
 # return Meshgrids YXZ
