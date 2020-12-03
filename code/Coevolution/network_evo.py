@@ -12,7 +12,7 @@ With 'bot_selection' there can be different amounts of bots for the WB Bot model
 
 With 'detailed' set to true also the intermediate graphs are saved, otherwise only the converged
 '''
-model_input = "Weighted Balance"
+model_input = "Weighted Balance General"
 bot_selection = [0,50,75,125,175,200,250]
 detailed = True
 
@@ -37,12 +37,13 @@ def experiment_loop(model_type=None,t_lim=99999, num_bots = 0, detailed_evo = Fa
         kw={"n_vertices":50, "d":3}
         A = weighted_balance(**kw)
     elif model_type == "Weighted Balance General":
-        kw={"n_vertices":25, "n_edges":25}
+        kw={"n_vertices":25, "n_edges":25, "d":3, "dist":1}
         A = weighted_balance_general(**kw)
     elif model_type == "Weighted Balance Bots":
         A = weighted_balance_bots(n_vertices=500, d=3, alpha=0.4, n_edges=499,initial_graph="barabasi_albert",bot_positions="top",f=lambda x:min(x,0) ,n_bots = num_bots)
     else:
-        print("Nino is the best")
+        print("Nino is the best \n")
+        print("Possible values for model_type are: 'Holme', 'Weighted Balance', 'Weighted Balance General', 'Weighted Balance Bot'")
         return
         #print("using general mode")
         #kw = {"n_vertices":25, "n_edges":25, "n_opinions": 0, "d": 3, "phi": 0.5, }
