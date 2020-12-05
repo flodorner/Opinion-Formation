@@ -9,7 +9,16 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
 
+''' 
+Needs some commenting of the code, otherwise its hard to understand
+'''
 
+
+#####################################################################
+
+# Model specfic functions:
+
+# N is the number of agents?
 def create_emotion_mat(N):
     A= np.random.rand(N,N)
     
@@ -17,9 +26,9 @@ def create_emotion_mat(N):
     
     return A
 
-def create_opinion_mat(N,S):
+# S is the number of opinion dimensions?
+def create_opinion_mat(N,S): 
     return np.random.uniform(low=-1,high=1,size=(N,S))
-
 
 def signed_geo_mean(a,b):
     return(np.sign(a)*np.sign(b)*((abs(a)*abs(b))**(1./2.)))
@@ -36,7 +45,8 @@ def geo_mean(v1,v2):
     return gmean([np.linalg.norm(v1)*np.linalg.norm(v2)])
 
 
-
+# calculate interpersonal Attitude using the sigmoidal function
+# b_i and b_j are the opinions of the agents
 def recalculate_emotion(b_i, b_j, sigmoid=True, e=0.4, weights=None):
     
     len_opinions = len(b_i)
@@ -80,7 +90,7 @@ def add_Noise(v,sigma=0.01):
     return(np.clip(v + np.random.normal(0,sigma, size=len(v)),-1,1))
 
 
-
+# Define Hyperpolarization measure H
 def H(O):
     N=O.shape[0]
     D=O.shape[1]
@@ -110,8 +120,12 @@ def C(O):
     # Back-transform to pearson correlation:
     return(np.tanh(cmean))
 
+#########################################################
 
-
+# run model:
+# S = Number of opinion dimensions
+# N = Number of agents
+# e = evaluate extremness
 
 def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
     A = create_emotion_mat(N=N)
@@ -160,7 +174,9 @@ def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
         
     return(O,A,len(pol_list),pol_list)
 
+##################################################
 
+# delete? 
 def update_model(A, O, e=0.4, sigma=0.01):
     
     N = A.shape[0]
@@ -192,7 +208,9 @@ def update_model(A, O, e=0.4, sigma=0.01):
     
     
     
+################################################################
 
+# Plots:
 
 
 def scatter3d_plot(opinion_mat,save_f=True,loc='Scatter_3D.pdf'):
