@@ -5,7 +5,7 @@ from collections import deque
 from matplotlib import pyplot as plt
 
 class coevolution_model_general:
-    def __init__(self, n_vertices, n_edges, n_opinions, phi, d, connect,update,convergence_criterion,systematic_update,noise_generator,initial_graph=None):
+    def __init__(self, n_vertices, n_edges, n_opinions, phi, d, connect,update,convergence_criterion,systematic_update,noise_generator,initial_graph=None,initial_opinion_range=None):
         # n_vertices controls the graph size, n_edges the amount of edges in the graph.
         # n_opinions specifies the amount of opinions per dimension. If it is set to 0, opinions are continuous
         # phi is the probability of updating an opinion rather than the graph. d is the amount of opinion dimensions.
@@ -22,9 +22,13 @@ class coevolution_model_general:
         # Initial graph is an optional parameter that specifies the initial adjacency matrix
         # (in lower triangular form with empty diagonal) If it is provided, n_edges is overwritten by the amount
         # of edges specified in the matrix.
+        assert initial_opinion_range == None or n_opinions==0
+
         if n_opinions == 0:
+            if initial_opinion_range == None:
+                initial_opinion_range =  [-1,1]
             #print("n_opinions set to 0. Using continuous opinions")
-            self.vertices = np.random.uniform(-1,1,size=(n_vertices, d))
+            self.vertices = np.random.uniform(initial_opinion_range[0],initial_opinion_range[1],size=(n_vertices, d))
         else:
             self.vertices = np.random.randint(n_opinions, size=(n_vertices,d))
 
@@ -258,7 +262,7 @@ def connect_weighted_balance_dist_bots(x,y, d=0.5):
 
 class weighted_balance_bots(coevolution_model_general):
     def __init__(self, n_vertices=100, d=3, z=0.01, f=lambda x: x, alpha=0.5, n_edges=None,initial_graph=None,
-                 neutral_bots=False,both_sides=False,bot_positions=None, n_bots=10,epsilon=0,phi=0,connect=None,seeking_bots=False):
+                 neutral_bots=False,both_sides=False,bot_positions=None, n_bots=10,epsilon=0,phi=0,connect=None,seeking_bots=False,initial_opinion_range=[-1,1]):
         #n_bots determines the amount of bots deployed (per side)
         #both sides determines whether there are bots for both extreme opinions. This effectively double n_bots.
         #neutral bots determines wheter the bots will have a neutral opinion (constant 0). This cannot be set to True at the same time as both_sides.
@@ -272,7 +276,7 @@ class weighted_balance_bots(coevolution_model_general):
                          update = lambda x,y,noise: update_weighted_balance_bot(x,y,f,alpha,noise),
                          connect = lambda x,y: connect_weighted_balance_dist_bots(x,y,epsilon),
                          convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<(1-phi)*z*d*(n_vertices-(n_bots)-n_bots*both_sides))
-                         ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size),initial_graph=initial_graph)
+                         ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size),initial_graph=initial_graph,initial_opinion_range=initial_opinion_range)
         if connect != None:
             self.connect = connect
         if seeking_bots:
