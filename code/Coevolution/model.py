@@ -4,21 +4,35 @@ import networkx as nx
 from collections import deque
 from matplotlib import pyplot as plt
 
+#########################################################################################################################################################
+''' 
+The parent class coevolation_model_general is a parent class and serves as general framework for the the different models 
+which are defined as child classes and contain the designated update and connect of the models
+
+class holme and holme2 --> Coevolution of networks and opinions model
+class weighted_balance and weighted_balance_general --> Generalized model
+class weighted_balance_bots --> Generalized model with bots 
+
+
+TO DO: remove all the code lines that are out commented
+'''
+#########################################################################################################################################################
+
 class coevolution_model_general:
     def __init__(self, n_vertices, n_edges, n_opinions, phi, d, connect,update,convergence_criterion,systematic_update,noise_generator,initial_graph=None):
         # n_vertices controls the graph size, n_edges the amount of edges in the graph.
         # n_opinions specifies the amount of opinions per dimension. If it is set to 0, opinions are continuous
-        # phi is the probability of updating an opinion rather than the graph. d is the amount of opinion dimensions.
+        # phi is the probability of updating an opinion rather than the graph. d is the amount of opinion dimensions.        
         # Connect is a function and should receive an array with the first dimension representing nodes and the second opinion dimensions
         # and another array representing the opinion dimensions of a selected node. It then returns a boolean
-        # array that indicates whether or not the selected node can become connected to respective other nodes.
+        # array that indicates whether or not the selected node can become connected to respective other nodes.        
         # Update is a function and should receive two opinion vectors for single nodes as well as a noise term
-        # and return a new opinion vector that represents the updated opinion for the first node.
+        # and return a new opinion vector that represents the updated opinion for the first node.        
         # Convergence criterion is a function of the model class and should return a boolean indicating whether or not
-        # the simulation has converged.
+        # the simulation has converged.        
         # Systematic update determines whether nodes are updated (True)
-        # or whether the updated node is sampled randomly at each step (False)
-        # Noise generator is a function that creates a vector of size n containing independent noise given n.
+        # or whether the updated node is sampled randomly at each step (False)        
+        # Noise generator is a function that creates a vector of size n containing independent noise given n.        
         # Initial graph is an optional parameter that specifies the initial adjacency matrix
         # (in lower triangular form with empty diagonal) If it is provided, n_edges is overwritten by the amount
         # of edges specified in the matrix.
@@ -55,7 +69,8 @@ class coevolution_model_general:
             self.graph = nx.from_numpy_matrix(self.adjacency)
             #self.n_edges = np.sum(initial_graph)
 
-
+        # the connect, update, convergence_criterion, and noise_generator functions 
+        # are defined in the child classes of the respective models
         self.d = d
         self.connect = connect
         self.update = update
@@ -71,7 +86,8 @@ class coevolution_model_general:
         self.vertices_old = np.copy(self.vertices)
         self.run_diffs = deque([],5)
         self.noise_generator = noise_generator
-        
+     
+    # step where the opinons or edges of the vertices are updated
     def step(self):
         if self.t>0 and self.t%self.n_vertices==0:
             self.run_diffs.append(np.sum(np.abs(self.vertices-self.vertices_old)))
@@ -179,22 +195,24 @@ class coevolution_model_general:
 
 class holme(coevolution_model_general):
     def __init__(self, n_vertices=100, n_edges=50, n_opinions=0, phi=0.5):
-        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1
-        ,connect=lambda x, y: (x == y).flatten(),update=lambda x, y, noise: y,
-        convergence_criterion=lambda x:
-        np.all([len(np.unique(x.vertices[np.array(list(c))], axis=0)) <= 1 for c in x.connected_components()])
-                         ,systematic_update=False,noise_generator = lambda size: np.zeros(size))
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1,
+                         connect=lambda x, y: (x == y).flatten(),
+                         update=lambda x, y, noise: y,
+                         convergence_criterion=lambda x:
+                         np.all([len(np.unique(x.vertices[np.array(list(c))], axis=0)) <= 1 for c in x.connected_components()]),
+                         systematic_update=False,noise_generator = lambda size: np.zeros(size))
+        
 class holme2(coevolution_model_general):
     # using parameters gamma and k of the paper
     # k=2M/N    gamma=10=n_vertices/n_opinions
     def __init__(self, n_opinions=5, phi=0.5, gamma=10, k=4):
         n_vertices=n_opinions*gamma
         n_edges=np.int(n_vertices*k/2)
-        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1
-        ,connect=lambda x, y: (x == y).flatten(),update=lambda x, y, noise: y,
-        convergence_criterion=lambda x:
-        np.all([len(np.unique(x.vertices[np.array(c)], axis=0)) <= 1 for c in x.connected_components()])
-                         ,systematic_update=True,noise_generator = lambda size: np.zeros(size))
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1,
+                         connect=lambda x, y: (x == y).flatten(),
+                         update=lambda x, y, noise: y,
+                         convergence_criterion=lambda x:np.all([len(np.unique(x.vertices[np.array(c)], axis=0)) <= 1 for c in x.connected_components()]),
+                         systematic_update=True,noise_generator = lambda size: np.zeros(size))
         #for method has_changed()
         self.vertices_previous = np.copy(self.vertices)
 
@@ -253,9 +271,12 @@ def update_weighted_balance_bot(x,y,f,alpha,noise):
         b = sgm(y[:-1],attitude)
         return np.append(np.clip(x[:-1]+alpha*(b-x[:-1])+noise[:-1],-1,1),x[-1])
 
+def connect_weighted_balance_dist_bots(x,y, d=0.5):
+    return np.linalg.norm(x[:,:-1]-y[:-1], axis=1) < d
+
 class weighted_balance_bots(coevolution_model_general):
     def __init__(self, n_vertices=100, d=3, z=0.01, f=lambda x: x, alpha=0.5, n_edges=None,initial_graph=None,
-                 neutral_bots=False,both_sides=False,bot_positions=None, n_bots=10):
+                 neutral_bots=False,both_sides=False,bot_positions=None, n_bots=10,epsilon=0,phi=0,connect=None,seeking_bots=False):
         #n_bots determines the amount of bots deployed (per side)
         #both sides determines whether there are bots for both extreme opinions. This effectively double n_bots.
         #neutral bots determines wheter the bots will have a neutral opinion (constant 0). This cannot be set to True at the same time as both_sides.
@@ -265,11 +286,18 @@ class weighted_balance_bots(coevolution_model_general):
         #When both sides is True, bots are always positioned at the beginning for one and the end for the other side.
         if n_edges is None:
             n_edges = int(n_vertices * (n_vertices - 1) / 2)
-        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=0,d=d+1,
+        super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=phi,d=d+1,
                          update = lambda x,y,noise: update_weighted_balance_bot(x,y,f,alpha,noise),
-                         connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
-                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<z*d*(n_vertices-(n_bots)-n_bots*both_sides))
+                         connect = lambda x,y: connect_weighted_balance_dist_bots(x,y,epsilon),
+                         convergence_criterion = lambda x: len(x.run_diffs)>=5 and np.all(np.array(x.run_diffs)<(1-phi)*z*d*(n_vertices-(n_bots)-n_bots*both_sides))
                          ,systematic_update=True,noise_generator=lambda size:np.random.normal(scale=z,size=size),initial_graph=initial_graph)
+        if connect != None:
+            self.connect = connect
+        if seeking_bots:
+            self.connect_old = self.connect
+            self.connect = lambda x,y: np.ones(len(x),dtype=np.bool) if y[-1]==1 else self.connect_old(x,y)
+
+
         assert not (both_sides and neutral_bots) #we can either have bots on both extremes or neutral bots
         assert not (both_sides and bot_positions!= None) #Positioning bots based on vertex degree only implemented for neutral/one sided bots
         assert bot_positions in [None,"top","bottom"] #bot_positions must be None,"top" or "bottom"
@@ -303,6 +331,7 @@ class weighted_balance_bots(coevolution_model_general):
         self.n_vertices=n_vertices
         self.both_sides=both_sides
 
+# define formula for hyperpolarization        
 def H(O,d):
     s=0
     for i in range(len(O)):
