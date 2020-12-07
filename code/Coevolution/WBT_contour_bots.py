@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from model import weighted_balance_bots
+from model import weighted_balance_bots,H
 import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -20,7 +20,7 @@ def community(x,y,edges=499,n_bots=0,seeking=False,initial_graph="barabasi_alber
         i +=1
         m.step()
 
-    return np.max([len(k) for k in m.connected_components()])
+    return H(m.vertices[m.n_bots:,:-1],m.d-1)
 
 
 def npmap2d(fun, xs, ys, edges,n_bots=0,seeking=False,initial_graph="barabasi_albert"):
@@ -41,10 +41,10 @@ X, Y, Z = npmap2d(community, d, phi, edges=499,initial_graph=None)
 fig = plt.figure(figsize=(6, 5))
 left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
 ax = fig.add_axes([left, bottom, width, height])
-cp1 = plt.contourf(X, Y, Z, cmap=plt.cm.get_cmap('viridis_r'),levels = [0,50,100,150,200,250,300,350,400,450,500])
+cp1 = plt.contourf(X, Y, Z, cmap=plt.cm.get_cmap('plasma'),levels = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])
 plt.colorbar(cp1)
 
-ax.set_title('Size of largest community', fontsize=18)
+ax.set_title('Hyperpolarization H(O)', fontsize=18)
 
 ax.set_xlabel('$\epsilon$', fontsize=18)
 ax.set_ylabel('$\phi$', fontsize=18)
@@ -53,32 +53,17 @@ plt.yticks(fontsize=16)
 
 fig.savefig(image_folder + 'contour_WBT_random.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
 
-X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=50,seeking=True)
 
-fig = plt.figure(figsize=(6, 5))
-left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
-ax = fig.add_axes([left, bottom, width, height])
-cp1 = plt.contourf(X, Y, Z, cmap=plt.cm.get_cmap('viridis_r'),levels = [0,50,100,150,200,250,300,350,400,450,500])
-plt.colorbar(cp1)
-
-ax.set_title('Size of largest community', fontsize=18)
-
-ax.set_xlabel('$\epsilon$', fontsize=18)
-ax.set_ylabel('$\phi$', fontsize=18)
-plt.xticks(fontsize=16)
-plt.yticks(fontsize=16)
-
-fig.savefig(image_folder+'contour_WBT_50bots_ba_seeking.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
 
 X,Y,Z = npmap2d(community, d, phi, edges=499)
 
 fig = plt.figure(figsize=(6,5))
 left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
 ax = fig.add_axes([left, bottom, width, height]) 
-cp1 = plt.contourf(X, Y, Z, cmap= plt.cm.get_cmap('viridis_r'),levels = [0,50,100,150,200,250,300,350,400,450,500])
+cp1 = plt.contourf(X, Y, Z, cmap= plt.cm.get_cmap('plasma'),levels = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])
 plt.colorbar(cp1)
 
-ax.set_title('Size of largest community', fontsize=18)
+ax.set_title('Hyperpolarization H(O)', fontsize=18)
 
 ax.set_xlabel('$\epsilon$',fontsize=18)
 ax.set_ylabel('$\phi$',fontsize=18)
@@ -88,16 +73,15 @@ plt.yticks(fontsize=16)
 fig.savefig(image_folder+'contour_WBT_ba.pdf',bbox_inches='tight',pad_inches=0.185, dpi=fig.dpi,transparent=True)
 
 
-
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=50)
 
 fig = plt.figure(figsize=(6, 5))
 left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
 ax = fig.add_axes([left, bottom, width, height])
-cp1 = plt.contourf(X, Y, Z, cmap=plt.cm.get_cmap('viridis_r'),levels = [0,50,100,150,200,250,300,350,400,450,500])
+cp1 = plt.contourf(X, Y, Z, cmap=plt.cm.get_cmap('plasma'),levels = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])
 plt.colorbar(cp1)
 
-ax.set_title('Size of largest community', fontsize=18)
+ax.set_title('Hyperpolarization H(O)', fontsize=18)
 
 ax.set_xlabel('$\epsilon$', fontsize=18)
 ax.set_ylabel('$\phi$', fontsize=18)
@@ -107,4 +91,54 @@ plt.yticks(fontsize=16)
 fig.savefig(image_folder+'contour_WBT_50bots_ba.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
 
 
+X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=50,seeking=True)
 
+fig = plt.figure(figsize=(6, 5))
+left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
+ax = fig.add_axes([left, bottom, width, height])
+cp1 = plt.contourf(X, Y, Z, cmap=plt.cm.get_cmap('plasma'),levels = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])
+plt.colorbar(cp1)
+
+ax.set_title('Hyperpolarization H(O)', fontsize=18)
+
+ax.set_xlabel('$\epsilon$', fontsize=18)
+ax.set_ylabel('$\phi$', fontsize=18)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+
+fig.savefig(image_folder+'contour_WBT_50bots_ba_seeking.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
+
+X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=200)
+
+fig = plt.figure(figsize=(6, 5))
+left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
+ax = fig.add_axes([left, bottom, width, height])
+cp1 = plt.contourf(X, Y, Z, cmap=plt.cm.get_cmap('plasma'),levels = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])
+plt.colorbar(cp1)
+
+ax.set_title('Hyperpolarization H(O)', fontsize=18)
+
+ax.set_xlabel('$\epsilon$', fontsize=18)
+ax.set_ylabel('$\phi$', fontsize=18)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+
+fig.savefig(image_folder+'contour_WBT_200bots_ba.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
+
+
+X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=200,seeking=True)
+
+fig = plt.figure(figsize=(6, 5))
+left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
+ax = fig.add_axes([left, bottom, width, height])
+cp1 = plt.contourf(X, Y, Z, cmap=plt.cm.get_cmap('plasma'),levels = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])
+plt.colorbar(cp1)
+
+ax.set_title('Hyperpolarization H(O)', fontsize=18)
+
+ax.set_xlabel('$\epsilon$', fontsize=18)
+ax.set_ylabel('$\phi$', fontsize=18)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+
+fig.savefig(image_folder+'contour_WBT_200bots_ba_seeking.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
