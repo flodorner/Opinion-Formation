@@ -2,10 +2,6 @@ import numpy as np
 from scipy.stats.mstats import gmean
 from random import shuffle, choice, choices
 import itertools
-
-#from sklearn.preprocessing import StandardScaler
-#from sklearn.decomposition import PCA
-
 import matplotlib.pyplot as plt
 
 
@@ -33,19 +29,6 @@ def create_opinion_mat(N,S):
 # needed for calculating interpersonal attitude and balanced opionion vector
 def signed_geo_mean(a,b):
     return(np.sign(a)*np.sign(b)*((abs(a)*abs(b))**(1./2.)))
-
-
-def weighted_euclidean(a, b, w):
-    q = a-b
-    return np.sqrt((w*q*q).sum())
-
-
-def euclidian(a,b):
-    q = a-b
-    return np.sqrt((q*q).sum())
-
-def geo_mean(v1,v2):
-    return gmean([np.linalg.norm(v1)*np.linalg.norm(v2)])
 
 
 # calculate interpersonal Attitude using the sigmoidal function
@@ -84,12 +67,6 @@ def exchange_opinion(b_i, b_j, Aij, alpha=0.4):
     return b_i + approx
 
 
-def select_pairs(size):
-    g =itertools.combinations(range(size),2)
-    alist = list(g)
-    shuffle(alist)
-    return alist
-
 def add_Noise(v,sigma=0.01):
     return(np.clip(v + np.random.normal(0,sigma, size=len(v)),-1,1))
 
@@ -105,24 +82,6 @@ def H(O):
     return (1/(4*D))*(4/N**2)*s
 
 
-def E(O):
-    N=O.shape[0]
-    D=O.shape[1]
-    return abs(O).sum()/(N*D)
-
-def C(O):
-    # Pearson correlation matrix of transposed input matrix:
-    cmat = np.corrcoef(O.T)
-    # Set the diagonal to nan:
-    np.fill_diagonal(cmat,np.NaN)
-    # Take absolute correlation values:
-    cmat = abs(cmat)
-    # Fisher Z transformation:
-    cmat = np.arctanh(cmat)
-    # Average:
-    cmean = np.nanmean(cmat)
-    # Back-transform to pearson correlation:
-    return(np.tanh(cmean))
 
 #########################################################
 
@@ -256,3 +215,112 @@ for i in range(38):
     A,O=update_model(A,O,e=0.3, sigma=0.01)
 
 scatter3d_plot(O,loc='t60.pdf')
+
+##### test parameters 
+
+e_list = list()
+for e in [0,0.2,0.4,0.8,1]:
+    model_= run_model(N=500, S=3, T=100, e=e,sigma=0.01, conv=False)
+    e_list.append(model_[3])
+
+x=range(100)
+y1=e_list[0][:-1]
+y2 = e_list[1][:-1]
+y3= e_list[2][:-1]
+y4= e_list[3][:-1]
+y5= e_list[4][:-1]
+plt.plot(x, y1,label='e=0')
+plt.plot(x,y2,label='e=0.2')
+plt.plot(x,y3,label='e=0.4')
+plt.plot(x,y4,label='e=0.8')
+plt.plot(x,y5,label='e=1')
+plt.xlabel('t',fontsize=18)
+plt.ylabel('H(O)',fontsize=18)
+plt.legend(prop={'size': 16})
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+
+plt.savefig('testing_e.pdf',bbox_inches='tight',pad_inches=0.185,dpi=1000,transparent=True)
+plt.close()
+
+
+N_list = list()
+for N in [20,50,100,500,1000]:
+    model_= run_model(N=N, S=3, T=100, e=0.4,sigma=0.01, conv=False)
+    N_list.append(model_[3])
+
+x=range(100)
+y1=N_list[0][:-1]
+y2=N_list[1][:-1]
+y3=N_list[2][:-1]
+y4=N_list[3][:-1]
+y5=N_list[4][:-1]
+plt.plot(x, y1,label='N=20')
+plt.plot(x,y2,label='N=50')
+plt.plot(x,y3,label='N=100')
+plt.plot(x,y4,label='N=500')
+plt.plot(x,y5,label='N=1000')
+plt.xlabel('t',fontsize=18)
+plt.ylabel('H(O)',fontsize=18)
+plt.legend(prop={'size': 16})
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+
+
+plt.savefig('testing_N.pdf',bbox_inches='tight',pad_inches=0.185,dpi=1000,transparent=True)
+plt.close()
+
+plt.show()
+
+D_list = list()
+for S in [2,3,5,10,12]:
+    model_= run_model(N=500, S=S, T=100, e=0.4,sigma=0.01, conv=False)
+    D_list.append(model_[3])
+
+x=range(100)
+y1=D_list[0][:-1]
+y2 = D_list[1][:-1]
+y3= D_list[2][:-1]
+y4= D_list[3][:-1]
+y5= D_list[4][:-1]
+plt.plot(x, y1,label='D=2')
+plt.plot(x,y2,label='D=3')
+plt.plot(x,y3,label='D=5')
+plt.plot(x,y4,label='D=10')
+plt.plot(x,y5,label='D=12')
+plt.xlabel('t',fontsize=18)
+plt.ylabel('H(O)',fontsize=18)
+plt.legend(prop={'size': 16})
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+
+
+plt.savefig('testing_D.pdf',bbox_inches='tight',pad_inches=0.185,dpi=1000,transparent=True)
+plt.close()
+
+
+z_list = list()
+for z in [0,0.001, 0.01,0.05,0.1]:
+    model_= run_model(N=500, S=3, T=100, e=0.4,sigma=z, conv=False)
+    z_list.append(model_[3])
+
+x=range(100)
+y1=z_list[0][:-1]
+y2 = z_list[1][:-1]
+y3= z_list[2][:-1]
+y4= z_list[3][:-1]
+y5= z_list[4][:-1]
+plt.plot(x, y1,label='z=0')
+plt.plot(x,y2,label='z=0.001')
+plt.plot(x,y3,label='z=0.01')
+plt.plot(x,y4,label='z=0.05')
+plt.plot(x,y5,label='z=0.1')
+plt.xlabel('t',fontsize=18)
+plt.ylabel('H(O)',fontsize=18)
+plt.legend(prop={'size': 16})
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+
+
+plt.savefig('testing_z.pdf',bbox_inches='tight',pad_inches=0.185,dpi=1000,transparent=True)
+plt.close()
