@@ -13,11 +13,11 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_li
     results = {key: [] for key in metrics.keys()}
     for v_kwarg in variying_kwarg[1]:
         if verbose:
-            print(v_kwarg)
+            print(v_kwarg + "in "+str(variying_kwarg[1]))
         kwarg_dict[variying_kwarg[0]]=v_kwarg
         subresults = {key: [] for key in metrics.keys()}
         for i in range(n):
-            print('iteration {} of {}'.format(i,n))
+            print('iteration {} of {}. '.format(i,n))
             if model_type == "Holme":
                 A = holme(**kwarg_dict)
             elif model_type == "Weighted Balance":
