@@ -193,7 +193,7 @@ class holme2(coevolution_model_general):
         super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=n_opinions,phi=phi,d=1
         ,connect=lambda x, y: (x == y).flatten(),update=lambda x, y, noise: y,
         convergence_criterion=lambda x:
-        np.all([len(np.unique(x.vertices[np.array(c)], axis=0)) <= 1 for c in x.connected_components()])
+        np.all([len(np.unique(x.vertices[np.array(list(c))], axis=0)) <= 1 for c in x.connected_components()])
                          ,systematic_update=True,noise_generator = lambda size: np.zeros(size))
         #for method has_changed()
         self.vertices_previous = np.copy(self.vertices)
