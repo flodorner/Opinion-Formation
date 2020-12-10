@@ -23,7 +23,7 @@ import matplotlib as mpl
 # needs to be executed on a linux machine (for compatible filenames/folder structures)
 
 # RESULTS & FIGURES
-# results of the full simulations can be found in results_holme, together with scripts for plots.
+# full simulations results can be found in results_holme, together with the 2 scripts for plots.
 # the plots can be made from the pickle-saved results, because of the long simulation time
 
 ### DESCRIPTION

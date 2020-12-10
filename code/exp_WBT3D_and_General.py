@@ -71,7 +71,9 @@ def WBT_evolution():
         #do a plot every n rounds 
         for j in range(30):
             for i in range(n_vertices):
+                #update one node
                 m.step()
+        #add current state to resultbuffer to plot later
         res.add_op_mat(m)
         k=k+1
         print(k)
