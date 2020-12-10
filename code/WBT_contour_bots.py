@@ -71,7 +71,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
     
 fig.savefig(image_folder+'contour_WBT_ba.pdf',bbox_inches='tight',pad_inches=0.185, dpi=fig.dpi,transparent=True)
-
+# 21 a)
 
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=50)
 
@@ -89,7 +89,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 fig.savefig(image_folder+'contour_WBT_50bots_ba.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
-
+#21b)
 
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=50,seeking=True)
 
@@ -107,6 +107,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 fig.savefig(image_folder+'contour_WBT_50bots_ba_seeking.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
+# 21 c)
 
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=200)
 
@@ -124,7 +125,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 fig.savefig(image_folder+'contour_WBT_200bots_ba.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
-
+# A.30 a)
 
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=200,seeking=True)
 
@@ -142,3 +143,4 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 fig.savefig(image_folder+'contour_WBT_200bots_ba_seeking.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
+# A.30 b)

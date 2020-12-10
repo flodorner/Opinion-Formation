@@ -593,58 +593,56 @@ def bot_plots_shifted(recover=False, both_sides= False, neutral_bots=False, edge
 
 
 def plot_99():
-    bot_plots(fontsize=18)
-    bot_plots(fontsize=18,both_sides=True)
-    bot_plots(edges=499,fontsize=18)
-    bot_plots_ba(edges=499,fontsize=18)
-    bot_plots_ba(edges=499,fontsize=18,bot_positions="top")
-    bot_plots_ba(edges=499,fontsize=18,bot_positions="bottom")
+    bot_plots(fontsize=18) #15a, 31a
+    bot_plots(fontsize=18,both_sides=True) #15 b, 31b
+    bot_plots(edges=499,fontsize=18) #16a 31c
+    bot_plots_ba(edges=499,fontsize=18) #16b 31d
+    bot_plots_ba(edges=499,fontsize=18,bot_positions="top") #17a 31e
+    bot_plots_ba(edges=499,fontsize=18,bot_positions="bottom") #17b 31f
 
 def plot_99_neutral():
-    bot_plots(fontsize=18,neutral_bots=True)
-    bot_plots_ba(edges=499,fontsize=18,neutral_bots=True)
-    bot_plots_ba(edges=499,fontsize=18,bot_positions="top",neutral_bots=True)
-    bot_plots_ba(edges=499,fontsize=18,bot_positions="bottom",neutral_bots=True)
+    bot_plots(fontsize=18,neutral_bots=True) #26d
+    bot_plots_ba(edges=499,fontsize=18,bot_positions="top",neutral_bots=True) # 18a
+    bot_plots_ba(edges=499,fontsize=18,bot_positions="bottom",neutral_bots=True) #18b
 
 def plot_249():
-    bot_plots(fontsize=18,t_lim=249999)
-    bot_plots(fontsize=18,t_lim=249999,both_sides=True)
-    bot_plots(edges=499,fontsize=18,t_lim=249999)
-    bot_plots_ba(edges=499,fontsize=18,t_lim=249999)
-    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="top")
-    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="bottom")
+    bot_plots(fontsize=18,t_lim=249999) #25a
+    bot_plots(fontsize=18,t_lim=249999,both_sides=True) #25b
+    bot_plots(edges=499,fontsize=18,t_lim=249999) #25c
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999) #25d
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="top") #25e
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="bottom") #25f
 
 def plot_249_neutral():
-    bot_plots(fontsize=18,t_lim=249999,neutral_bots=True)
-    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,neutral_bots=True)
-    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="top",neutral_bots=True)
-    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="bottom",neutral_bots=True)
+    bot_plots(fontsize=18,t_lim=249999,neutral_bots=True)  #26f
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,neutral_bots=True)  #26e
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="top",neutral_bots=True)  #26a
+    bot_plots_ba(edges=499,fontsize=18,t_lim=249999,bot_positions="bottom",neutral_bots=True)  #26b
 
 def plot_altf():
-    bot_plots_altf(fontsize=18)
-    bot_plots_altf_ba(edges=499,fontsize=18)
-    bot_plots_altf_ba(edges=499,bot_positions="top",fontsize=18)
-    bot_plots_altf_ba(edges=499,bot_positions="bottom",fontsize=18)
-    bot_plots_altf_ba(edges=499,bot_positions="top",t_lim=249999,fontsize=18)
+    bot_plots_altf(fontsize=18) #27 e,f
+    bot_plots_altf_ba(edges=499,fontsize=18) #27 c,d
+    bot_plots_altf_ba(edges=499,bot_positions="top",fontsize=18) #19 a,b
+    bot_plots_altf_ba(edges=499,bot_positions="top",t_lim=249999,fontsize=18) #27 a,b
 
 def plot_dynamic():
-    bot_plots_ba_dynamic(edges=499,epsilon=1,fontsize=18)
-    bot_plots_ba_dynamic(edges=499, epsilon=0.6,fontsize=18)
-    bot_plots_ba_dynamic(edges=499,epsilon=1,neutral_bots=True,fontsize=18)
-    bot_plots_ba_dynamic(edges=499, epsilon=0.6,neutral_bots=True,fontsize=18)
-    bot_plots_ba_dynamic(edges=499,epsilon=1,both_sides=True,fontsize=18)
-    bot_plots_ba_dynamic(edges=499, epsilon=0.6,both_sides=True,fontsize=18)
+    bot_plots_ba_dynamic(edges=499,epsilon=1,fontsize=18) # 20a 32a
+    bot_plots_ba_dynamic(edges=499, epsilon=0.6,fontsize=18) #28a
+    bot_plots_ba_dynamic(edges=499,epsilon=1,neutral_bots=True,fontsize=18) #28e
+    bot_plots_ba_dynamic(edges=499, epsilon=0.6,neutral_bots=True,fontsize=18) # 22a 32e
+    bot_plots_ba_dynamic(edges=499,epsilon=1,both_sides=True,fontsize=18) # 32c 29a
+    bot_plots_ba_dynamic(edges=499, epsilon=0.6,both_sides=True,fontsize=18) #28c
 
 
 def plot_dynamic_seeking():
-    bot_plots_ba_dynamic(edges=499,epsilon=1,fontsize=18,seeking_bots=True)
-    bot_plots_ba_dynamic(edges=499, epsilon=0.6,fontsize=18,seeking_bots=True)
-    bot_plots_ba_dynamic(edges=499,epsilon=1,neutral_bots=True,fontsize=18,seeking_bots=True)
-    bot_plots_ba_dynamic(edges=499, epsilon=0.6,neutral_bots=True,fontsize=18,seeking_bots=True)
-    bot_plots_ba_dynamic(edges=499,epsilon=1,both_sides=True,fontsize=18,seeking_bots=True)
-    bot_plots_ba_dynamic(edges=499, epsilon=0.6,both_sides=True,fontsize=18,seeking_bots=True)
+    bot_plots_ba_dynamic(edges=499,epsilon=1,fontsize=18,seeking_bots=True) # 20b 32b
+    bot_plots_ba_dynamic(edges=499, epsilon=0.6,fontsize=18,seeking_bots=True) #28b
+    bot_plots_ba_dynamic(edges=499,epsilon=1,neutral_bots=True,fontsize=18,seeking_bots=True) #28f
+    bot_plots_ba_dynamic(edges=499, epsilon=0.6,neutral_bots=True,fontsize=18,seeking_bots=True) # 22b 32f
+    bot_plots_ba_dynamic(edges=499,epsilon=1,both_sides=True,fontsize=18,seeking_bots=True) # 32d 29b
+    bot_plots_ba_dynamic(edges=499, epsilon=0.6,both_sides=True,fontsize=18,seeking_bots=True) #28d
 
 def plot_shifted():
-    bot_plots_shifted(fontsize=18, initial_opinion_range=[-0.75, 1])
-    bot_plots_shifted(fontsize=18,initial_opinion_range=[-0.5,1])
-    bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1])
+    bot_plots_shifted(fontsize=18, initial_opinion_range=[-0.75, 1]) #24 a,b
+    bot_plots_shifted(fontsize=18,initial_opinion_range=[-0.5,1]) #24 c,d
+    bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1]) #24 e,f
