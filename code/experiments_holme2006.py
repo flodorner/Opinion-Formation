@@ -218,7 +218,7 @@ def plot_commu_size(results,n_vertices,phi):
     plt.title("community size distribution. ϕ={}".format(phi))
     plt.xlabel("s size of community")
     plt.ylabel("P(s)")
-    #plt.savefig( "size_distribution"+phi+"s.png")
+    plt.savefig( "size_distribution"+phi+"s.png")
 
     plt.show()
 
@@ -256,7 +256,7 @@ def plot_max_s(results):
     plt.title("Max community size phase transition")
     plt.plot([0.38,0.5],[48, 48], linewidth=4)
     plt.errorbar(x[sorti],y[sorti])
-    #plt.savefig("maxS")
+    plt.savefig("maxS")
     plt.show()
 
     fig=plt.figure(figsize=(4,3))
@@ -268,7 +268,7 @@ def plot_max_s(results):
 
     plt.plot([0.39,0.495],[48, 48], linewidth=4)
     plt.title("phase transition detail")
-    #plt.savefig("maxSdetail")
+    plt.savefig("maxSdetail")
     plt.show()
 
 
