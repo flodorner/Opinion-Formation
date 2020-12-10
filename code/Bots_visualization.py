@@ -7,7 +7,7 @@ import networkx as nx
 dir_path = os.path.dirname(os.path.realpath(__file__))
 image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
 
-# Some of these visualizations were used for Figure 23, some for the gifs in the presentation. 
+# Some of these visualizations were used for Figure 23, some for the gifs in the presentation.
 
 A=weighted_balance_bots(n_vertices=500, d=2, z=0.01, f=lambda x: x, alpha=0.5, n_edges=None,initial_graph=None,neutral_bots=False,both_sides=False,bot_positions=None, n_bots=0,epsilon=0,phi=0,connect=None,seeking_bots=False)
 for i in range(25):
