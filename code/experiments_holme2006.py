@@ -22,9 +22,11 @@ import matplotlib as mpl
 # its best to use cloud computing, and call this script with the shell as a background process (see last lines)
 # after each iteration, the subresults are saved in the folder subresults, in case of errors or crashes.
 # results and subresults are saved with pickle, to read then see results_holme/pickleprinter.py
+# needs to be executed on a linux machine (for compatible filenames/folder structures)
 
 # RESULTS & FIGURES
 # results of the full simulations are saved in results_holme, together with scripts for plots.
+# usually the plots were made from the pickle-saved results, because of the long simulation time
 
 
 
