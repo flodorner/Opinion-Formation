@@ -5,15 +5,30 @@ import os
 import pickle
 from datetime import datetime
 
- 
+### USAGE
+# very long runtimes!!! > 100h use experiments_bots_short_runtime.py instead 
+# the long runtime is necessary to have average values
 
 def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_lim=99999,verbose=False):
+    ''' runs `model_type` with options kwarg_dict for each variying_kwarg,  
+                    each for n times then calculating metrics on model
+        
+        ARGUMENTS
+        kwarg_dict: dict of keyword arguments that will be passed to the model class __init__ fun (check corresponding class in model.py)
+        variying_kwarg: tuple with key and array of varying args e.g. ('phi', [0.1,0.5,0.7]), model is run for each one
+        metrics: dict of functions called on the model object after each completed run, determines output in results
+        n: int number of iterations for 
+
+        RETURN
+        result of metrics
+
+    '''
     timestamp=datetime.now().strftime("%Y-%m-%d %H:%M")
     np.random.seed=0
     results = {key: [] for key in metrics.keys()}
     for v_kwarg in variying_kwarg[1]:
         if verbose:
-            print(v_kwarg + "in "+str(variying_kwarg[1]))
+            print(str(v_kwarg) + " from "+str(variying_kwarg[1]))
         kwarg_dict[variying_kwarg[0]]=v_kwarg
         subresults = {key: [] for key in metrics.keys()}
         for i in range(n):
@@ -76,69 +91,13 @@ metrics = {
     "followers_per_opinion": lambda x: [np.sum(x.vertices==i) for i in range(x.n_opinions)]
 }
 
-#Strategy: start with small number of n to explore what kind of results you want to add.
-#Properly label everything
-#In the end, time the simple loop and rerun everything with as large n as possible.
-import cProfile
-#cProfile.run("output = experiment_loop(kw,loop,metrics=metrics,n=50)")
-
-# @david code structure proposal: different experiments in different functions
-def experiment_holme_N25():
-    n_iterations = 10
-    for n_vertices in [25]:
-        for n_opinions in [5]:
-            for phi in [0.05,0.5,0.95]:
-                kw={"n_vertices":n_vertices, "n_opinions":n_opinions,"phi":phi}
-                print(kw)
-                loop = ("n_edges",np.arange(1,101*(n_vertices/25)**2,4*(n_vertices/25)**2,dtype=np.int))
-                output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type="Holme")
-                median_plus_percentile_plot(output["variation"][1],output["sd_size_connected_component"])
-                plt.title("Sd of community size for N={},ϕ={},|O|={} and varying M".format(n_vertices,phi,n_opinions))
-                plt.xlabel("Number of Edges")
-                plt.savefig(image_folder+"sd_25_N{}_ϕ{}_O{}".format(n_vertices,int(phi*100),n_opinions))
-                plt.close()
-                median_plus_percentile_plot(output["variation"][1],output["mean_size_connected_component"])
-                plt.title("Mean of community size for N={},ϕ={},|O|={} and varying M".format(n_vertices,phi,n_opinions))
-                plt.xlabel("Number of Edges")
-                plt.savefig(image_folder+"mean_25_N{}_ϕ{}_O{}".format(n_vertices,int(phi*100),n_opinions))
-                plt.close()
-                median_plus_percentile_plot(output["variation"][1],output["time_to_convergence"])
-                plt.title("Time steps to convergence for N={},ϕ={},|O|={} and varying M".format(n_vertices,phi,n_opinions))
-                plt.xlabel("Number of Edges")
-                plt.savefig(image_folder+"t_25_N{}_ϕ{}_O{}".format(n_vertices,int(phi*100),n_opinions))
-                plt.close()
-
-    
-
-def experiment_WB25():
-    n_iterations = 10
-    kw={}
-    print(kw)
-    loop = ("n_vertices",np.arange(2,25,4,dtype=np.int))
-    model_type="Weighted Balance"
-    output = experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)
-
-    import cProfile
-#    cProfile.run("output=experiment_loop(kw,loop,metrics=metrics,n=n_iterations,model_type=model_type)",sort="cumtime")
-
-    median_plus_percentile_plot(output["variation"][1],output["sd_size_connected_component"])
-    plt.title("Sd of community size")
-    plt.xlabel("Number of Edges")
-    plt.savefig(image_folder+"sd_25")
-    plt.close()
-    median_plus_percentile_plot(output["variation"][1],output["mean_size_connected_component"])
-    plt.title("Mean of community size")
-    plt.xlabel("Number of Edges")
-    plt.savefig(image_folder+"mean_25")
-    plt.close()
-    median_plus_percentile_plot(output["variation"][1],output["time_to_convergence"])
-    plt.title("Time steps to convergence")
-    plt.xlabel("Number of Edges")
-    plt.savefig(image_folder+"t_25")
-    plt.close()
-
-
+##### BOT PLOT FUNCTIONS
+## Long execution times >1h
 def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20,t_lim=None):
+    ''' calculates and plots: (time)steps to convergence, mean opinion and hyperpolarization
+            x-axis n_bots, for evaluative extremeness e= 0.5, 0 and -1 
+            '''
+    
     name = "bots"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))+(t_lim!=None)*("_tlim_"+str(t_lim))
     if t_lim == None:
         t_lim = 99999
@@ -211,6 +170,8 @@ def bot_plots(recover=False, both_sides= False, neutral_bots=False, edges=None, 
     plt.close()
 
 def bot_plots_altf(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20,t_lim=None):
+    '''bots in models with alternative functions for evaluating the attitude: f = x +- 0.1, max or min(x,0)
+    '''
     name = "bots_altf"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))+(t_lim!=None)*("_tlim_"+str(t_lim))
     if t_lim == None:
         t_lim = 99999
@@ -293,6 +254,7 @@ def bot_plots_altf(recover=False, both_sides= False, neutral_bots=False, edges=N
     plt.close()
 
 def bot_plots_ba(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20,bot_positions = None,t_lim=None):
+    ''' bots in static networks with barabasi-albert structure'''
     name = "bots_ba_"+(bot_positions!=None)*str(bot_positions)+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))+(t_lim!=None)*("_tlim_"+str(t_lim))
     if t_lim == None:
         t_lim = 99999
@@ -520,6 +482,7 @@ def bot_plots_ba_dynamic(recover=False, both_sides= False, neutral_bots=False, e
     plt.close()
 
 def bot_plots_shifted(recover=False, both_sides= False, neutral_bots=False, edges=None, fontsize = 20,t_lim=None,initial_opinion_range=[0,1]):
+    '''effect on hyperpolarization and mean opinion with bots when constraining initial_opinion_range (and initial mean !=0)'''
     name = "bots"+both_sides*"_double"+neutral_bots*"_neutral"+(edges!=None)*("_edges_"+str(edges))+(t_lim!=None)*("_tlim_"+str(t_lim))+"shifted_"+str(int(100*initial_opinion_range[0]))+"_"+str(int(100*initial_opinion_range[1]))
     if t_lim == None:
         t_lim = 99999
@@ -592,6 +555,9 @@ def bot_plots_shifted(recover=False, both_sides= False, neutral_bots=False, edge
     plt.close()
 
 
+#### GENERATION OF BOT PLOTS FOR REPORT 
+## very long execution times >5h each
+## the comment after each line is the figure number of the paper
 def plot_99():
     bot_plots(fontsize=18) #15a, 31a
     bot_plots(fontsize=18,both_sides=True) #15 b, 31b
@@ -646,3 +612,5 @@ def plot_shifted():
     bot_plots_shifted(fontsize=18, initial_opinion_range=[-0.75, 1]) #24 a,b
     bot_plots_shifted(fontsize=18,initial_opinion_range=[-0.5,1]) #24 c,d
     bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1]) #24 e,f
+
+

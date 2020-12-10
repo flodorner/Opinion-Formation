@@ -11,10 +11,8 @@ from os import path
 import matplotlib as mpl
 
 #HOLME:py - modeling the coevolution of opinions and networks
-#Based on the paper "Nonequilibrium phase transition in the coevolution
-#       of networks and opinions" by P. Holme & M.E.J. Newman 2006
 
-### USAGE & DESCRIPTION
+### USAGE
 # for TESTING use commu_size_testrun(phi=0.4) and max_s_testrun()
 # 
 # FULL SIMULATION
@@ -25,9 +23,17 @@ import matplotlib as mpl
 # needs to be executed on a linux machine (for compatible filenames/folder structures)
 
 # RESULTS & FIGURES
-# results of the full simulations are saved in results_holme, together with scripts for plots.
-# usually the plots were made from the pickle-saved results, because of the long simulation time
+# results of the full simulations can be found in results_holme, together with scripts for plots.
+# the plots can be made from the pickle-saved results, because of the long simulation time
 
+### DESCRIPTION
+#Based on the paper "Nonequilibrium phase transition in the coevolution
+#       of networks and opinions" by P. Holme & M.E.J. Newman 2006
+
+# comu_size runs the model for a certain phi and calculates a histogram/distribution 
+#   of the occurence of different community (component) sizes upon convergence
+# max_S runs the model for a range of different values of phi, calculating the average 
+#   maximum community size for each phi
 
 
 

@@ -20,3 +20,5 @@ Plot directly from simulation (reduced size): experiments_holme2006.py -> def ..
 ## Section 6.3 - Generalized WBT
 * 9: gephi graph visualization tool needed. gefx files generated with gephi_network_evo.py
 * 
+
+## Section 6.4
