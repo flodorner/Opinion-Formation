@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from model import weighted_balance_general
+from model import weighted_balance_general, weighted_balance
 
 import networkx as nx
 
@@ -49,11 +49,14 @@ class resultbuffer:
     def plot(self):
         for i in range(len(self.results)):
             scatter3d_plot(self.results[i],save_f=True,loc='general_evo_{}.pdf'.format(i+1),title="t={}".format(i*50))
+    def plotWBT(self):
+        for i in range(len(self.results)):
+            scatter3d_plot(self.results[i],save_f=True,loc='WBT_evo_{}.pdf'.format(i+1),title="t={}".format(i*50))
     def graph(self):
         for i in range(len(self.results)):
             self.models[i].draw_graph('general graph {}.jpg'.format(i))
 res=resultbuffer()
-def dynamics_plot():
+def general_evolution():
     m= weighted_balance_general(d=3,n_vertices = 250,
                                 n_edges=500, phi=0.45,alpha=0.3,dist=0.3)
     k=1
@@ -70,6 +73,23 @@ def dynamics_plot():
         print(k)
         
     res.plot()
+
+def WBT_evolution():
+    m= weighted_balance(d=3,n_vertices = 250,f=lambda x: np.sign(x)*np.abs(x)**(1-0.4),
+                                 alpha=0.3)
+    k=1
+    res.add_op_mat(m)
+    while m.convergence() == False:
+        
+        #do a plot every n rounds 
+        for j in range(30):
+            for i in range(n_vertices):
+                m.step()
+        res.add_op_mat(m)
+        k=k+1
+        print(k)
+        
+    res.plotWBT()
 def dynamics_graph():
     n_vertices = 25
     m= weighted_balance_general(d=2,n_vertices = n_vertices,
@@ -103,29 +123,7 @@ def dynamics_graph():
         
         k=k+1
         print(k)
-dynamics_graph()  
-"""        
-def multidim():
-    m= weighted_balance_general(d=3,n_vertices = 400,
-                        n_edges=800, phi=0.45,alpha=0.3,dist=0.3)
-    k=1
-    while m.convergence() == False:
-        
-        for j in range(50):
-            
-            for i in range(250):
-                m.step()
-        print(k)
-
-        k=k+1
-    v=m.vertices
-    
-        
-    print(np.mean(np.abs(m.vertices)))
-    pass
-    return
-    
-"""
+WBT_evolution()
 
 
 def npmap2d(fun, xs, ys, n_edges=500): 

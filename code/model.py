@@ -9,12 +9,12 @@ from matplotlib import pyplot as plt
 The parent class coevolation_model_general is a parent class and serves as general framework for the the different models 
 which are defined as child classes and contain the designated update and connect of the models
 
-class holme and holme2 --> Coevolution of networks and opinions model
-class weighted_balance and weighted_balance_general --> Generalized model
+class holme and holme2 --> Coevolution of networks and opinions model (Holme 2006)
+class weighted_balance --> WBT model (Schweighoefer 2020)
+class weighted_balance_general --> Generalized model
 class weighted_balance_bots --> Generalized model with bots 
 
 
-TO DO: remove all the code lines that are out commented
 '''
 #########################################################################################################################################################
 
