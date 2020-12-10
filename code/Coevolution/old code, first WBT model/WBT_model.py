@@ -9,24 +9,36 @@ import itertools
 import matplotlib.pyplot as plt
 
 
+''' 
+Needs some commenting of the code, otherwise its hard to understand
+'''
 
+
+#####################################################################
+
+''' Model-specfic functions: '''
+
+# N is the number of agents
 def create_emotion_mat(N):
-    A= np.random.rand(N,N)
+    A= np.random.rand(N,N) # initiate interpersonal attitude matrix 
     
     np.fill_diagonal(A, 1)
     
     return A
 
-def create_opinion_mat(N,S):
-    return np.random.uniform(low=-1,high=1,size=(N,S))
+# S is the number of opinion dimensions
+def create_opinion_mat(N,S): 
+    return np.random.uniform(low=-1,high=1,size=(N,S)) # initiate opinion matrix
 
-
+# needed for calculating interpersonal attitude and balanced opionion vector
 def signed_geo_mean(a,b):
     return(np.sign(a)*np.sign(b)*((abs(a)*abs(b))**(1./2.)))
+
 
 def weighted_euclidean(a, b, w):
     q = a-b
     return np.sqrt((w*q*q).sum())
+
 
 def euclidian(a,b):
     q = a-b
@@ -36,7 +48,8 @@ def geo_mean(v1,v2):
     return gmean([np.linalg.norm(v1)*np.linalg.norm(v2)])
 
 
-
+# calculate interpersonal Attitude using the sigmoidal function
+# b_i and b_j are the opinions of the agents
 def recalculate_emotion(b_i, b_j, sigmoid=True, e=0.4, weights=None):
     
     len_opinions = len(b_i)
@@ -58,7 +71,8 @@ def recalculate_emotion(b_i, b_j, sigmoid=True, e=0.4, weights=None):
     else:
         return weighted_sim
     
-    
+# update opinion of i (b_i) depending on j (b_j), 
+# interpersonal Attitude Aij, and factor alpha
 def exchange_opinion(b_i, b_j, Aij, alpha=0.4):
     
     len_opinions=len(b_i)
@@ -80,7 +94,7 @@ def add_Noise(v,sigma=0.01):
     return(np.clip(v + np.random.normal(0,sigma, size=len(v)),-1,1))
 
 
-
+# Define Hyperpolarization measure H
 def H(O):
     N=O.shape[0]
     D=O.shape[1]
@@ -110,8 +124,13 @@ def C(O):
     # Back-transform to pearson correlation:
     return(np.tanh(cmean))
 
+#########################################################
 
+''' Run models: '''
 
+# S = Number of opinion dimensions
+# N = Number of agents
+# e = evaluate extremness
 
 def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
     A = create_emotion_mat(N=N)
@@ -131,23 +150,24 @@ def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
         
             O_old = O.copy()
         
-            ##choose another random agent
+            # choose another random agent
             _ = randomized_agents.copy()
             _.remove(i)
             j = choice(_)
         
             b_i = O[i]
             b_j = O[j]
-        
+            
+            # calculate interpersonal attitude Aij
             Aij = recalculate_emotion(b_i, b_j, e=e)
         
-            ##update agents i's opinion
+            # update agents i's opinion
             b_i_updated = exchange_opinion(b_i, b_j, Aij)   
             
-            #O[i]= b_i_updated
+            # O[i]= b_i_updated
             O[i] = add_Noise(b_i_updated,sigma=sigma)
             
-            ##update agent i's perception of j
+            # update agent i's perception of j
             A[i,j] = Aij
             
         
@@ -159,6 +179,7 @@ def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
             break
         
     return(O,A,len(pol_list),pol_list)
+
 
 
 def update_model(A, O, e=0.4, sigma=0.01):
@@ -192,7 +213,9 @@ def update_model(A, O, e=0.4, sigma=0.01):
     
     
     
+################################################################
 
+''' Plots: '''
 
 
 def scatter3d_plot(opinion_mat,save_f=True,loc='Scatter_3D.pdf'):
