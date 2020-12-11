@@ -220,7 +220,7 @@ def plot_hyperpol_evolution_diffparam():
     ''' plot hyperpolarization for different parameter variations'''
     e_list = list()
     for e in [0,0.2,0.4,0.8,1]:
-        print("e="+e)
+        print("e="+str(e))
         model_= run_model(N=500, S=3, T=100, e=e,sigma=0.01, conv=False)
         e_list.append(model_[3])
 
@@ -247,7 +247,7 @@ def plot_hyperpol_evolution_diffparam():
 
     N_list = list()
     for N in [20,50,100,500,1000]:
-        print("N="+N)
+        print("N="+str(N))
         model_= run_model(N=N, S=3, T=100, e=0.4,sigma=0.01, conv=False)
         N_list.append(model_[3])
 
@@ -276,7 +276,7 @@ def plot_hyperpol_evolution_diffparam():
 
     D_list = list()
     for S in [2,3,5,10,12]:
-        print("S="+S)
+        print("S="+str(S))
         model_= run_model(N=500, S=S, T=100, e=0.4,sigma=0.01, conv=False)
         D_list.append(model_[3])
 
@@ -304,7 +304,7 @@ def plot_hyperpol_evolution_diffparam():
 
     z_list = list()
     for z in [0,0.001, 0.01,0.05,0.1]:
-        print("Z="+z)
+        print("Z="+str(z))
         model_= run_model(N=500, S=3, T=100, e=0.4,sigma=z, conv=False)
         z_list.append(model_[3])
 
@@ -331,4 +331,4 @@ def plot_hyperpol_evolution_diffparam():
 
 # Uncomment below to run
 
-# plot_hyperpol_evolution_diffparam() #fig 8, runtime ~1h?
+#plot_hyperpol_evolution_diffparam() #fig 8, runtime ~1h?
