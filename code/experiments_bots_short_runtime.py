@@ -639,7 +639,7 @@ def plot_shifted():
     bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1],report_fig="23e,f") #23e,f
 
 starttime=datetime.now()
-plot_99()
+#plot_99()
 #plot_99_neutral()
 #plot_249()
 #plot_249_neutral()
