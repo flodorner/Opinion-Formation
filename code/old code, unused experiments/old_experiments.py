@@ -1,3 +1,19 @@
+'''
+Leftovers from previous experiments, merely serve as a reminder
+Do not work anymore due to changed project layout
+
+Dynamics_graph can be used by placing this file in the above directory and uncommenting the last line
+
+
+'''
+
+
+
+import networkx as nx
+from matplotlib import pyplot as plt
+import numpy as np
+from model.py import weighted_balance_general
+
 def experiment_holme_N25():
     n_iterations = 10
     for n_vertices in [25]:
@@ -57,10 +73,7 @@ def dynamics_graph():
     ts=0
     #while m.convergence() == False:
     while ts<100:
-        res.add_op_mat(m)
-        
-        
-         
+        res.add_op_mat(m)         
         fig=plt.figure(figsize=(4,4))
         ax=fig.add_axes([0.15, 0.1, 0.8, 0.8])
         pos={i:m.vertices[i] for i in range(len(m.vertices)) }
@@ -77,25 +90,9 @@ def dynamics_graph():
         for j in range(2):
             ts=ts+1
             for i in range(n_vertices):
-                
                 m.step()
         
         k=k+1
         print(k)
 
-### method for model.py as alternative convergence criterium
-"""
-self.vertices_previous = np.copy(self.vertices)
-    def has_changed_more_than(self,threshold):
-        '''as an alternative / proxy to computing connected components,
-        check if opinions changed significantly since the last time this function was called'''
-        if  np.sum(np.abs(self.vertices_previous - self.vertices))<threshold*self.n_vertices: 
-            return False
-        else: 
-            self.vertices_previous = np.copy(self.vertices)
-            return True
-
-has_changed=A.has_changed_more_than(1e-2)
-                    if done == has_changed:
-                        print("done is not close"+str(done)+str(has_changed))
-"""
+#dynamics_graph()

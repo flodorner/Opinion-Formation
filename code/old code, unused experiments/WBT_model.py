@@ -1,5 +1,5 @@
 import numpy as np
-from random import shuffle, choice, choices
+from random import choice, choices
 import itertools
 import matplotlib.pyplot as plt
 
@@ -8,8 +8,6 @@ import matplotlib.pyplot as plt
 now that we implemented the generalized model, this is only for demonstration purposes'''
 
 #####################################################################
-
-''' Model-specfic functions: '''
 
 def create_emotion_mat(N):
     ''' Creates random Attitude Matrix \\
@@ -76,9 +74,11 @@ def H(O):
 ''' Run models: '''
 
 
-
 def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
-    '''
+    '''WBT model implementation of the model proposed by Schweighöfer et al. 2020
+    ---
+    Creates AND updates Opinions and Attitudes of agents
+
     S (int) : Number of opinion dimensions
     N (int) : Number of agents
     e (float) :  evaluate extremness'''
@@ -141,7 +141,7 @@ def update_model(A, O, e=0.4, sigma=0.01):
     
     for i in randomized_agents:
                 
-        ##choose another random agent
+        # choose another random agent
         rand_agents_copy = randomized_agents.copy()
         rand_agents_copy.remove(i)
         j = choice(rand_agents_copy)
@@ -151,11 +151,11 @@ def update_model(A, O, e=0.4, sigma=0.01):
         
         Aij = recalculate_emotion(b_i, b_j, e=e)
         
-        ##update agents i's opinion with additional noise
+        # update agents i's opinion with additional noise
         b_i_updated = exchange_opinion(b_i, b_j, Aij)   
         #O[i]= b_i_updated
         O[i] = add_Noise(b_i_updated,sigma=sigma)
-        ##update agent i's perception of j
+        # update agent i's perception of j
         A[i,j] = Aij
         
     return(A,O)

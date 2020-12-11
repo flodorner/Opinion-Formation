@@ -19,11 +19,7 @@ detailed = True
 from model import holme,weighted_balance_general,weighted_balance_bots, weighted_balance
 from matplotlib import pyplot as plt
 import numpy as np
-import os
-from datetime import datetime
 
-#dir_path = os.path.dirname(os.path.realpath(__file__))
-#image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
 image_folder=""
 
 def experiment_loop(model_type=None,t_lim=99999, num_bots = 0, detailed_evo = False ):
@@ -43,7 +39,6 @@ def experiment_loop(model_type=None,t_lim=99999, num_bots = 0, detailed_evo = Fa
     elif model_type == "Weighted Balance Bots":
         A = weighted_balance_bots(n_vertices=500, d=3, alpha=0.4, n_edges=499,initial_graph="barabasi_albert",bot_positions="top",f=lambda x:min(x,0) ,n_bots = num_bots)
     else:
-        print("Nino is the best \n")
         print("Possible values for model_type are: 'Holme', 'Weighted Balance', 'Weighted Balance General', 'Weighted Balance Bot'")
         return
         #print("using general mode")
