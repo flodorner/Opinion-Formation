@@ -1,5 +1,5 @@
 # Modelling Multi-dimensional Opinion and Polarization Formation 
-(Agent-Based Modeling and Social System Simulation 2020)
+(Agent-Based Modeling and Social System Simulation 2020);
 Report pdf under doc/Opinion_Formation.pdf
 
 
