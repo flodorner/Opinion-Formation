@@ -1,4 +1,4 @@
-from model import coevolution_model_general,holme,weighted_balance,weighted_balance_bots,H
+from code.model import coevolution_model_general,holme,weighted_balance,weighted_balance_bots,H
 from matplotlib import pyplot as plt
 import numpy as np
 import os
@@ -101,7 +101,7 @@ for n_vertices in [25]:
             plt.title("Time steps to convergence for N={},ϕ={},|O|={} and varying M".format(n_vertices,phi,n_opinions))
             plt.xlabel("Number of Edges")
             plt.savefig(image_folder+"t_25_N{}_ϕ{}_O{}".format(n_vertices,int(phi*100),n_opinions))
-            plt.close()"""
+            plt.close()
 
 n_iterations = 10
 kw={}
