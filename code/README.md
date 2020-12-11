@@ -41,14 +41,18 @@ Plot directly from simulation (reduced size): `experiments_holme2006.py -> def .
 
 ### Section 6.2 - Schweighöfer 2020
 * 6: gephi graph visualization tool needed. gefx files generated with `exp_gephi_network_evo.py`
-* 7: evolution of opinions in 3D --> `exp_WBT3D_and_General.py -> WBT_evolution`
+* 7: evolution of opinions in 3D --> `exp_WBT3D_and_General.py -> WBT_evolution` or in old code
+* 8 old code
 
 
 ### Section 6.3 - Generalized WBT
 * 9: gephi graph visualization tool needed. gefx files generated with `exp_gephi_network_evo.py`
-* 
+* 10: contour WBT
+* 11, 12: exp wbt3d and general ->  plot_generalized_graph. (gefx files)
+* 13: exp wbt3d and general -> general_evolution
+ 
 
 ### Section 6.4
 * y-axis Hyperpolarization H(O) or Maximal absolute mean opinion figures can be reproduced in experiments_bots_original.py or if you dont want to wait for 3 days in --> experiments_bots_short_runtime.py (see end of file for figure numbers)
-* 21: $\phi,\varepsilon$ and bots contour plots --> exp_WBT_contour_bots.p
-* 23: 
+* 20: $\phi,\varepsilon$ and bots contour plots --> exp_WBT_contour_bots.p
+* 22:

@@ -40,6 +40,8 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=10,model_type=None,t_lim
         variying_kwarg: tuple with key and array of varying args e.g. ('phi', [0.1,0.5,0.7]), model is run for each one
         metrics: dict of functions called on the model object after each completed run, determines output in results
         n: int number of iterations for 
+        model_type: Possible values "Holme", "Weighted Balance", "Weighted Balance General", "Weighted Balance Bot"
+
 
         RETURN
         result of metrics
@@ -581,59 +583,59 @@ def bot_plots_shifted(recover=False, both_sides= False, neutral_bots=False, edge
 #### GENERATION OF BOT PLOTS FOR REPORT 
 ## the comment after each line is the figure number of the paper
 def plot_99():
-    bot_plots(fontsize=18,report_fig="15a,31a") #15a,31a
-    bot_plots(fontsize=18,both_sides=True,report_fig="15b,31b") #15b,31b
-    bot_plots(edges=n_vertices-1,fontsize=18,report_fig="16a,31c") #16a,31c
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,report_fig="16b,31d") #16b,31d
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,bot_positions="top",report_fig="17a,31e") #17a,31e
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,bot_positions="bottom",report_fig="17b,31f") #17b,31f
+    bot_plots(fontsize=18,report_fig="14a,30a") #14a,30a
+    bot_plots(fontsize=18,both_sides=True,report_fig="14b,30b") #14b,30b
+    bot_plots(edges=n_vertices-1,fontsize=18,report_fig="15a,30c") #15a,30c
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,report_fig="15b,30d") #15b,30d
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,bot_positions="top",report_fig="16a,30e") #16a,30e
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,bot_positions="bottom",report_fig="16b,30f") #16b,30f
 
 def plot_99_neutral():
-    bot_plots(fontsize=18,neutral_bots=True,report_fig="26d") #26d
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,bot_positions="top",neutral_bots=True,report_fig="18a") #18a
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,bot_positions="bottom",neutral_bots=True,report_fig="18b") #18b
+    bot_plots(fontsize=18,neutral_bots=True,report_fig="25d") #25d
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,bot_positions="top",neutral_bots=True,report_fig="17a") #17a
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,bot_positions="bottom",neutral_bots=True,report_fig="17b") #17b
 
 def plot_249():
-    bot_plots(fontsize=18,t_lim=t_lim249,report_fig="25a") #25a
-    bot_plots(fontsize=18,t_lim=t_lim249,both_sides=True,report_fig="25b") #25b
-    bot_plots(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,report_fig="25c") #25c
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,report_fig="25d") #25d
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,bot_positions="top",report_fig="25e") #25e
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,bot_positions="bottom",report_fig="25f") #25f
+    bot_plots(fontsize=18,t_lim=t_lim249,report_fig="24a") #24a
+    bot_plots(fontsize=18,t_lim=t_lim249,both_sides=True,report_fig="24b") #24b
+    bot_plots(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,report_fig="24c") #24c
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,report_fig="24d") #24d
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,bot_positions="top",report_fig="24e") #24e
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,bot_positions="bottom",report_fig="24f") #24f
 
 def plot_249_neutral():
-    bot_plots(fontsize=18,t_lim=t_lim249,neutral_bots=True,report_fig="26f") #26f 
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,neutral_bots=True,report_fig="26e") #26e 
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,bot_positions="top",neutral_bots=True,report_fig="26a") #26a 
-    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,bot_positions="bottom",neutral_bots=True,report_fig="26b") #26b 
+    bot_plots(fontsize=18,t_lim=t_lim249,neutral_bots=True,report_fig="25f") #25f 
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,neutral_bots=True,report_fig="25e") #25e 
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,bot_positions="top",neutral_bots=True,report_fig="25a") #25a 
+    bot_plots_ba(edges=n_vertices-1,fontsize=18,t_lim=t_lim249,bot_positions="bottom",neutral_bots=True,report_fig="25b") #25b 
 
 def plot_altf():
-    bot_plots_altf(fontsize=18,report_fig="27e,f") #27e,f
-    bot_plots_altf_ba(edges=n_vertices-1,fontsize=18,report_fig="27c,d") #27c,d
-    bot_plots_altf_ba(edges=n_vertices-1,bot_positions="top",fontsize=18,report_fig="19a,b") #19a,b
-    bot_plots_altf_ba(edges=n_vertices-1,bot_positions="top",t_lim=t_lim249,fontsize=18,report_fig="27a,b") #27a,b
+    bot_plots_altf(fontsize=18,report_fig="26e,f") #26e,f
+    bot_plots_altf_ba(edges=n_vertices-1,fontsize=18,report_fig="26c,d") #26c,d
+    bot_plots_altf_ba(edges=n_vertices-1,bot_positions="top",fontsize=18,report_fig="18a,b") #18a,b
+    bot_plots_altf_ba(edges=n_vertices-1,bot_positions="top",t_lim=t_lim249,fontsize=18,report_fig="26a,b") #26a,b
 
 def plot_dynamic():
-    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,fontsize=18,report_fig="20a,32a")
-    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,fontsize=18,report_fig="28a")
-    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,neutral_bots=True,fontsize=18,report_fig="28e")
-    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,neutral_bots=True,fontsize=18,report_fig="22a,32e")
-    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,both_sides=True,fontsize=18,report_fig="32c,29a")
-    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,both_sides=True,fontsize=18,report_fig="28c")
+    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,fontsize=18,report_fig="19a,31a") #19a,31a
+    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,fontsize=18,report_fig="27a") #27a
+    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,neutral_bots=True,fontsize=18,report_fig="27e") #27e
+    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,neutral_bots=True,fontsize=18,report_fig="21a,31e") #21a,31e
+    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,both_sides=True,fontsize=18,report_fig="31c,28a") #31c,28a
+    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,both_sides=True,fontsize=18,report_fig="27c") #27c
 
 
 def plot_dynamic_seeking():
-    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,fontsize=18,seeking_bots=True,report_fig="20b,32b")
-    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,fontsize=18,seeking_bots=True,report_fig="28b")
-    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,neutral_bots=True,fontsize=18,seeking_bots=True,report_fig="28f")
-    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,neutral_bots=True,fontsize=18,seeking_bots=True,report_fig="22b 32f")
-    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,both_sides=True,fontsize=18,seeking_bots=True,report_fig="32d,29b")
-    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,both_sides=True,fontsize=18,seeking_bots=True,report_fig="28d")
+    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,fontsize=18,seeking_bots=True,report_fig="19b,31b") #19b,31b
+    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,fontsize=18,seeking_bots=True,report_fig="27b") #27b
+    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,neutral_bots=True,fontsize=18,seeking_bots=True,report_fig="27f") #27f
+    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,neutral_bots=True,fontsize=18,seeking_bots=True,report_fig="21b 31f") #21b 31f
+    bot_plots_ba_dynamic(edges=n_vertices-1,epsilon=1,both_sides=True,fontsize=18,seeking_bots=True,report_fig="31d,28b") #31d,28b
+    bot_plots_ba_dynamic(edges=n_vertices-1, epsilon=0.6,both_sides=True,fontsize=18,seeking_bots=True,report_fig="27d") #27d
 
 def plot_shifted():
-    bot_plots_shifted(fontsize=18, initial_opinion_range=[-0.75, 1],report_fig="24a,b")
-    bot_plots_shifted(fontsize=18,initial_opinion_range=[-0.5,1],report_fig="24c,d")
-    bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1],report_fig="24e,f")
+    bot_plots_shifted(fontsize=18, initial_opinion_range=[-0.75, 1],report_fig="23a,b") #23a,b
+    bot_plots_shifted(fontsize=18,initial_opinion_range=[-0.5,1],report_fig="23c,d") #23c,d
+    bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1],report_fig="23e,f") #23e,f
 
 starttime=datetime.now()
 plot_99()
