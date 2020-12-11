@@ -48,7 +48,40 @@ def experiment_WBT25():
     plt.savefig(image_folder+"t_25")
     plt.close()
 
-
+def dynamics_graph():
+    "for gifs in the presentation. 2D network evolution"
+    n_vertices = 25
+    m= weighted_balance_general(d=2,n_vertices = n_vertices,
+                                n_edges=n_vertices*2, phi=0.52,alpha=0.3,dist=0.4 ) #f=lambda x:x
+    k=1
+    ts=0
+    #while m.convergence() == False:
+    while ts<100:
+        res.add_op_mat(m)
+        
+        
+         
+        fig=plt.figure(figsize=(4,4))
+        ax=fig.add_axes([0.15, 0.1, 0.8, 0.8])
+        pos={i:m.vertices[i] for i in range(len(m.vertices)) }
+        nx.draw(m.graph,pos,ax=ax,node_size=30,alpha=0.5,node_color="blue", with_labels=False)
+        limits=plt.axis('on')
+        ax.set_xlim([-1,1])
+        ax.set_ylim([-1,1])
+        plt.title("t={}".format(ts))
+        ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
+        
+        plt.savefig('general graph {:03d}.jpg'.format(ts))
+        plt.close()
+        # how many steps/rounds per image
+        for j in range(2):
+            ts=ts+1
+            for i in range(n_vertices):
+                
+                m.step()
+        
+        k=k+1
+        print(k)
 
 ### method for model.py as alternative convergence criterium
 """
