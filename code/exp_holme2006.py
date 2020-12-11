@@ -1,4 +1,4 @@
-from code.model import holme2 
+from model import holme2 
 from datetime import datetime
 import os
 from matplotlib import pyplot as plt
@@ -219,7 +219,7 @@ def plot_commu_size(results,n_vertices,phi):
     plt.title("community size distribution. ϕ={}".format(phi))
     plt.xlabel("s size of community")
     plt.ylabel("P(s)")
-    plt.savefig( "size_distribution"+phi+"s.png")
+    plt.savefig( "size_distribution"+str(phi)+"s.png")
 
     plt.show()
 
