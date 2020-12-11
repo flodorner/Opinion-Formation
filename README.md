@@ -3,7 +3,7 @@
 
 > * Group Name: The Opinioneers
 > * Group participants names: Michael Andres, Florian Dorner, Gian Luca Gehwolf, Fabian Hafner, David Metzger
-> * Project Title: Modelling Multi-dimensinal Opinions and Polarization
+> * Project Title: Modelling Multi-dimensinal Opinions and Polarization Formation
 
 ## General Introduction
 
