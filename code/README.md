@@ -34,7 +34,7 @@ The different models are defined as subclasses in `model.py`. Different experime
 ### General
 Many calculations take a very long time which is why for some experiments we also provide parameters that yield faster but less accurate results.
 ### Doing your own experiments
-A good starting point (minimal setup) can be found in `exp_WBT3D_and_General.py -> WBT_evolution() `. To use additional calculations on the model (metrics), varying arguments etc., take a look at `experiments_bots_short_runtime.py -> experiment_loop()` which is more complicated but very flexible. Many parameters are explained in the core module `model.py` containing the classes.
+A good starting point (minimal setup) can be found in `exp_WBT3D_and_General.py -> WBT_evolution() `. To use additional calculations on the model (metrics), varying arguments etc., take a look at `exp_bots_short_runtime.py -> experiment_loop()` which is more complicated but very flexible. Many parameters are explained in the core module `model.py` containing the classes.
 
 ### Section 6.1 - Holme 2006
 
@@ -42,7 +42,7 @@ Plot from saved results:
 * 4: histograms -> `results_holme/plot_subresults_comm_size.py `.
 * 5: Size of largest community ->  `results_holme/plot_subresults_max_S.py`
 
-Plot directly from simulation (reduced size): `experiments_holme2006.py -> def ...testrun() `(see comments)
+Plot directly from simulation (reduced size): `exp_holme2006.py -> def ...testrun() `(see comments)
 
 ### Section 6.2 - Schweighöfer 2020
 * 6: gephi graph visualization tool needed. gefx files generated with `exp_gephi_network_evo.py`
@@ -58,7 +58,7 @@ Plot directly from simulation (reduced size): `experiments_holme2006.py -> def .
  
 
 ### Section 6.4
-* If y-axis is Hyperpolarization H(O) or "Maximal absolute mean opinion", figures can be reproduced in experiments_bots_original.py or if you dont want to wait for 3 days in --> `experiments_bots_short_runtime.py` (see end of file for figure numbers)
+* If y-axis is Hyperpolarization H(O) or "Maximal absolute mean opinion", figures can be reproduced in experiments_bots_original.py or if you dont want to wait for 3 days in --> `exp_bots_short_runtime.py` (see end of file for figure numbers)
 * 20, A.29: $\phi,\varepsilon$ and bots contour plots --> `script_WBT_contour_bots.py`
 * 22: network visualizations of different networks and bots (+presentation gifs) --> `script_bots_visualization.py`
 
