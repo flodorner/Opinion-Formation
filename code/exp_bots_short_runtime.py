@@ -1,4 +1,4 @@
-from code.model import coevolution_model_general,holme,weighted_balance,weighted_balance_bots,H
+from model import coevolution_model_general,holme,weighted_balance,weighted_balance_bots,H
 from matplotlib import pyplot as plt
 import numpy as np
 import os
@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 ## alternative parameters for testing/ shorter run time
-# run time for all figures combined ~1h
+# run time ~1h for all figures combined 
 n_bots2side= [0,2,6,10,14,20]
 n_bots1side= [0, 1, 3, 5, 10, 14,20]
 n_vertices=50
@@ -639,7 +639,7 @@ def plot_shifted():
     bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1],report_fig="23e,f") #23e,f
 
 ### Uncomment to run experiments, see above for fig numbers.
-
+# run time ~1h for all figures combined 
 starttime=datetime.now()
 #plot_99()
 #plot_99_neutral()
