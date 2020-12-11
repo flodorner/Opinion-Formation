@@ -1,4 +1,4 @@
-from WBT_model import *
+from exp_WBT_model import *
 import numpy as np
 import matplotlib.pyplot as plt
 

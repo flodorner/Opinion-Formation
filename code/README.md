@@ -45,8 +45,8 @@ Plot from saved results:
 Plot directly from simulation (reduced size): `exp_holme2006.py -> def ...testrun() `(see comments)
 
 ### Section 6.2 - Schweighöfer 2020
-* 6: evolution of opinions in 3D --> `exp_WBT3D_and_General.py -> WBT_evolution` or in old code
-* 7: variation of hyperpolarization for e,N,z, S(n_dimensions) -> `exp_old_WBT_model.py`
+* 6: evolution of opinions in 3D --> `exp_WBT3D_and_General.py -> WBT_evolution` 
+* 7: variation of hyperpolarization for e,N,z, S(n_dimensions) -> `exp_WBT_model.py` in simple WBT model folder
 * 8: gephi graph visualization tool needed. gefx files generated with `script_gephi_network_evo.py`
 
 
@@ -65,4 +65,4 @@ Plot directly from simulation (reduced size): `exp_holme2006.py -> def ...testru
 
 
 # Git remarks, individual contributions
-Because David renamed many files in the end, the git history for these is not visible. It therefore seems that David created all the files, which is not the case and can be seen if one browses through earlier commits.
+Because David and Michael renamed many files in the end, the git history for these is not visible. It therefore seems that they created all the files, which is not the case and can be seen if one browses through earlier commits.
