@@ -22,8 +22,9 @@ import numpy as np
 import os
 from datetime import datetime
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
+#dir_path = os.path.dirname(os.path.realpath(__file__))
+#image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
+image_folder=""
 
 def experiment_loop(model_type=None,t_lim=99999, num_bots = 0, detailed_evo = False ):
     '''

@@ -82,8 +82,9 @@ def median_plus_percentile_plot(x,y,color="orange",percentiles=[10]):
         bottom_old = bottom
 
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
+#dir_path = os.path.dirname(os.path.realpath(__file__))
+#image_folder = "\\".join(dir_path.split("\\")[:-1]) + "\\doc\\latex\\images\\"
+image_folder=""
 
 metrics = {
     "time_to_convergence": lambda x:x.t,

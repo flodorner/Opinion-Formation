@@ -1,15 +1,18 @@
-from Experiments import weighted_balance_bots
+from model import weighted_balance_bots
 from matplotlib import pyplot as plt
 import os
 import numpy as np
 import networkx as nx
 
+
+# Some of these visualizations were used for Figure 22, some for the gifs in the presentation.
+# runtime ~10-40 min
+
+
+
 #dir_path = os.path.dirname(os.path.realpath(__file__))
 #image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
 image_folder=""
-
-# Some of these visualizations were used for Figure 22, some for the gifs in the presentation.
-# LONG RUNTIME!!
 
 A=weighted_balance_bots(n_vertices=500, d=2, z=0.01, f=lambda x: x, alpha=0.5, n_edges=None,initial_graph=None,neutral_bots=False,both_sides=False,bot_positions=None, n_bots=0,epsilon=0,phi=0,connect=None,seeking_bots=False)
 for i in range(25):
