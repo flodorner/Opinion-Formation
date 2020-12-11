@@ -331,4 +331,4 @@ def plot_hyperpol_evolution_diffparam():
 
 # Uncomment below to run
 
-#plot_hyperpol_evolution_diffparam() #fig 8, runtime ~1h?
+#plot_hyperpol_evolution_diffparam() #figure 7, runtime ~1h?
