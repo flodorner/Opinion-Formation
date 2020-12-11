@@ -1,8 +1,10 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from model import weighted_balance_general, weighted_balance
-
 import networkx as nx
+
+# Experiments for WBT and generalized WBT
+# uncomment at end of file to run
 
 def scatter3d_plot(opinion_mat,save_f=True,loc='Scatter_3D.pdf',title=""):
     fig = plt.figure()

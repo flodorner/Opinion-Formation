@@ -14,6 +14,7 @@ import matplotlib as mpl
 
 ### USAGE
 # for TESTING use commu_size_testrun(phi=0.4) and max_s_testrun()
+# uncomment last lines to run 
 # 
 # FULL SIMULATION
 # for a proper run, 6-24h is needed. max_S_run() and commu_size_run() have the right parameters for that. 
@@ -281,7 +282,7 @@ if __name__ == "__main__":
 """
 
 
-#### TESTING:
+#### Run experiments:
 
 #max_S_testrun()
 #commu_size_testrun(phi=0.9)

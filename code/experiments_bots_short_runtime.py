@@ -638,6 +638,8 @@ def plot_shifted():
     bot_plots_shifted(fontsize=18,initial_opinion_range=[-0.5,1],report_fig="23c,d") #23c,d
     bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1],report_fig="23e,f") #23e,f
 
+### Uncomment to run experiments, see above for fig numbers.
+
 starttime=datetime.now()
 #plot_99()
 #plot_99_neutral()

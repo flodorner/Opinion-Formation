@@ -615,4 +615,11 @@ def plot_shifted():
     bot_plots_shifted(fontsize=18,initial_opinion_range=[-0.5,1]) 
     bot_plots_shifted(fontsize=18, initial_opinion_range=[0, 1]) 
 
-
+#plot_99()
+#plot_99_neutral()
+#plot_249()
+#plot_249_neutral()
+#plot_altf()
+#plot_dynamic()
+#plot_dynamic_seeking()
+#plot_shifted()
