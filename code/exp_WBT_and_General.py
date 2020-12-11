@@ -104,7 +104,7 @@ def plot_generalized_graph():
 # uncomment corresponding line then run from shell
 
 #general_evolution()
-#WBT_evolution()
+#WBT_evolution()   ##figure 6
 #plot_generalized_graph()
 
 
