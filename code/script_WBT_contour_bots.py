@@ -7,6 +7,7 @@ import os
 ## Figure 20 and A.29
 ## generalized WBT model with bots
 ## two contour plots for hyperpolarisation under variation of \phi and \epsilon
+## VERY LONG RUNTIME several hours
 
 
 
@@ -25,8 +26,10 @@ def community(x,y,edges=499,n_bots=0,seeking=False,initial_graph="barabasi_alber
     
     i=0
     while m.convergence() == False and i <100000:
-        i +=1
-        m.step()
+        
+        for counter in range(1000):
+          m.step()
+          i +=1
 
     return H(m.vertices[m.n_bots:,:-1],m.d-1)
 

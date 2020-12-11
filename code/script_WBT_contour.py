@@ -5,7 +5,7 @@ from model import weighted_balance_general
 ## Figure 10
 ## generalized WBT model
 ## two contour plots for community size under variation of \phi and \epsilon
-
+## VERY LONG RUNTIME several hours
 
 
 d = np.linspace(0, 1.5,40)
@@ -17,8 +17,10 @@ def community(x,y,edges=500):
     
     i=0
     while m.convergence() == False and i <50000:
-        i +=1
-        m.step()
+        
+        for counter in range(1000):
+          m.step()
+          i +=1
     
     return np.max([len(k) for k in m.connected_components()])
 

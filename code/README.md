@@ -26,6 +26,9 @@ code/figures $ python3 ../experiments_holme2006.py
 
 Files with prefix `script_` will run directly, while for `experiments_` or `exp_` you need to go to the end of the file and uncomment the experiment function you want, then run.
 
+## Code structure
+The different models are defined as subclasses in `model.py`. Different experiments with different models and parameters are then defined in `script_` and `experiments_`, which directly include the visualizations. 
+
 
 ## Reproducing figures from the report
 ### General
@@ -44,7 +47,7 @@ Plot directly from simulation (reduced size): `experiments_holme2006.py -> def .
 ### Section 6.2 - Schweighöfer 2020
 * 6: gephi graph visualization tool needed. gefx files generated with `exp_gephi_network_evo.py`
 * 7: evolution of opinions in 3D --> `exp_WBT3D_and_General.py -> WBT_evolution` or in old code
-* 8: old code
+* 8: variation of hyperpolarization for e,N,z, S(n_dimensions) -> `exp_old_WBT_model.py`
 
 
 ### Section 6.3 - Generalized WBT
@@ -58,3 +61,7 @@ Plot directly from simulation (reduced size): `experiments_holme2006.py -> def .
 * If y-axis is Hyperpolarization H(O) or "Maximal absolute mean opinion", figures can be reproduced in experiments_bots_original.py or if you dont want to wait for 3 days in --> `experiments_bots_short_runtime.py` (see end of file for figure numbers)
 * 20, A.29: $\phi,\varepsilon$ and bots contour plots --> `script_WBT_contour_bots.py`
 * 22: network visualizations of different networks and bots (+presentation gifs) --> `script_bots_visualization.py`
+
+
+# Git remarks, individual contributions
+Because David renamed many files in the end, the git history for these is not visible. It therefore seems that David created all the files, which is not the case and can be seen if one browses through earlier commits.
