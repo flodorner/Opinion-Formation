@@ -8,7 +8,7 @@
 ## General Introduction
 
 Political polarization in democratic societies has reached a point, where it poses a threat to political stability. The (re-)emergence of poulism in certain countries in Europe and in the US has led to diveded societies with strongly opposing opinions. We are interested to study how opinion polarization is generated. In adddtion, we are interested to see how artificial actors, so-called bots, have an impact on opinion polarization as in the past there have been made claims that bots have tried to influence recent presidential election campaigns. There are many opinion and polarization dynamics model that try to simulate how opinions are formed and how polarization can result form this.
-Holme & Newman (2006) developed a opinion dynamics model that lets networks and opinions simultaneously influence each other. On the other hand, Schweighofer et al. (2020) devoloped a multiopinion dynamics model, called weighet balance model (WBT), that can generate polarization, but does not account for the influence of network structures. 
+Holme & Newman (2006) developed a opinion dynamics model that lets networks and opinions simultaneously influence each other. On the other hand, Schweighofer et al. (2020) devoloped a multiopinion dynamics model, called weighet balance model (WBT), that can generate polarization, but does not account for the influence of network structures. We are interested to combine this two models to a "generalized WBT model".
 
 ## The Model : Generalized WBT model
 * Dependent variables:
@@ -65,5 +65,5 @@ Holme & Newman (2006) developed a opinion dynamics model that lets networks and 
 
 ## Research Methods
   
-We intend to use the Agent-Based Models of opinion and polarization dynamics developed by Holme & Newman (2006) and Schweighofer et a. (2020) as base models. We first implement these two models in Python using our own ideas, i.e. how we think that the model could be implemented and not look how the authors implemented them. This followed by proposing a set of extensions that allows us to combine these two models to a "generalized" model in order to study the effects of network strucutres on polarization dynamics. We also plan to introduce bots to this "generalized" model to see how this changes the opinion and polarization dynamics.
+We intend to use the Agent-Based Models of opinion and polarization dynamics developed by Holme & Newman (2006) and Schweighofer et a. (2020) as base models. We first implement these two models in Python using our own ideas, i.e. how we think that the model could be implemented and not look how the authors implemented them. This followed by proposing a set of extensions that allows us to combine these two models to the generalized WBT model in order to study the effects of network strucutres on polarization dynamics. We also plan to introduce bots to this model to see how this effects hyperpolarization.
 
