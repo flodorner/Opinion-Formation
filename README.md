@@ -1,5 +1,4 @@
-# Modelling Multi-dimensionalOpinion and Polarization Formation 
-# (Agent-Based Modeling and Social System Simulation 2020)
+# Modelling Multi-dimensionalOpinion and Polarization Formation (Agent-Based Modeling and Social System Simulation 2020)
 
 
 > * Group Name: The Opinioneers
