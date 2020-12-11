@@ -45,16 +45,17 @@ Plot from saved results:
 Plot directly from simulation (reduced size): `exp_holme2006.py -> def ...testrun() `(see comments)
 
 ### Section 6.2 - Schweighöfer 2020
-* 6: gephi graph visualization tool needed. gefx files generated with `script_gephi_network_evo.py`
-* 7: evolution of opinions in 3D --> `exp_WBT3D_and_General.py -> WBT_evolution` or in old code
-* 8: variation of hyperpolarization for e,N,z, S(n_dimensions) -> `exp_old_WBT_model.py`
+* 6: evolution of opinions in 3D --> `exp_WBT3D_and_General.py -> WBT_evolution` or in old code
+* 7: variation of hyperpolarization for e,N,z, S(n_dimensions) -> `exp_old_WBT_model.py`
+* 8: gephi graph visualization tool needed. gefx files generated with `script_gephi_network_evo.py`
 
 
 ### Section 6.3 - Generalized WBT
-* 9: gephi graph visualization tool needed. gefx files generated with `script_gephi_network_evo.py`
-* 10: contour WBT `script_WBT_contour`
-* 11, 12: exp wbt3d and general ->  plot_generalized_graph. (gefx files)
-* 13: exp wbt3d and general -> general_evolution
+* 9: contour WBT `script_WBT_contour`
+* 10, 11: exp wbt3d and general ->  plot_generalized_graph. (gefx files)
+* 12: exp wbt3d and general -> general_evolution
+* 13: gephi graph visualization tool needed. gefx files generated with `script_gephi_network_evo.py`
+
  
 
 ### Section 6.4
