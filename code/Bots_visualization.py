@@ -4,8 +4,9 @@ import os
 import numpy as np
 import networkx as nx
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
+#dir_path = os.path.dirname(os.path.realpath(__file__))
+#image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
+image_folder=""
 
 # Some of these visualizations were used for Figure 22, some for the gifs in the presentation.
 # LONG RUNTIME!!

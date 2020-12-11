@@ -97,7 +97,12 @@ def plot_generalized_graph():
         m_test.step()
 
 
+### RUN EXPERIMENTS
+# uncomment corresponding line then run from shell
 
+#general_evolution()
+#WBT_evolution()
+#plot_generalized_graph()
 
 
 

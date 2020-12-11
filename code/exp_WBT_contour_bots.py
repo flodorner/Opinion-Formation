@@ -3,8 +3,9 @@ from matplotlib import pyplot as plt
 from model import weighted_balance_bots,H
 import os
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
+#dir_path = os.path.dirname(os.path.realpath(__file__))
+#image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
+image_folder=""
 
 d = np.linspace(0, 1.5,40)
 phi = np.linspace(0,1,40)

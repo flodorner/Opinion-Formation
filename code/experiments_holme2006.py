@@ -74,9 +74,9 @@ def holme_experiment_loop(kwarg_dict={"n_opinions":5},variying_kwarg=("phi",np.a
                 subresults[key].append(metrics[key](A))
             #save subresults after every iteration
             if do_save_pickle==True: 
-                if not os.path.isdir("./subresults"):
-                    os.mkdir("./subresults")
-                with open("./subresults/run{} phi{} iter{}.pickle".format(timestamp,v_kwarg,i), "wb") as f:
+                #if not os.path.isdir("./subresults"):
+                    #os.mkdir("./subresults")
+                with open("subresultsHolmeRun{} phi{} iter{}.pickle".format(timestamp,v_kwarg,i), "wb") as f:
                     pickle.dump(subresults, f)    
 
         for key in subresults.keys():
@@ -101,8 +101,8 @@ def holme_experiment_loop(kwarg_dict={"n_opinions":5},variying_kwarg=("phi",np.a
     if do_save_pickle==True:
         while path.exists("./"+run_name):
             run_name=run_name+"a"
-        os.mkdir("./"+run_name)   
-        with open("./{}/result.pickle".format(run_name), "wb") as f:
+        #os.mkdir("./"+run_name)   
+        with open("results{}.pickle".format(run_name), "wb") as f:
             pickle.dump(results, f)
 
 
@@ -271,19 +271,6 @@ def plot_max_s(results):
     plt.savefig("maxSdetail")
     plt.show()
 
-
-
-
-#### TESTING:
-
-max_S_testrun()
-commu_size_testrun(phi=0.9)
-
-
-
-
-
-
 #command to run on the server in the background
 # nohup python3 Holme.py 0.495 > run3phi0.495.log &
 """
@@ -292,3 +279,16 @@ if __name__ == "__main__":
     if len(sys.argv) == 2: 
         commu_size_run(float(sys.argv[1]))
 """
+
+
+#### TESTING:
+
+#max_S_testrun()
+#commu_size_testrun(phi=0.9)
+
+
+
+
+
+
+
