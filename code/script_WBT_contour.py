@@ -11,8 +11,6 @@ from model import weighted_balance_general
 d = np.linspace(0, 1.5,40)
 phi = np.linspace(0,1,40)
 
-#X, Y = np.meshgrid(d, phi)
-
 def community(x,y,edges=500):
     m= weighted_balance_general(d=5,n_vertices = 250,
                                 n_edges=edges, phi=y,alpha=0.4,dist=x)

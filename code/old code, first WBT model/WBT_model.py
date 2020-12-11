@@ -4,10 +4,6 @@ import itertools
 import matplotlib.pyplot as plt
 
 
-''' 
-Needs some commenting of the code, otherwise its hard to understand
-'''
-
 
 #####################################################################
 

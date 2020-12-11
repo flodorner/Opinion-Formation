@@ -3,6 +3,13 @@ from matplotlib import pyplot as plt
 from model import weighted_balance_bots,H
 import os
 
+
+## Figure 20 and A.29
+## generalized WBT model with bots
+## two contour plots for hyperpolarisation under variation of \phi and \epsilon
+
+
+
 #dir_path = os.path.dirname(os.path.realpath(__file__))
 #image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
 image_folder=""
@@ -10,7 +17,7 @@ image_folder=""
 d = np.linspace(0, 1.5,40)
 phi = np.linspace(0,1,40)
 
-#X, Y = np.meshgrid(d, phi)
+
 
 def community(x,y,edges=499,n_bots=0,seeking=False,initial_graph="barabasi_albert"):
     m= weighted_balance_bots(d=3,n_vertices = 500,
@@ -72,7 +79,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
     
 fig.savefig(image_folder+'contour_WBT_ba.pdf',bbox_inches='tight',pad_inches=0.185, dpi=fig.dpi,transparent=True)
-# 21 a)
+# 20 a)
 
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=50)
 
@@ -90,7 +97,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 fig.savefig(image_folder+'contour_WBT_50bots_ba.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
-#21b)
+#20b)
 
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=50,seeking=True)
 
@@ -108,7 +115,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 fig.savefig(image_folder+'contour_WBT_50bots_ba_seeking.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
-# 21 c)
+# 20 c)
 
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=200)
 
@@ -126,7 +133,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 fig.savefig(image_folder+'contour_WBT_200bots_ba.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
-# A.30 a)
+# A.29 a)
 
 X, Y, Z = npmap2d(community, d, phi, edges=499,n_bots=200,seeking=True)
 
@@ -144,4 +151,4 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 fig.savefig(image_folder+'contour_WBT_200bots_ba_seeking.pdf', bbox_inches='tight', pad_inches=0.185, dpi=fig.dpi, transparent=True)
-# A.30 b)
+# A.29 b)
