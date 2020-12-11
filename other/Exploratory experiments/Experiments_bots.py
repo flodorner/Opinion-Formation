@@ -1,4 +1,4 @@
-from code.model import coevolution_model_general,holme,weighted_balance,weighted_balance_bots,H
+from model import weighted_balance_bots,H
 from matplotlib import pyplot as plt
 import numpy as np
 import os

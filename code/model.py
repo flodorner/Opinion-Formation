@@ -144,7 +144,7 @@ class coevolution_model_general:
         '''return boolean for whether converged or not'''
         return self.convergence_criterion(self)
 
-    def draw_graph(self, path):
+    def draw_graph(self, path=""):
         '''saves network with opinions in path as GEFX file'''
         for i in range(self.d):
             res = {idx : self.vertices[idx][i] for idx in range(len(self.vertices))}
