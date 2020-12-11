@@ -1,8 +1,17 @@
 from WBT_model import *
 
+''' reproduces figure 3 from schweighöfer et al's 2020 paper about hyperpolarization. 
+" Opinion change and balance in a 2D opinion space. Opinion exchange between i and j as a function
+of oi , with oj fixed (green arrow, [.5, .5]). Each black arrow represents the resulting change in oi , given an
+interaction between i and j: The basis of the arrow represents oi before the interaction and the tip of the arrow
+is the position of oi after interaction. The background color in panel a) encodes the balance between i and j,
+and in panel"
+interesting to understand SGM, Aij and evaluative extremeness f'''
+
+
 
 e=0.0
-b_j=np.array([0.7,-0.2])
+b_j=np.array([0.5,0.5])
 alpha = 0.3
 
 x=np.linspace(-1,1)
