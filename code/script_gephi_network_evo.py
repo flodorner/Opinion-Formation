@@ -16,7 +16,7 @@ model_input = "Weighted Balance General"
 bot_selection = [0,50,75,125,175,200,250]
 detailed = True
 
-from model import coevolution_model_general,holme,weighted_balance_general,weighted_balance_bots,H, weighted_balance
+from model import holme,weighted_balance_general,weighted_balance_bots, weighted_balance
 from matplotlib import pyplot as plt
 import numpy as np
 import os

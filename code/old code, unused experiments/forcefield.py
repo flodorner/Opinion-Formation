@@ -1,4 +1,6 @@
 from WBT_model import *
+import numpy as np
+import matplotlib.pyplot as plt
 
 ''' reproduces figure 3 from schweighöfer et al's 2020 paper about hyperpolarization. 
 " Opinion change and balance in a 2D opinion space. Opinion exchange between i and j as a function
@@ -61,7 +63,7 @@ for i in range(grid2):
 
 #plt.quiver(X, Y, Z1,Z2)
 
-plt.pcolor(X, Y, L, shading='auto')
+plt.pcolor(X, Y, L)
 plt.colorbar()
 
 plt.show()

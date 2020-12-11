@@ -1,18 +1,14 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from code.model import weighted_balance_bots,H
+from model import weighted_balance_bots,H
 import os
 
-
-## Figure 20 and A.29
-## generalized WBT model with bots
-## two contour plots for hyperpolarisation under variation of \phi and \epsilon
-## VERY LONG RUNTIME several hours
-
-
-
-#dir_path = os.path.dirname(os.path.realpath(__file__))
-#image_folder = "\\".join(dir_path.split("\\")[:-2]) + "\\doc\\latex\\images\\"
+'''
+Figure 20 and A.29
+generalized WBT model with bots
+two contour plots for hyperpolarisation under variation of \phi and \epsilon
+VERY LONG RUNTIME several hours
+'''
 image_folder=""
 
 d = np.linspace(0, 1.5,40)

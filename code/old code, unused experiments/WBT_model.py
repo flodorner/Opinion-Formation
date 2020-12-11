@@ -100,9 +100,9 @@ def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
             O_old = O.copy()
         
             # choose another random agent
-            _ = randomized_agents.copy()
-            _.remove(i)
-            j = choice(_)
+            rand_agents_copy = randomized_agents.copy()
+            rand_agents_copy.remove(i)
+            j = choice(rand_agents_copy)
         
             b_i = O[i]
             b_j = O[j]
@@ -142,9 +142,9 @@ def update_model(A, O, e=0.4, sigma=0.01):
     for i in randomized_agents:
                 
         ##choose another random agent
-        _ = randomized_agents.copy()
-        _.remove(i)
-        j = choice(_)
+        rand_agents_copy = randomized_agents.copy()
+        rand_agents_copy.remove(i)
+        j = choice(rand_agents_copy)
         
         b_i = O[i]
         b_j = O[j]
@@ -321,6 +321,6 @@ def plot_hyperpol_evolution_diffparam():
     plt.savefig('testing_z.pdf',bbox_inches='tight',pad_inches=0.185,dpi=1000,transparent=True)
     plt.close()
 
-
+# Uncomment below to run
 
 # plot_hyperpol_evolution_diffparam() #fig 8, runtime ~1h?
