@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 ''' first implementation of the Weighted Balance Model by Schweighöfer. 
 now that we implemented the generalized model, this is only for demonstration purposes'''
 
+## Usage: uncomment last line to run experiment
+
 #####################################################################
 
 ''' Model-specfic functions: '''
@@ -327,6 +329,6 @@ def plot_hyperpol_evolution_diffparam():
     plt.savefig('testing_z.pdf',bbox_inches='tight',pad_inches=0.185,dpi=1000,transparent=True)
     plt.close()
 
-
+# Uncomment below to run
 
 # plot_hyperpol_evolution_diffparam() #fig 8, runtime ~1h?
