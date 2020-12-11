@@ -24,10 +24,10 @@ most scripts and experiments generate files in the folder they are called in, we
 code/figures $ python3 ../experiments_holme2006.py 
 ```
 
-Files with prefix `script_` will run directly, while for `experiments_` or `exp_` you need to go to the end of the file and uncomment the experiment function you want, then run.
+Files with prefix `script_` will run directly, while for `exp_` you need to go to the end of the file and uncomment the experiment function you want, then run.
 
 ## Code structure
-The different models are defined as subclasses in `model.py`. Different experiments with different models and parameters are then defined in `script_` and `experiments_`, which directly include the visualizations. 
+The different models are defined as subclasses in `model.py`. Different experiments with different models and parameters are then defined in `script_` and `exp_`, which directly include the visualizations. 
 
 
 ## Reproducing figures from the report
