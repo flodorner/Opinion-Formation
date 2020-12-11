@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from model import weighted_balance_general
+from code.model import weighted_balance_general
 
 ## Figure 10
 ## generalized WBT model

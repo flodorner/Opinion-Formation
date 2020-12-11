@@ -11,50 +11,43 @@ now that we implemented the generalized model, this is only for demonstration pu
 
 ''' Model-specfic functions: '''
 
-# N is the number of agents
 def create_emotion_mat(N):
+    ''' Creates random Attitude Matrix \\
+    N (int) : number of agents'''
     A= np.random.rand(N,N) # initiate interpersonal attitude matrix 
     
     np.fill_diagonal(A, 1)
     
     return A
 
-# S is the number of opinion dimensions
 def create_opinion_mat(N,S): 
-    return np.random.uniform(low=-1,high=1,size=(N,S)) # initiate opinion matrix
+    '''S (int) : number of opinion dimensions'''
+    return np.random.uniform(low=-1,high=1,size=(N,S)) # initiate random opinion matrix
 
-# needed for calculating interpersonal attitude and balanced opionion vector
 def signed_geo_mean(a,b):
+    '''needed for calculating interpersonal attitude and balanced opionion vector'''
     return(np.sign(a)*np.sign(b)*((abs(a)*abs(b))**(1./2.)))
 
-
-# calculate interpersonal Attitude using the sigmoidal function
-# b_i and b_j are the opinions of the agents
 def recalculate_emotion(b_i, b_j, sigmoid=True, e=0.4, weights=None):
-    
+    '''calculate interpersonal Attitude using the sigmoidal function \\
+    b_i, b_j (array) : opinions of the agents'''
     len_opinions = len(b_i)
     
     if weights == None:
         weights = np.ones(len_opinions)/len_opinions
         
-        
     assert len(weights)==len_opinions
     assert round(sum(weights))==1
     
-    weighted_sim = sum( weights[k]*
-                     signed_geo_mean(b_i[k], b_j[k]) 
-       for k in range(len_opinions)) 
-        
+    weighted_sim = sum(weights[k]*signed_geo_mean(b_i[k], b_j[k]) for k in range(len_opinions))
     
     if sigmoid==True: 
         return np.sign(weighted_sim)*abs(weighted_sim)**(1-e) 
     else:
         return weighted_sim
     
-# update opinion of i (b_i) depending on j (b_j), 
-# interpersonal Attitude Aij, and factor alpha
 def exchange_opinion(b_i, b_j, Aij, alpha=0.4):
-    
+    '''update opinion of i (b_i) depending on j (b_j), interpersonal Attitude Aij, and factor alpha'''
     len_opinions=len(b_i)
     
     B = [signed_geo_mean(b_j[k],Aij) for k in range(len_opinions)]
@@ -67,9 +60,8 @@ def exchange_opinion(b_i, b_j, Aij, alpha=0.4):
 def add_Noise(v,sigma=0.01):
     return(np.clip(v + np.random.normal(0,sigma, size=len(v)),-1,1))
 
-
-# Define Hyperpolarization measure H
 def H(O):
+    '''metric to measure hyperpolarization from Schweighofer et al.'''
     N=O.shape[0]
     D=O.shape[1]
     s=0
@@ -79,16 +71,17 @@ def H(O):
     return (1/(4*D))*(4/N**2)*s
 
 
-
 #########################################################
 
 ''' Run models: '''
 
-# S = Number of opinion dimensions
-# N = Number of agents
-# e = evaluate extremness
+
 
 def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
+    '''
+    S (int) : Number of opinion dimensions
+    N (int) : Number of agents
+    e (float) :  evaluate extremness'''
     A = create_emotion_mat(N=N)
     O = create_opinion_mat(N=N,S=S)
     
@@ -139,7 +132,7 @@ def run_model(N,S,T=1000,e=0.4,sigma=0.01, conv=True):
 
 
 def update_model(A, O, e=0.4, sigma=0.01):
-    
+    '''updates Attitudes and Opinions of all nodes one by one'''
     N = A.shape[0]
     
     agents = list(range(N))
@@ -158,7 +151,7 @@ def update_model(A, O, e=0.4, sigma=0.01):
         
         Aij = recalculate_emotion(b_i, b_j, e=e)
         
-        ##update agents i's opinion
+        ##update agents i's opinion with additional noise
         b_i_updated = exchange_opinion(b_i, b_j, Aij)   
         #O[i]= b_i_updated
         O[i] = add_Noise(b_i_updated,sigma=sigma)
@@ -193,6 +186,7 @@ def scatter3d_plot(opinion_mat,save_f=True,loc='Scatter_3D.pdf'):
         plt.close()
     else:
         fig.show()
+
 def plot_evolution_3D():        
     O=create_opinion_mat(N=500,S=3)   
     A = create_emotion_mat(N=500)     
