@@ -14,14 +14,14 @@ install modules for example with command: $ pip3 install numpy
 ## General
 to run a python file, open a terminal/shell and type for example
 
-`...code/$ python3 experiments_holme2006.py`
+`...code/$ python3 exp_holme2006.py`
 
 most scripts and experiments generate files in the folder they are called in, we recommend calling it from a seperate folder, for example `/figures` type (on linux, windows should be similar)
 
 ```
 /code $ mkdir figures
 /code $ cd figures
-code/figures $ python3 ../experiments_holme2006.py 
+code/figures $ python3 ../exp_holme2006.py 
 ```
 
 Files with prefix `script_` will run directly, while for `exp_` you need to go to the end of the file and uncomment the experiment function you want, then run.
