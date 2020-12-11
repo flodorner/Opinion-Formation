@@ -37,6 +37,7 @@ class coevolution_model_general:
         noise_generator (fun) : a function that creates a vector of size n containing independent noise given n as input. \\
         initial_graph (array) (optional) : an initial adjacency matrix (in lower triangular form with empty diagonal).
         If it is provided, n_edges is overwritten by the amountof edges specified in the matrix. \\
+        initial_opinion_range (tuple) : lower and upper bound for the values of opinions, only if opinions are continuous. \\
         '''
 
         assert initial_opinion_range == None or n_opinions == 0
@@ -183,8 +184,7 @@ class holme2(coevolution_model_general):
         convergence_criterion=lambda x:
         np.all([len(np.unique(x.vertices[np.array(list(c))], axis=0)) <= 1 for c in x.connected_components()])
                          ,systematic_update=True,noise_generator = lambda size: np.zeros(size))
-        #for method has_changed()
-        self.vertices_previous = np.copy(self.vertices)
+        self.vertices_previous = np.copy(self.vertices) # for method has_changed()
 
     def has_changed(self):
         '''as an alternative / proxy to computing connected components,
@@ -206,9 +206,8 @@ def sgm(x,y):
 def update_weighted_balance(x,y,f,alpha,noise):
     '''Calculates new opinions based on attitude of interacting vertices \\
     x and y : opinion arrays \\
-    f (fun) : a monotonously increasing function
-    alpha (float) : determines speed of opinion change
-    '''
+    f (fun) : a monotonously increasing function \\
+    alpha (float) : determines speed of opinion change'''
     attitude = f(np.mean(sgm(x,y)))
     b = sgm(y,attitude)
     return np.clip(x+alpha*(b-x)+noise,-1,1)
@@ -216,6 +215,9 @@ def update_weighted_balance(x,y,f,alpha,noise):
 class weighted_balance(coevolution_model_general):
     '''Weighted Balance Model from paper by Schweighofer et al. where network is complete and does not change'''
     def __init__(self, n_vertices=100, d=3,z=0.01,f=lambda x:x,alpha=0.5):
+        '''z (float, [0,1]) : level of noise. \\
+        f (fun) : a monotonously increasing function to weigh the attitude \\
+        alpha (float) : determines speed of opinion change'''
         super().__init__(n_vertices=n_vertices,n_edges=int(n_vertices*(n_vertices-1)/2),n_opinions=0,phi=0,d=d,
                          update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
                          connect = lambda x,y: np.zeros(len(x),dtype=np.bool),
@@ -239,7 +241,8 @@ def connect_weighted_balance_dist(x,y, dis=0.5):
 class weighted_balance_general(coevolution_model_general):
     '''Generalized Weighted Balance model'''
     def __init__(self, n_vertices=100,n_edges=120, d=5,z=0.01,phi=0.6, f=lambda x:np.sign(x)*abs(x)**(1-0.4),alpha=0.4, dist=0):
-        ''' dist (float) : maximal l2 distance of opinions for nodes to be able to connect (connected_weighted_balance_dist)'''
+        ''' dist (float) : maximal l2 distance of opinions for nodes to be able to connect (connected_weighted_balance_dist)
+        (for more refer to weighted_balance)'''
         super().__init__(n_vertices=n_vertices,n_edges=n_edges,n_opinions=0,phi=phi,d=d,
                          update = lambda x,y,noise: update_weighted_balance(x,y,f,alpha,noise),
                          connect = lambda x,y: connect_weighted_balance_dist(x, y, dist),
@@ -250,8 +253,7 @@ def update_weighted_balance_bot(x,y,f,alpha,noise):
     '''Calculates new opinions based on attitude of interacting vertices, while leaving the bots unchanged\\
     x and y: opinion arrays \\
     f (fun): a monotonously increasing function
-    alpha (float) : determines speed of opinion change
-    '''
+    alpha (float) : determines speed of opinion change'''
     if x[-1] == 1:
         return x
     else:
@@ -260,6 +262,7 @@ def update_weighted_balance_bot(x,y,f,alpha,noise):
         return np.append(np.clip(x[:-1]+alpha*(b-x[:-1])+noise[:-1],-1,1),x[-1])
 
 def connect_weighted_balance_dist_bots(x,y, d=0.5):
+    '''connect function based on distance for model with bots'''
     return np.linalg.norm(x[:,:-1]-y[:-1], axis=1) < d
 
 class weighted_balance_bots(coevolution_model_general):
@@ -274,6 +277,7 @@ class weighted_balance_bots(coevolution_model_general):
             None (default): first n_bots nodes become bots, which leads to random placement for randomly generated graphs
             "top": nodes with the highest degree become bots.
             "bottom": nodes with the lowest degree become bots.
+        seeking_bots (bool) : determines whether bots can connect to all nodes
         When both sides is True, bots are always positioned at the beginning for one and the end for the other side.
         '''
         if n_edges is None:
@@ -288,8 +292,8 @@ class weighted_balance_bots(coevolution_model_general):
             self.connect = connect
         if seeking_bots:
             self.connect_old = self.connect
+            # connects to all nodes if current node is bot
             self.connect = lambda x,y: np.ones(len(x),dtype=np.bool) if y[-1]==1 else self.connect_old(x,y)
-
 
         assert not (both_sides and neutral_bots) #we can either have bots on both extremes or neutral bots
         assert not (both_sides and bot_positions!= None) #Positioning bots based on vertex degree only implemented for neutral/one sided bots
@@ -324,7 +328,6 @@ class weighted_balance_bots(coevolution_model_general):
         self.n_vertices=n_vertices
         self.both_sides=both_sides
 
-# define formula for hyperpolarization
 def H(O,d):
     '''metric to measure hyperpolarization from Schweighofer et al.'''
     s=0
@@ -332,4 +335,3 @@ def H(O,d):
         for j in range(i):
             s += np.linalg.norm(O[i]-O[j],ord=2)**2
     return (1/(4*d))*(4/len(O)**2)*s
-

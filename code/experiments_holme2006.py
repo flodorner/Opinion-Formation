@@ -1,4 +1,4 @@
-from model import holme2 
+from code.model import holme2 
 from datetime import datetime
 import os
 from matplotlib import pyplot as plt

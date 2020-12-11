@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from model import weighted_balance_bots,H
+from code.model import weighted_balance_bots,H
 import os
 
 
