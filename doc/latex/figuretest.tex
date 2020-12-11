@@ -1,0 +1,54 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                   
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{subfigure}
+
+
+\usepackage{amssymb, amsmath}
+\DeclareMathOperator{\sign}{sign}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\graphicspath{ {./images/} }
+\setlength{\abovecaptionskip}{0pt}
+
+\newcommand{\subfigimg}[3][,]{%
+  \setbox1=\hbox{\includegraphics[#1]{#3}}% Store image in box
+  \leavevmode\rlap{\usebox1}% Print image
+  \rlap{\hspace*{10pt}\raisebox{\dimexpr\ht1-2\baselineskip}{#2}}% Print label
+  \phantom{\usebox1}% Insert appropriate spcing
+}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6\baselineskip}
+\usepackage{setspace}
+\setstretch{1.25}
+
+
+%\title{Title}
+%\author{Name 1, Name 2}
+%\date{date} 
+
+\begin{document}
+\section{Document to test figure layout and compile faster until it works}
+
+\begin{figure}[!htb]
+  \centering
+  \begin{tabular}{@{}p{0.31\linewidth}@{\quad}p{0.31\linewidth}@{\quad}p{0.31\linewidth}@{}}
+    \subfigimg[width=\linewidth]{}{images/WBT_general/general graph 000.jpg} &
+    \subfigimg[width=\linewidth]{}{images/WBT_general/general graph 030.jpg} &
+    \subfigimg[width=\linewidth]{}{images/WBT_general/general graph 150.jpg}
+  \end{tabular}
+  
+  \caption{General Model network structure, $N=25$, $D=2$, $e=0.3$, $\alpha = 0.3$, $\phi = 0.45$, $\varepsilon=0.3$}
+  \label{general_graph}
+\end{figure}
+
+\end{document}  
