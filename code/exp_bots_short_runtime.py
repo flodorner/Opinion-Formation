@@ -73,7 +73,7 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=10,model_type=None,t_lim
                     done = A.convergence()
                     
                 if A.t>t_lim:
-                    print("Model did not converge")
+                    print("t>t_lim!")
                     done = True
             for key in metrics.keys():
                 subresults[key].append(metrics[key](A))

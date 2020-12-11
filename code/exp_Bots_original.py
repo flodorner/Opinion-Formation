@@ -49,7 +49,7 @@ def experiment_loop(kwarg_dict,variying_kwarg,metrics,n=100,model_type=None,t_li
                 if A.t%100==0: #Finding connected components is way more complex than the model dynamics. Only check for convergence every 100 steps.
                     done = A.convergence()
                 if A.t>t_lim:
-                    print("Model did not converge")
+                    print("t>t_lim!")
                     done = True
             for key in metrics.keys():
                 subresults[key].append(metrics[key](A))
