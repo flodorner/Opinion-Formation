@@ -64,7 +64,8 @@ def general_evolution():
     res.plot()
 
 def WBT_evolution():
-    m= weighted_balance(d=3,n_vertices = 250,f=lambda x: np.sign(x)*np.abs(x)**(1-0.4),
+    n_vertices = 250
+    m= weighted_balance(d=3,n_vertices = n_vertices,f=lambda x: np.sign(x)*np.abs(x)**(1-0.4),
                                  alpha=0.3)
     k=1
     res.add_op_mat(m)
@@ -103,8 +104,8 @@ def plot_generalized_graph():
 # uncomment corresponding line then run from shell
 
 #general_evolution()
-#WBT_evolution()
-#plot_generalized_graph()
+WBT_evolution()
+plot_generalized_graph()
 
 
 
