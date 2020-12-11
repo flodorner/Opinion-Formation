@@ -103,9 +103,9 @@ def plot_generalized_graph():
 ### RUN EXPERIMENTS
 # uncomment corresponding line then run from shell
 
-#general_evolution()
+#general_evolution() ##figure 12
 #WBT_evolution()   ##figure 6
-#plot_generalized_graph()
+#plot_generalized_graph() ##figure 10, 11
 
 
 
