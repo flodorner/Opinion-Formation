@@ -15,12 +15,12 @@ Holme & Newman (2006) developed a opinion dynamics model that lets networks and 
 (Put the problem into a historical context, from what does it originate? Are there already some proposed solutions?)
 
 ## The Model
-
+What we want to study?
 * Coevolution of networks and opinions model:
   * Dependent variable: 
     - Connected component community sizes
   * Independedt variables: 
-    - Number of vertices and edges
+    - Number of edges --> 
     - Connect: with probability φ, a random edge connected to a vertex n,(n,m) is selected and changed to (n,m′) wherevm′is a vertexvwith the same opinion as n, thus o(m′)     =o(n).  If no such m′exists, nothing happens.
     - Update: with probability 1−φ, a random vertexl that is directly connected to n by an edge is selected and n’s opiniono(n) is set too(l).
   * The model allows that network structures (connect) and opinion change (update) evovle at the same the same time and influence each other.
