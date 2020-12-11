@@ -11,6 +11,7 @@ Possible values: "Holme", "Weighted Balance", "Weighted Balance General", "Weigh
 With 'bot_selection' there can be different amounts of bots for the WB Bot model specified.
 
 With 'detailed' set to true also the intermediate graphs are saved, otherwise only the converged
+Used for Figure  8, 13
 '''
 model_input = "Weighted Balance General"
 bot_selection = [0,50,75,125,175,200,250]
