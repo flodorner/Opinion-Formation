@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from model import weighted_balance_general
 
-## Figure 10
+## Figure 9
 ## generalized WBT model
 ## two contour plots for community size under variation of \phi and \epsilon
 ## VERY LONG RUNTIME several hours
